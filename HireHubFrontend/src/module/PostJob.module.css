@@ -1,0 +1,75 @@
+.job_post_page {
+  background-color: white;
+  width: 100%;
+  padding-top: 200px;
+  padding-bottom: 100px;
+}
+
+.container h1 {
+  font-size: 36px;
+  text-align: center;
+}
+.formm {
+  display: flex;
+  margin-top: 40px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.formm input {
+  width: 500px;
+  padding: 10px;
+  border: none;
+  border-bottom: 1px solid gray;
+}
+.formm textarea {
+  width: 500px;
+  padding: 10px;
+  height: 100px;
+}
+.formm select {
+  width: 500px;
+  padding: 10px;
+  color: gray;
+}
+
+.container button {
+  width: 500px;
+  height: 40px;
+  background-color: #088395;
+  border: none;
+  color: white;
+  &:hover {
+    background-color: #088295bf;
+    cursor: pointer;
+  }
+}
+button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+.loading {
+  border: 3px solid rgba(0, 0, 0, 0.1); /* Light grey */
+  border-left: 3px solid black; /* Blue color */
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  animation: spin 1s linear infinite;
+  display: block;
+}
+/* Keyframes for spinning animation */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

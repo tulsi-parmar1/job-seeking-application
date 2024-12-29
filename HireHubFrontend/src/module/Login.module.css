@@ -1,0 +1,68 @@
+.container{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 60px;
+    
+}
+
+.container form{
+    padding: 30px;
+    background-color: white; 
+    display: flex;
+    flex-direction: column;
+}
+
+.inputTag{
+    display: flex;
+    flex-direction: column;
+}
+
+.container form input{
+    display: flex;
+    margin: 10px 0px;
+    padding: 8px;
+    border: none;
+    margin-left: 8px;
+    min-width: 500px;
+    border: 1px solid rgb(222, 217, 217);
+    border-radius: 8px;
+}
+
+.label{
+    font-size: 40px;
+    text-align: center;
+}    
+
+.lgnbtn{
+    background-color: rgba(13, 56, 86, 0.532);
+    color: white;
+    font-weight: bold;
+}
+
+.lgnbtn:hover{
+    cursor: pointer;
+}
+
+.container a{
+    border-bottom: 1px solid black;
+}
+
+.container a:hover{
+    cursor: pointer;
+}
+
+@media screen and (max-width: 1087px){
+    .img{
+        display: none;
+    }
+}
+
+@media screen and (max-width: 600px){
+    .container form input{
+        min-width: 100%; /* Adjust the width to be responsive */
+        margin-left: 0;  /* Remove left margin for better alignment */
+    }
+
+}

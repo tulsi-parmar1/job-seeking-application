@@ -1,0 +1,101 @@
+.previous:hover {
+  cursor: pointer;
+  background-color: rgba(128, 128, 128, 0.448);
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 30px;
+  flex-wrap: wrap;
+  padding: 20px; /* Add some padding */
+}
+
+.banner {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%; /* Make banner full width */
+  max-width: 600px; /* Set a maximum width for larger screens */
+}
+.container input,
+textarea,
+select {
+  border: none;
+  margin-top: 10px;
+  border-radius: 8px;
+}
+.container select {
+  height: 50px;
+}
+.container button {
+  background-color: #088295bf;
+  border: none;
+  height: 40px;
+  color: white;
+  font-weight: bold;
+  &:hover {
+    cursor: pointer;
+    background-color: #0882955b;
+  }
+}
+.banner input,
+.banner textarea {
+  width: 100%; /* Make inputs and textareas full width */
+  min-width: 300px; /* Set minimum width for smaller screens */
+  padding: 10px;
+  box-sizing: border-box; /* Include padding in width calculations */
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .container {
+    gap: 20px; /* Reduce gap on smaller screens */
+    padding: 10px; /* Reduce padding on smaller screens */
+  }
+
+  .banner {
+    max-width: 100%; /* Allow full width on smaller screens */
+  }
+
+  .banner input,
+  .banner textarea {
+    min-width: 100%; /* Full width inputs and textareas on small screens */
+    min-height: 30px; /* Increase min-height for better usability */
+  }
+}
+
+@media (max-width: 480px) {
+  .previous {
+    font-size: 24px; /* Reduce font size for smaller devices */
+  }
+
+  .banner {
+    gap: 5px; /* Reduce gap on extra small screens */
+  }
+
+  .banner input,
+  .banner textarea {
+    min-height: 40px; /* Increase min-height for easier input */
+  }
+}
+.loading {
+  border: 3px solid rgba(0, 0, 0, 0.1); /* Light grey */
+  border-left: 3px solid black; /* Blue color */
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  animation: spin 1s linear infinite;
+  display: block;
+}
+/* Keyframes for spinning animation */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

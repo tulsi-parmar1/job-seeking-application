@@ -1,0 +1,24 @@
+.jobcontainer {
+  margin-top: 150px;
+}
+.jobcontainer h1 {
+  text-align: center;
+}
+.inpt {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.inpt input {
+  width: 360px;
+  max-height: 50px;
+  border-radius: 10px;
+  border: none;
+  padding: 20px;
+  margin: 30px 10px;
+}
+@media screen and (max-width: 427px) {
+  .container h1 {
+    font-size: 25px;
+  }
+}

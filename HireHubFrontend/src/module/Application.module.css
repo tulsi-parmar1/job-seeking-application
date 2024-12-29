@@ -1,0 +1,118 @@
+.container form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px 200px;
+  gap: 10px;
+}
+.container form input {
+  border: none;
+  min-height: 30px;
+  padding: 10px;
+}
+.applicants {
+  margin-top: 200px;
+}
+
+.applicants ul {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+
+.applicants ul li {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%; /* Ensure the list item is responsive */
+  max-width: 800px; /* Limit max width for larger screens */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cardContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Add spacing between elements */
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.applicantName {
+  color: #088395;
+}
+
+.resumeContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start; /* Align items to the start */
+}
+
+.resumeFullimg {
+  height: 40px;
+  width: 150px;
+  margin-top: 20px;
+  background-color: #088295;
+  border: none;
+  color: white;
+  border-radius: 10px;
+}
+
+.previous:hover {
+  cursor: pointer;
+  background-color: rgba(128, 128, 128, 0.122);
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 900px) {
+  .container form {
+    padding: 30px;
+  }
+
+  .applicants ul li {
+    padding: 20px 10px; /* Reduce padding for smaller screens */
+  }
+
+  .details,
+  .resumeContainer {
+    width: 100%; /* Ensure full width on small screens */
+  }
+
+  .resumeFullimg {
+    width: 100%; /* Make buttons responsive */
+  }
+}
+
+.container button {
+  background-color: #088295;
+  border: none;
+  height: 30px;
+  color: white;
+  margin-top: 20px;
+  &:hover {
+    cursor: pointer;
+  }
+}
+.loading {
+  border: 3px solid rgba(0, 0, 0, 0.1); /* Light grey */
+  border-left: 3px solid black; /* Blue color */
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  animation: spin 1s linear infinite;
+  display: block;
+}
+/* Keyframes for spinning animation */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -1,0 +1,185 @@
+.full {
+  /* min-height:120vh; */
+  width: 100%;
+  /* background-image: url("D:/react/HireHub/public/bg2.jpg"); */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+p {
+  font-size: clamp(12px, 4vw, 19px);
+}
+h2 {
+  font-size: clamp(14px, 5vw, 25px);
+}
+.jobdetailmain {
+  /* margin-top: 100px; */
+  display: flex;
+  justify-content: center;
+  /* padding:30px; */
+}
+.logo img {
+  height: 70px;
+  object-fit: cover;
+  padding: 5px;
+  border-radius: 10px;
+  background-color: white;
+}
+.first {
+  display: flex;
+  gap: 45px;
+  margin-top: 30px;
+  margin-left: 20px;
+}
+.f1 {
+  font-size: 26px;
+  text-align: center;
+  margin: 20px;
+}
+.title span {
+  color: #088395;
+  font-weight: bold;
+}
+.first .f2 {
+  background-color: rgb(116, 187, 116);
+  padding: 3px;
+  border-radius: 20px;
+}
+.logo {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+.logo h2 {
+  margin-top: 10px;
+}
+.description {
+  margin-top: 20px;
+}
+.last {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: white;
+  padding: 20px;
+  margin: 20px 0px;
+  border-radius: 10px;
+}
+/* .applicants{
+    display: flex;
+    justify-content: space-around;
+    margin:20px 0px;
+}
+.applicants button{
+    background-color: #088395;
+    height: 40px;
+    width: 100px;
+    border: none;
+    border-radius: 5px;
+    color:white;
+
+} */
+.applicants button:hover {
+  cursor: pointer;
+  background-color: #078ea3;
+}
+.previous:hover {
+  cursor: pointer;
+  background-color: rgb(192, 182, 182);
+}
+.previous {
+  display: block;
+  position: absolute;
+  /* margin: 100px 30px; */
+  top: 100px;
+}
+.save svg path {
+  color: #078ea3;
+}
+@media screen and (max-width: 474px) {
+  .jobdetailmain {
+    padding: 0;
+    margin-top: 160px;
+  }
+  .jobdetailcontainer {
+    padding: 0;
+  }
+}
+.first {
+  display: flex;
+  justify-content: space-between;
+}
+.first button {
+  background-color: #088395;
+  height: 40px;
+  width: 100px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+}
+.first button:hover {
+  cursor: pointer;
+}
+.jobdetail {
+  flex-wrap: wrap;
+}
+.second {
+  display: flex;
+  align-items: center;
+}
+.second img {
+  height: 60px;
+  width: 60px;
+  object-fit: cover;
+}
+.themain {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 800px;
+  padding: 20px;
+}
+.logo {
+  margin-right: 20px;
+}
+.threedesign {
+  display: flex;
+  gap: 20px;
+}
+.threedesign p {
+  background-color: rgba(128, 128, 128, 0.297);
+  border-radius: 5px;
+  padding: 3px;
+  font-size: 15px;
+}
+@media screen and (max-width: 453px) {
+  .first h1 {
+    font-size: 24px;
+  }
+}
+.themain ul {
+  list-style-type: none; /* Disable default bullet points */
+  padding-left: 20px; /* Ensure space for custom bullets */
+}
+
+.themain ul li::before {
+  content: "•"; /* Custom bullet */
+  color: black; /* Bullet color */
+  font-size: 1.2em; /* Bullet size */
+  display: inline-block;
+  width: 1em; /* Space reserved for the bullet */
+  margin-right: 10px; /* Space between bullet and text */
+}
+.themain ol {
+  list-style-type: none; /* Disable default bullet points */
+  padding-left: 20px; /* Ensure space for custom bullets */
+}
+
+.themain ol li::before {
+  content: "•"; /* Custom bullet */
+  color: black; /* Bullet color */
+  font-size: 1.2em; /* Bullet size */
+  display: inline-block;
+  width: 1em; /* Space reserved for the bullet */
+  margin-right: 10px; /* Space between bullet and text */
+}

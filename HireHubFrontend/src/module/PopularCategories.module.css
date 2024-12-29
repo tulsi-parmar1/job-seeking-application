@@ -1,0 +1,133 @@
+/* .card ul{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap:80px;
+    flex-wrap: wrap;
+    margin: 0px 50px;
+
+}
+.card ul li{
+    border: 1px solid gray;
+    padding:20px;
+    border-radius: 9px;
+    margin-bottom: 10px;
+    min-height:170px;
+    width:280px;
+    text-align: center;
+}
+.categories h1{
+    margin:50px;
+    text-align: center;
+}
+.categories{
+    min-height: 400px;
+    padding-bottom:50px;
+    background-color: white;
+}
+.btn{
+    background-color: #088395;
+    height:40px;
+    border: none;
+    border-radius: 8px;
+    padding-bottom: 9px;
+    color:white;
+    width:140px;
+    margin-top: 20px;
+    transition: 0.3s ease-in-out;
+    text-align: center;
+}
+.btn:hover{
+    cursor: pointer;
+    background-color: #078ea3;
+}
+span{
+    margin-top: 40px;
+}
+.arrow{
+
+    font-size: 19px;
+    margin-left: 10px;
+    transition: 0.3s ease-in-out;
+}
+.card ul li:hover .arrow{
+    /* transform: scaleX(1); */
+    /* transform: translateX(10px);
+}
+.card ul li:hover{
+    background-color: #acc8cc;
+}
+@media screen and (max-width:464px)
+{
+    .categories h1{
+        font-size: 23px;
+    }
+    .card ul{
+        gap:40px;
+    }
+} */ 
+ .categories{
+    /* border:1px solid gray; */
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    gap:10px;
+    max-width: 170px;
+    min-width: 150px;
+    max-height: 400px;
+    background-color: rgba(97, 94, 94, 0.06);
+    border-radius: 10px;
+    /* border:0.1px solid rgb(201, 197, 197); */   
+ }
+ .categories:hover{
+
+    background-color: #b2d8d8;
+    cursor: pointer;
+ }
+ /* .categories button{
+    width:100px;
+    height:30px;
+    background-color: transparent;
+    border:none;
+    border:1px solid rgb(197, 191, 191);
+ }
+.categories button:hover{
+    background-color: black;
+    color:wheat;
+} */
+ .container{
+    margin-top: 50px;
+    margin-bottom: 80px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-left: 20px;
+    margin-right: 20px;
+    gap:15px;
+ }
+ .maincont{
+    background-color: white;
+    margin-top: 160px;
+    color:rgb(97, 94, 94)
+ }
+
+.first svg path{
+    color:rgb(44, 42, 42);
+}
+.second svg path:hover{
+}
+ @media screen and (max-width:1250px)
+ {
+    .container{
+        padding: 0;
+    }
+ }
+ @media screen and (max-width:783px)
+ {
+    .maincont h1{
+       font-size: 20px;
+    }
+
+ }

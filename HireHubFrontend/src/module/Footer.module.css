@@ -1,0 +1,96 @@
+footer {
+  padding: 40px 0;
+  text-align: center;
+  font-family: "Arial", sans-serif;
+  color: black;
+  margin-top: 100px;
+  position: sticky;
+  background-color: white;
+  bottom: 0px;
+}
+
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 20px;
+  background-color: inherit; /* Keeps the background as default */
+  color: black; /* Set the font color to black */
+}
+
+/* Footer Section */
+.footer-section {
+  flex: 1;
+  margin: 15px;
+  min-width: 180px;
+}
+
+/* Headings in Footer */
+.footer-section h3,
+.footer-section h4 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+  color: black; /* Set the heading color to black */
+}
+
+/* Footer Links */
+.footer-section ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+  color: black; /* Set link color to black */
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+  color: #088395; /* Optional: change color on hover for contrast */
+}
+
+/* Contact Information Styling */
+.footer-section p {
+  margin: 10px 0;
+  color: black; /* Set text color to black */
+}
+
+/* Social Media Icons */
+.footer-section a i {
+  font-size: 1.5em;
+  margin: 0 10px;
+  color: black; /* Set icon color to black */
+  transition: color 0.3s ease;
+}
+
+.footer-section a i:hover {
+  color: #f39c12; /* Optional: change icon color on hover */
+}
+
+/* Footer Bottom Text */
+.footer-bottom {
+  margin-top: 20px;
+  font-size: 0.9em;
+  color: black; /* Set the bottom text color to black */
+  padding-top: 20px;
+}
+
+/* Responsive Footer Styling */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-section {
+    margin-bottom: 30px;
+    text-align: center;
+  }
+}
+.footerHide {
+  display: none;
+}
