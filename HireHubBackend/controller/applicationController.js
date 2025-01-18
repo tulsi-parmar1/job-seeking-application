@@ -70,7 +70,7 @@ export const postApplication = async (req, res) => {
     const application = new ApplicationModel({
       job: job._id,
       applicant,
-      resume: resumeName, // Save the resume name in DB
+      resume: uploadPath, // Save the resume name in DB
       coverLetter,
       firstName,
       lastName,
@@ -191,9 +191,9 @@ export const getApplicantsForJob = async (req, res) => {
       contactNumber: application.contactNumber,
       currentCity: application.currentCity,
       coverLetter: application.coverLetter,
-      resume: `http://localhost:4000/uploads/${application.resume}`, // Assuming you have resume URL or file name
+      resume: `http://localhost:4000/${application.resume}`, // Assuming you have resume URL or file name
     }));
-
+    console.log(applicantDetails.resume);
     // Send the response with the applicant details
     res.status(200).json({ applicants: applicantDetails });
   } catch (error) {

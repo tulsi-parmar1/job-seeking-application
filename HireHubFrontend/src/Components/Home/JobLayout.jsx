@@ -39,7 +39,7 @@ const JobLayout = ({
       if (lastJob) observer.unobserve(lastJob);
     };
   }, [jobs.length]); // Only re-run when jobs length changes
-
+  const { ApplicationNumber } = useSelector((state) => state.application);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [saved, setSaved] = useState([]);

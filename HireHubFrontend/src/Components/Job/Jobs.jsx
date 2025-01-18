@@ -29,6 +29,7 @@ function Jobs() {
     setLocationQuery(e.target.value);
   };
   const handleTypeSearch = (e) => {
+    console.log(e.target.value);
     setTypeQuery(e.target.value);
   };
 
@@ -64,10 +65,11 @@ function Jobs() {
 
   // Filter jobs by both title and location
   const filteredJobs = jobs.filter((job) => {
+    console.log(job);
     return (
       job.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
       job.location.toLowerCase().includes(locationQuery.toLowerCase()) &&
-      job.employmentType.toLowerCase().includes(typeQuery.toLocaleLowerCase())
+      job.employmentType.toLowerCase().includes(typeQuery.toLowerCase())
     );
   });
 
@@ -119,25 +121,25 @@ function Jobs() {
                 style={{ height: "10px", width: "10px" }}
                 type="radio"
                 name="type"
-                value={"internship"}
+                value={"Internship"}
                 onChange={handleTypeSearch}
               />
-              <p style={{ marginTop: "20px" }}>internship</p>
+              <p style={{ marginTop: "20px" }}>Internship</p>
 
               <input
                 type="radio"
                 style={{ height: "10px", width: "10px" }}
                 name="type"
-                value={"parttime"}
+                value={"Part-Time"}
                 onChange={handleTypeSearch}
               />
-              <p style={{ marginTop: "20px" }}>part-Time</p>
+              <p style={{ marginTop: "20px" }}>Part-time</p>
 
               <input
                 type="radio"
                 style={{ height: "10px", width: "10px" }}
                 name="type"
-                value={"fulltime"}
+                value={"Full-time"}
                 onChange={handleTypeSearch}
               />
               <p style={{ marginTop: "20px" }}>Full-time</p>
@@ -146,19 +148,19 @@ function Jobs() {
                 type="radio"
                 style={{ height: "10px", width: "10px" }}
                 name="type"
-                value={"contract"}
+                value={"Contract"}
                 onChange={handleTypeSearch}
               />
-              <p style={{ marginTop: "20px" }}>contract</p>
+              <p style={{ marginTop: "20px" }}>Contract</p>
 
               <input
                 type="radio"
                 style={{ height: "10px", width: "10px" }}
                 name="type"
-                value={"RemoteJob"}
+                value={"Remote Job"}
                 onChange={handleTypeSearch}
               />
-              <p style={{ marginTop: "20px" }}>Remote Job</p>
+              <p style={{ marginTop: "20px" }}>Remote-Job</p>
             </div>
           </div>
 

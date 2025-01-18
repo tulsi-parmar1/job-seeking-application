@@ -80,6 +80,10 @@ const router = createBrowserRouter([
         element: <Application></Application>,
       },
       {
+        path: "application/viewapplication/:id",
+        element: <Viewapplication></Viewapplication>,
+      },
+      {
         path: "getSavedJobs/:id",
         element: <GetSavedJobs></GetSavedJobs>,
       },

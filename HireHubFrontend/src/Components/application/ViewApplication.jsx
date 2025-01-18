@@ -6,12 +6,13 @@ import "react-toastify/dist/ReactToastify.css";
 import style from "../../module/Application.module.css";
 import { MdDelete } from "react-icons/md";
 import { GrLinkPrevious } from "react-icons/gr";
+import { applicationAction } from "../../Slices/ApplicationSlice";
 
 const ViewApplication = () => {
   const [applicants, setApplicants] = useState([]);
   const [error, setError] = useState(null);
   const { id } = useParams();
-  console.log("id", id);
+
   useEffect(() => {
     const fetchApplicants = async () => {
       try {
@@ -19,7 +20,6 @@ const ViewApplication = () => {
           `http://localhost:4000/api/application/getApplication/${id}`,
           { withCredentials: true }
         );
-        console.log("response", response.data);
         setApplicants(response.data.applicants);
       } catch (error) {
         console.error("Error fetching applicants:", error);
@@ -30,7 +30,7 @@ const ViewApplication = () => {
     fetchApplicants();
   }, [id]);
   const deleteApplication = async (idd) => {
-    result = confirm("are you sure you want to delete?");
+    const result = confirm("are you sure you want to delete?");
     if (result) {
       try {
         const { data } = await axios.delete(
@@ -42,6 +42,7 @@ const ViewApplication = () => {
         setApplicants((prevApplications) =>
           prevApplications.filter((application) => application._id !== idd)
         );
+        // applicationAction.setApplication(applicants.length)
 
         toast.success(data.message);
       } catch (error) {
@@ -55,6 +56,7 @@ const ViewApplication = () => {
 
   const handleResumeClick = (resume) => {
     // Opens the resume in a new tab
+    console.log(resume);
     window.open(resume, "_blank");
   };
   return (
