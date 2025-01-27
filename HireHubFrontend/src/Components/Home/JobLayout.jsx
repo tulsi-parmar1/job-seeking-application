@@ -188,6 +188,7 @@ const JobLayout = ({
                       style={{ fontSize: "14px" }}
                     >
                       Applicants:{job.applicants.length}
+                      {console.log(job.applicants.length)}
                     </p>
                   </div>
                   <div
