@@ -36,7 +36,6 @@ const jobSchema = new mongoose.Schema({
     },
   },
   requirements: {
-    //List of job requirements or qualifications
     type: String,
     required: true,
   },
@@ -50,7 +49,7 @@ const jobSchema = new mongoose.Schema({
   },
   categories: {
     type: String,
-    required: true, // e.g., Full-time, Part-time, Contract, Internship
+    required: true,
     enum: [
       "Information Technology (IT)",
       "Healthcare",
@@ -66,7 +65,7 @@ const jobSchema = new mongoose.Schema({
   applicants: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Application", // Assuming you have an Application model
+      ref: "Application",
     },
   ],
   contactEmail: {
@@ -87,6 +86,10 @@ const jobSchema = new mongoose.Schema({
       required: true,
     },
   },
+  // qualification: {
+  //   type: String,
+  //   require: true,
+  // },
 });
 const JobModel = mongoose.model("Job", jobSchema);
 export default JobModel;

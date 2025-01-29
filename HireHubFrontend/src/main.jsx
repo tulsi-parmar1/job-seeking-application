@@ -22,7 +22,6 @@ import UpdateJob from "./Components/Job/UpdateJob.jsx";
 import DeleteJob from "./Components/Job/DeleteJob.jsx";
 import MyJobDetail from "./Components/Job/myJobDetail.jsx";
 import Viewapplication from "./Components/application/ViewApplication.jsx";
-import GetSavedJobs from "./Components/Job/GetSavedJobs.jsx";
 import Profile from "./Components/Profile/Profile.jsx";
 import JobsByCount from "./Components/Job/JobsByCount.jsx";
 import RecruiterLogin from "./Components/Auth/RecruiterLogin.jsx";
@@ -33,6 +32,8 @@ import ProfileJobDetail from "./Components/Job/ProfileJobDetail.jsx";
 import CategoryJobs from "./Components/Job/CategoryJobs.jsx";
 import JobsByType from "./Components/Job/JobsByType.jsx";
 import JobDetailSub from "./Components/Job/JobDetailSub.jsx";
+import SavedJobsDetails from "./Components/Job/SavedJobsDetails.jsx";
+import ViewApplication from "./Components/application/ViewApplication.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -84,19 +85,20 @@ const router = createBrowserRouter([
         element: <Viewapplication></Viewapplication>,
       },
       {
-        path: "getSavedJobs/:id",
-        element: <GetSavedJobs></GetSavedJobs>,
-      },
-      {
         path: "profile",
         element: <Profilemain />,
         children: [
           { path: "", element: <Profile /> },
           { path: "savedjobs", element: <SavedJobs /> },
           {
+            path: "savedjobs/:id",
+            element: <SavedJobsDetails></SavedJobsDetails>,
+          },
+          {
             path: "application/me",
             element: <MyApplication></MyApplication>,
           },
+
           {
             path: "application/me/job/:id",
             element: <JobDetail></JobDetail>,
@@ -111,7 +113,7 @@ const router = createBrowserRouter([
           },
           {
             path: "job/me/application/viewapplication/:id",
-            element: <Viewapplication></Viewapplication>,
+            element: <ViewApplication></ViewApplication>,
           },
           {
             path: "job/me/update/:id",

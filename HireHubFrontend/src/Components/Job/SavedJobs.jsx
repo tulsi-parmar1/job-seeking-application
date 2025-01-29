@@ -6,50 +6,75 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Loader from "../Layout/Loader.jsx";
 
-const SavedJobs=()=>{
-    const [jobs,setJobs]=useState('');
-    const navigate=useNavigate();
-    const [loader,setloader]=useState(true);
-    const {users}=useSelector(state=>state.user);
-    useEffect(()=>{
-            const getSavedJobs=async()=>{
-                try {
-                    const {data}= await axios.get(`http://localhost:4000/api/user/getSavedJobs/${users._id}`,{withCredentials:true});
-                    console.log(data);
-                    setJobs(data.savedJobs);
-                    setloader(false);                  
-                } catch (error) {
-                    console.log(error);
-                    setloader(false);
-                }
-            }
-            getSavedJobs();
-    },[])
-    const handleUnsaveJob = (jobId) => {
-        setJobs((prevJobs) => prevJobs.filter((job) => job._id !== jobId)); // Remove the unsaved job
+const SavedJobs = () => {
+  const [jobs, setJobs] = useState("");
+  const navigate = useNavigate();
+  const [loader, setloader] = useState(true);
+  const { users } = useSelector((state) => state.user);
+  useEffect(() => {
+    const getSavedJobs = async () => {
+      try {
+        const { data } = await axios.get(
+          `http://localhost:4000/api/user/getSavedJobs/${users._id}`,
+          { withCredentials: true }
+        );
+        console.log(data);
+        setJobs(data.savedJobs);
+        setloader(false);
+      } catch (error) {
+        console.log(error);
+        setloader(false);
+      }
     };
-    return(
+    getSavedJobs();
+  }, []);
+  const handleUnsaveJob = (jobId) => {
+    setJobs((prevJobs) => prevJobs.filter((job) => job._id !== jobId)); // Remove the unsaved job
+  };
+  return (
+    <>
+      {loader ? (
+        <Loader></Loader>
+      ) : (
         <>
-        {loader ? <Loader></Loader> : <>
-            <div style={{marginTop:'20px',textAlign:'center'}}>
-        {jobs.length>0 ?
-        <>
-          <h1 style={{marginBottom:'20px'}}>saved jobs</h1>
-          <JobLayout jobs={jobs} onUnsaveJob={handleUnsaveJob}></JobLayout>
-        </> :
-        <>
-          <p> You have not saved jobs</p>
-          <div style={{display:'flex',justifyContent:'center',margin:'10px'}}>
-          <button  style={{backgroundColor:'#088395',color:'white',border:'1px solid',padding:'10px'}} onClick={()=>navigate('/job/getall')}>Explore Jobs</button>
+          <div style={{ marginTop: "20px", textAlign: "center" }}>
+            {jobs.length > 0 ? (
+              <>
+                <h1 style={{ marginBottom: "20px" }}>saved jobs</h1>
+                <JobLayout
+                  jobs={jobs}
+                  onUnsaveJob={handleUnsaveJob}
+                  isSavedJobView={true}
+                ></JobLayout>
+              </>
+            ) : (
+              <>
+                <p> You have not saved jobs</p>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    margin: "10px",
+                  }}
+                >
+                  <button
+                    style={{
+                      backgroundColor: "#088395",
+                      color: "white",
+                      border: "1px solid",
+                      padding: "10px",
+                    }}
+                    onClick={() => navigate("/job/getall")}
+                  >
+                    Explore Jobs
+                  </button>
+                </div>
+              </>
+            )}
           </div>
-         
         </>
-        }
-        </div>
-        </>
-}
-       
-        </>
-    )
-}
+      )}
+    </>
+  );
+};
 export default SavedJobs;

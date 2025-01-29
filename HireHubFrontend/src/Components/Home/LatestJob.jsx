@@ -1,9 +1,8 @@
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import style from "../../module/LatestJob.module.css";
 import JobLayout from "./JobLayout";
-import gsap from "gsap";
 const LatestJob = () => {
   const navigate = useNavigate();
   const textRef = useRef();

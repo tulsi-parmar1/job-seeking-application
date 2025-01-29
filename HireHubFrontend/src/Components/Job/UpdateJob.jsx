@@ -110,12 +110,11 @@ const UpdateJob = () => {
             </p>
             <p>
               Description:
-              <textarea
-                type="text"
-                name="description"
+              <ReactQuill
                 value={job.description || ""}
-                onChange={handleInputChange}
-                rows={6}
+                onChange={(value) => handleQuillChange("description", value)}
+                placeholder="description..."
+                style={{ backgroundColor: "white", border: "none" }}
               />
             </p>
             <p>
@@ -131,7 +130,7 @@ const UpdateJob = () => {
               Employment Type:
               <select
                 value={job.employmentType || ""}
-                name="employementType"
+                name="employmentType"
                 onChange={handleInputChange}
                 style={{ marginLeft: "20px" }}
               >

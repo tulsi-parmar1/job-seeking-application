@@ -1,16 +1,14 @@
 import ApplicationModel from "../models/applicationModel.js";
 import JobModel from "../models/jobModel.js";
 import dotenv from "dotenv";
-import mongoose from "mongoose";
 dotenv.config({ path: "HireHub/config/config.env" });
 export const getMyApplication = async (req, res) => {
   try {
     const { _id } = req.user;
 
-    // Fetch applications with the associated job details
     const applications = await ApplicationModel.find({
       applicant: _id,
-    }).populate("job"); // Assuming 'job' is the reference field to the JobModel
+    }).populate("job");
 
     res.status(200).json(applications);
   } catch (error) {
@@ -105,7 +103,7 @@ export const deleteApplication = async (req, res) => {
       (applicantId) => applicantId != id
     );
     console.log(updatedApplicants);
-    // Attempt to remove the application ID from the applicants array
+
     const updateResult = await JobModel.updateOne(
       { _id: job._id },
       { $set: { applicants: updatedApplicants } }
@@ -125,7 +123,7 @@ export const getApplicantsForJob = async (req, res) => {
 
   try {
     const job = await JobModel.findById(id);
-    console.log(job);
+
     if (!job) {
       return res.status(404).json({ message: "Job not found" });
     }
@@ -136,7 +134,7 @@ export const getApplicantsForJob = async (req, res) => {
 
     const applications = await ApplicationModel.find({
       job: job._id,
-      applicant: { $in: job.applicants },
+      // applicant: { $in: job.applicants },
     });
 
     const applicantDetails = applications.map((application) => ({
@@ -149,6 +147,7 @@ export const getApplicantsForJob = async (req, res) => {
       coverLetter: application.coverLetter,
       resume: `http://localhost:4000/${application.resume}`, // Assuming you have resume URL or file name
     }));
+
     console.log(applicantDetails.resume);
     // Send the response with the applicant details
     res.status(200).json({ applicants: applicantDetails });

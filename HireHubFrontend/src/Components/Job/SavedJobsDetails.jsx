@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import ProfileJobDetail from "./ProfileJobDetail";
+import ProfileSavedJobsDetail from "./ProfileSavedJobsDetail";
 function MyJobDetail() {
   const { isAuthorized } = useSelector((state) => state.user);
   const navigate = useNavigate();
@@ -28,11 +28,11 @@ function MyJobDetail() {
   }, []);
   return (
     <>
-      <ProfileJobDetail
+      <ProfileSavedJobsDetail
         job={job}
         applicants={length}
         id={id}
-      ></ProfileJobDetail>
+      ></ProfileSavedJobsDetail>
     </>
   );
 }

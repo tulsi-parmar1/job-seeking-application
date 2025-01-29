@@ -7,14 +7,14 @@ import "react-toastify/dist/ReactToastify.css";
 
 const DeleteJob = () => {
   const { isAuthorized } = useSelector((state) => state.user);
-  const { id } = useParams(); // Ensure useParams is used correctly
+  const { id } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
     const deleteJob = async () => {
       if (!isAuthorized) {
         navigate("/");
-        return; // Exit if not authorized
+        return;
       }
 
       try {
@@ -23,7 +23,7 @@ const DeleteJob = () => {
           { withCredentials: true }
         );
         toast.success(data.message);
-        navigate("/profile/job/me"); // Redirect after deletion
+        navigate("/profile/job/me");
       } catch (error) {
         toast.error(error.response?.data?.message || error.message);
       }
@@ -34,7 +34,7 @@ const DeleteJob = () => {
 
   return (
     <>
-      <div>Deleting job...</div> {/* Updated text for clarity */}
+      <div>Deleting job...</div>
     </>
   );
 };

@@ -18,7 +18,7 @@ function Sidebar() {
       <NavLink
         to="/profile/savedjobs"
         className={
-          location.pathname === "/profile/savedjobs" ? style.active : ""
+          location.pathname.includes("/profile/savedjobs") ? style.active : ""
         }
       >
         Saved Jobs
@@ -33,6 +33,7 @@ function Sidebar() {
       >
         My Jobs
       </NavLink>
+
       <br />
       {users.role !== "recruiter" && (
         <NavLink

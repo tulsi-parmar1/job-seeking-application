@@ -65,7 +65,6 @@ function Jobs() {
 
   // Filter jobs by both title and location
   const filteredJobs = jobs.filter((job) => {
-    console.log(job);
     return (
       job.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
       job.location.toLowerCase().includes(locationQuery.toLowerCase()) &&
@@ -75,9 +74,6 @@ function Jobs() {
 
   return (
     <>
-      {/* {loading ? (
-        <Loader />
-      ) : ( */}
       <div className={style.jobcontainer}>
         <div className={style.container}>
           <h1>Complete Job Listings</h1>

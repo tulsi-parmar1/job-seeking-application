@@ -17,10 +17,7 @@ const JobDetailSub = ({ job, applicants, id }) => {
   const navigate = useNavigate();
   const [saved, setSaved] = useState([]);
   const dispatch = useDispatch();
-  const formatDate = (dateString) => {
-    const options = { year: "numeric", month: "long", day: "numeric" };
-    return new Date(dateString).toLocaleDateString(undefined, options);
-  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -41,6 +38,7 @@ const JobDetailSub = ({ job, applicants, id }) => {
       toast.error(error.response.data.message);
     }
   };
+  //sets users again because there could be chnages in savedjobs array of user object
   useEffect(() => {
     try {
       axios
@@ -70,7 +68,11 @@ const JobDetailSub = ({ job, applicants, id }) => {
             <p>
               {users._id === job.postedBy && applicants > 0 && (
                 <button
-                  onClick={() => navigate(`/application/viewapplication/${id}`)}
+                  onClick={() =>
+                    navigate(`/application/viewapplication/${id}`, {
+                      state: { forMargin: true },
+                    })
+                  }
                 >
                   view applicants
                 </button>
@@ -124,8 +126,8 @@ const JobDetailSub = ({ job, applicants, id }) => {
           </div>
         </div>
         <div>
-          <p style={{ fontWeight: "bold" }}>Description:</p>
-          <p style={{ fontSize: "17px" }}>{job.description}</p>
+          <div dangerouslySetInnerHTML={{ __html: job.description }} />
+          {/* <p style={{ fontSize: "17px" }}>{job.description}</p> */}
         </div>
         <div>
           {job.requirements && (
@@ -144,8 +146,12 @@ const JobDetailSub = ({ job, applicants, id }) => {
           )}
         </div>
         <div>
-          <p style={{ fontWeight: "bold" }}>Qualification</p>
-          <p>Graduated</p>
+          {job.qualification && (
+            <>
+              <p style={{ fontWeight: "bold" }}>Qualification</p>
+              <p>{job.qualification}</p>
+            </>
+          )}
         </div>
         <div>
           <p style={{ fontWeight: "bold" }}>Salary Range:</p>

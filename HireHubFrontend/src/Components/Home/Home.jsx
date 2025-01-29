@@ -14,13 +14,27 @@ function Home() {
     window.scrollTo(0, 0);
   }, [isAuthorized, navigate]);
 
+  useEffect(() => {
+    const getProfile = async () => {
+      try {
+        const { data } = await axios.get(
+          `http://localhost:4000/api/profile/getProfile`,
+          { withCredentials: true }
+        );
+        dispatch(userAction.setProfile(data.url));
+        console.log(data.url);
+      } catch (error) {
+        toast.error(error.response.data.message);
+      }
+    };
+    getProfile();
+  }, []);
+
   return (
     <>
       <HeroSection></HeroSection>
-      {/* <HowItWorks></HowItWorks> */}
       <JobType></JobType>
       <LatestJob></LatestJob>
-      {/* <PopularCompany></PopularCompany> */}
     </>
   );
 }

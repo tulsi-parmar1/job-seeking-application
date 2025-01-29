@@ -6,13 +6,16 @@ import "react-toastify/dist/ReactToastify.css";
 import style from "../../module/Application.module.css";
 import { MdDelete } from "react-icons/md";
 import { GrLinkPrevious } from "react-icons/gr";
-import { applicationAction } from "../../Slices/ApplicationSlice";
+import { useLocation } from "react-router-dom";
 
 const ViewApplication = () => {
   const [applicants, setApplicants] = useState([]);
   const [error, setError] = useState(null);
   const { id } = useParams();
 
+  const location = useLocation();
+
+  const { forMargin } = location.state;
   useEffect(() => {
     const fetchApplicants = async () => {
       try {
@@ -20,6 +23,7 @@ const ViewApplication = () => {
           `http://localhost:4000/api/application/getApplication/${id}`,
           { withCredentials: true }
         );
+
         setApplicants(response.data.applicants);
       } catch (error) {
         console.error("Error fetching applicants:", error);
@@ -66,7 +70,7 @@ const ViewApplication = () => {
         className={style.previous}
         onClick={() => window.history.back()}
       />
-      <ul>
+      <ul className={`${forMargin && style.forMargin}`}>
         {applicants.map((applicant, index) => (
           <li key={index}>
             <div style={{ display: "flex", gap: "50px" }}>

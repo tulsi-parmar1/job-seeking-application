@@ -1,4 +1,3 @@
-import { TiShoppingBag } from "react-icons/ti";
 import style from "../../module/LatestJob.module.css";
 import { FaLocationDot } from "react-icons/fa6";
 import { useEffect, useRef, useState } from "react";
@@ -6,8 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { FaRegBookmark } from "react-icons/fa";
 import moment from "moment";
-import Loader from "../Layout/Loader";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { userAction } from "../../Slices/userSlice";
@@ -25,10 +23,15 @@ const JobLayout = ({
   similar,
   onUnsaveJob,
   isProfileView,
+  isSavedJobView,
 }) => {
+  //when we called observer.observe then it will take last job as argument and call the function which we have declared (const observer))
+
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
+      //Observes when a specific element enters or leaves the viewport.
       if (entries[0].isIntersecting) {
+        //Checks if the observed element (in this case, the last job card) is currently visible in the viewport.
         setPage((prevPage) => prevPage + 1);
       }
     });
@@ -39,7 +42,7 @@ const JobLayout = ({
       if (lastJob) observer.unobserve(lastJob);
     };
   }, [jobs.length]); // Only re-run when jobs length changes
-  const { ApplicationNumber } = useSelector((state) => state.application);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [saved, setSaved] = useState([]);
@@ -47,6 +50,8 @@ const JobLayout = ({
   const handleonclick = (jobId) => {
     if (isProfileView) {
       navigate(`/profile/job/me/${jobId}`);
+    } else if (isSavedJobView) {
+      navigate(`/profile/savedJobs/${jobId}`);
     } else {
       navigate(`/job/${jobId}`); // Navigate to Regular Job Detail
     }
@@ -80,7 +85,6 @@ const JobLayout = ({
         );
         toast.success(data.message);
         setJobs((prevJobs) => prevJobs.filter((job) => job._id !== id));
-        // navigate("/profile/job/me"); // Redirect after deletion
       } catch (error) {
         toast.error(error.response?.data?.message || error.message);
       }
@@ -188,7 +192,6 @@ const JobLayout = ({
                       style={{ fontSize: "14px" }}
                     >
                       Applicants:{job.applicants.length}
-                      {console.log(job.applicants.length)}
                     </p>
                   </div>
                   <div

@@ -115,7 +115,7 @@ const ViewApplication = () => {
 
               <div>
                 <iframe
-                  src={`http://localhost:4000/uploads/${applicant.resume}`}
+                  src={`http://localhost:4000/${applicant.resume}`}
                   height="200px"
                   title="Resume PDF"
                 ></iframe>
@@ -123,7 +123,7 @@ const ViewApplication = () => {
                   <button
                     onClick={() => {
                       handleResumeClick(
-                        `http://localhost:4000/uploads/${applicant.resume}`
+                        `http://localhost:4000/${applicant.resume}`
                       );
                     }}
                     className={style.resumeFullimg}

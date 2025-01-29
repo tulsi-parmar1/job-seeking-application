@@ -6,7 +6,8 @@ import { GrLinkPrevious } from "react-icons/gr";
 import { IoLocation } from "react-icons/io5";
 import { useEffect } from "react";
 
-const ProfileJobDetail = ({ job, applicants, id }) => {
+const ProfileSavedJobsDetail = ({ job, applicants, id }) => {
+  console.log(job);
   const navigate = useNavigate();
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -37,8 +38,7 @@ const ProfileJobDetail = ({ job, applicants, id }) => {
                   <button
                     onClick={() =>
                       navigate(
-                        `/profile/job/me/application/viewapplication/${id}`,
-                        { state: { forMargin: false } }
+                        `/profile/job/me/application/viewapplication/${id}`
                       )
                     }
                   >
@@ -116,4 +116,4 @@ const ProfileJobDetail = ({ job, applicants, id }) => {
     </>
   );
 };
-export default ProfileJobDetail;
+export default ProfileSavedJobsDetail;

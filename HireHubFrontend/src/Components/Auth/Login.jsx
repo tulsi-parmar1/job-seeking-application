@@ -12,7 +12,9 @@ function Login() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [displayProfile, setDisplayProfile] = useState("");
   const { isAuthorized } = useSelector((state) => state.user);
+
   const handleRegister = async (e) => {
     navigate("/register");
   };
@@ -30,6 +32,19 @@ function Login() {
         }
       );
       toast.success(data.message);
+      const getProfile = async () => {
+        try {
+          const { data } = await axios.get(
+            "http://localhost:4000/api/profile/getProfile",
+            { withCredentials: true }
+          );
+          setDisplayProfile(data.url);
+          dispatch(userAction.setProfile(data.url));
+        } catch (error) {
+          toast.error(error.response.data.message);
+        }
+      };
+      getProfile();
       setEmail("");
       setPassword("");
       dispatch(userAction.setIsAuthorized(true));
@@ -45,6 +60,7 @@ function Login() {
       navigate("/");
     }
   }, [isAuthorized]);
+
   return (
     <>
       <div className={style.container}>

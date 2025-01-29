@@ -13,7 +13,9 @@
 .applicants {
   margin-top: 200px;
 }
-
+.forMargin {
+  padding-top: 100px;
+}
 .applicants ul {
   display: flex;
   flex-direction: column;

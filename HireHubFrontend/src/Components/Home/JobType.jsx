@@ -28,7 +28,6 @@ const JobType = () => {
         setcontractJobsL(res.data.contractLength);
         setinternshipJobsL(res.data.internshipLength);
         setremoteJobsL(res.data.remoteJobLength);
-        console.log(res);
       })
       .catch((error) => {
         console.error("Error fetching job counts by type:", error);

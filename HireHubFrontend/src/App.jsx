@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 import "./App2.css";
 import NavBar from "./Components/Layout/Navbar";
 import Footer from "./Components/Layout/Footer";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import axios from "axios";
 import { userAction } from "./Slices/userSlice";
@@ -24,17 +24,8 @@ function App() {
         dispatch(userAction.setIsAuthorized(false));
       }
     };
-    //   const getProfile = async () => {
-    //     try {
-    //         const { data } = await axios.get('http://localhost:4000/api/profile/getProfile', { withCredentials: true });
-    //         dispatch(userAction.setProfile(data.url));
-    //     } catch (error) {
-    //         console.log(error)
-    //         toast.error(error.response.data.message);
-    //     }
-    // }
+
     fetchUser();
-    // getProfile();
   }, []);
   return (
     <>
