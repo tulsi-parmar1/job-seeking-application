@@ -91,25 +91,21 @@ export const deleteApplication = async (req, res) => {
     }
     //specific job
     const job = await JobModel.findById(application.job);
-    console.log(job);
 
     if (!job) {
       return res.status(404).json({ message: "Job not found" });
     }
 
-    console.log("Applicants before update:", job.applicants);
-
     const updatedApplicants = job.applicants.filter(
       (applicantId) => applicantId != id
     );
-    console.log(updatedApplicants);
 
     const updateResult = await JobModel.updateOne(
       { _id: job._id },
       { $set: { applicants: updatedApplicants } }
     );
     await job.save();
-    console.log("Update result:", updateResult);
+
     await ApplicationModel.findByIdAndDelete(id);
 
     res.json({ message: "Application deleted successfully!" });
@@ -134,7 +130,6 @@ export const getApplicantsForJob = async (req, res) => {
 
     const applications = await ApplicationModel.find({
       job: job._id,
-      // applicant: { $in: job.applicants },
     });
 
     const applicantDetails = applications.map((application) => ({
@@ -148,7 +143,6 @@ export const getApplicantsForJob = async (req, res) => {
       resume: `http://localhost:4000/${application.resume}`, // Assuming you have resume URL or file name
     }));
 
-    console.log(applicantDetails.resume);
     // Send the response with the applicant details
     res.status(200).json({ applicants: applicantDetails });
   } catch (error) {
