@@ -15,7 +15,10 @@ function CategoryJobs() {
     accountant: [],
     cs: [],
   });
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }),
+    [];
   useEffect(() => {
     axios
       .get("http://localhost:4000/api/job/countCategories", {

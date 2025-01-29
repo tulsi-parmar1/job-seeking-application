@@ -23,15 +23,14 @@ import DeleteJob from "./Components/Job/DeleteJob.jsx";
 import MyJobDetail from "./Components/Job/myJobDetail.jsx";
 import Viewapplication from "./Components/application/ViewApplication.jsx";
 import Profile from "./Components/Profile/Profile.jsx";
-import JobsByCount from "./Components/Job/JobsByCount.jsx";
+
 import RecruiterLogin from "./Components/Auth/RecruiterLogin.jsx";
 import SavedJobs from "./Components/Job/SavedJobs.jsx";
 import Profilemain from "./Components/Profile/Profilemain.jsx";
-import SimilarJobs from "./Components/Job/SimilarJobs.jsx";
-import ProfileJobDetail from "./Components/Job/ProfileJobDetail.jsx";
+
 import CategoryJobs from "./Components/Job/CategoryJobs.jsx";
 import JobsByType from "./Components/Job/JobsByType.jsx";
-import JobDetailSub from "./Components/Job/JobDetailSub.jsx";
+
 import SavedJobsDetails from "./Components/Job/SavedJobsDetails.jsx";
 import ViewApplication from "./Components/application/ViewApplication.jsx";
 const router = createBrowserRouter([
@@ -61,11 +60,7 @@ const router = createBrowserRouter([
       },
       {
         path: "savedJobs",
-        element: <SavedJobs></SavedJobs>,
-      },
-      {
-        path: "jobsByCount/:category",
-        element: <JobsByCount></JobsByCount>,
+        element: <SavedJobs profile={true}></SavedJobs>,
       },
       {
         path: "recruiterlogin",
@@ -89,9 +84,9 @@ const router = createBrowserRouter([
         element: <Profilemain />,
         children: [
           { path: "", element: <Profile /> },
-          { path: "savedjobs", element: <SavedJobs /> },
+          { path: "savedJobs", element: <SavedJobs /> },
           {
-            path: "savedjobs/:id",
+            path: "savedJobs/:id",
             element: <SavedJobsDetails></SavedJobsDetails>,
           },
           {

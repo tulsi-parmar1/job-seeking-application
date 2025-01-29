@@ -1,71 +1,3 @@
-// import React, { useEffect } from "react";
-// import { useParams } from "react-router-dom";
-// import JobLayout from "../Home/JobLayout";
-// import { useState } from "react";
-// import axios from "axios";
-
-// function JobsByType() {
-//   const { type } = useParams();
-//   console.log(type);
-//   const [fulltimeJobs, setfulltimeJobs] = useState([]);
-//   const [parttimeJobs, setparttimeJobs] = useState([]);
-//   const [contractJobs, setcontractJobs] = useState([]);
-//   const [internshipJobs, setinternshipJobs] = useState([]);
-//   const [remoteJobs, setremoteJobs] = useState([]);
-
-//   useEffect(() => {
-//     axios
-//       .get("http://localhost:4000/api/job/jobtype", {
-//         withCredentials: true,
-//       })
-//       .then((res) => {
-//         setfulltimeJobs(res.data.fullTime);
-//         setparttimeJobs(res.data.partTime);
-//         setcontractJobs(res.data.contract);
-//         setinternshipJobs(res.data.internship);
-//         setremoteJobs(res.data.remoteJob);
-//       })
-//       .catch((error) => {
-//         console.error("Error fetching job counts by type:", error);
-//         console.log(error.response.data.message);
-//       });
-//   }, []);
-//   return (
-//     <div>
-//       {type === "Full-time" && fulltimeJobs.length > 0 ? (
-//         <JobLayout jobs={fulltimeJobs}></JobLayout>
-//       ) : (
-//         <p>there is no jobs posted as Full-time</p>
-//       )}
-
-//       {type === "Remote Job" && remoteJobs.length > 0 ? (
-//         <JobLayout jobs={remoteJobs}></JobLayout>
-//       ) : (
-//         <p>there is no jobs posted as Rmote job</p>
-//       )}
-
-//       {type === "Internship" && internshipJobs.length > 0 ? (
-//         <JobLayout jobs={internshipJobs}></JobLayout>
-//       ) : (
-//         <p>there is no jobs posted as internship</p>
-//       )}
-
-//       {type === "Contract Job" && contractJobs.length > 0 ? (
-//         <JobLayout jobs={contractJobs}></JobLayout>
-//       ) : (
-//         <p>there is no jobs posted as Contract job</p>
-//       )}
-
-//       {type === "Part-time Job" && parttimeJobs.length > 0 ? (
-//         <JobLayout jobs={parttimeJobs}></JobLayout>
-//       ) : (
-//         <p>there is no jobs posted as Part-time job</p>
-//       )}
-//     </div>
-//   );
-// }
-
-// export default JobsByType;
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import JobLayout from "../Home/JobLayout";
@@ -104,7 +36,9 @@ function JobsByType() {
         setLoading(false);
       });
   }, []);
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const jobTypes = {
     "Full-time": jobsData.fullTime,
     "Part-time Job": jobsData.partTime,

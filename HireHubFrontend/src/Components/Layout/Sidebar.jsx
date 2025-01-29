@@ -1,10 +1,12 @@
 import { useLocation, NavLink } from "react-router-dom";
 import style from "../../module/Profile.module.css";
 import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 function Sidebar() {
   const location = useLocation();
   const { users } = useSelector((state) => state.user);
+
   return (
     <div className={style.sidebarlinks}>
       <NavLink
@@ -16,9 +18,9 @@ function Sidebar() {
       </NavLink>
       <br />
       <NavLink
-        to="/profile/savedjobs"
+        to="/profile/savedJobs"
         className={
-          location.pathname.includes("/profile/savedjobs") ? style.active : ""
+          location.pathname.includes("/profile/savedJobs") ? style.active : ""
         }
       >
         Saved Jobs

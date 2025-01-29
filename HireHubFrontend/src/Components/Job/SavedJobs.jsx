@@ -6,11 +6,14 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Loader from "../Layout/Loader.jsx";
 
-const SavedJobs = () => {
+const SavedJobs = ({ profile }) => {
   const [jobs, setJobs] = useState("");
   const navigate = useNavigate();
   const [loader, setloader] = useState(true);
   const { users } = useSelector((state) => state.user);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   useEffect(() => {
     const getSavedJobs = async () => {
       try {
@@ -37,7 +40,12 @@ const SavedJobs = () => {
         <Loader></Loader>
       ) : (
         <>
-          <div style={{ marginTop: "20px", textAlign: "center" }}>
+          <div
+            style={{
+              marginTop: profile ? "200px" : "20px",
+              textAlign: "center",
+            }}
+          >
             {jobs.length > 0 ? (
               <>
                 <h1 style={{ marginBottom: "20px" }}>saved jobs</h1>
