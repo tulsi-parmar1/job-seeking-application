@@ -1,14 +1,17 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import "./App2.css";
 import NavBar from "./Components/Layout/Navbar";
 import Footer from "./Components/Layout/Footer";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import axios from "axios";
 import { userAction } from "./Slices/userSlice";
 
 function App() {
   const dispatch = useDispatch();
+  const { isVarified } = useSelector((state) => state.user);
+  const { isAuthorized } = useSelector((state) => state.user);
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -17,7 +20,14 @@ function App() {
           { withCredentials: true }
         );
         dispatch(userAction.setUser(response.data.user));
-        dispatch(userAction.setIsAuthorized(true));
+        if (response.data.user.isVarified) {
+          dispatch(userAction.setIsAuthorized(true));
+          dispatch(userAction.setIsVerified(true));
+        } else {
+          dispatch(userAction.setIsAuthorized(false));
+          dispatch(userAction.setIsVerified(false));
+        }
+
         console.log(response.data.user);
       } catch (err) {
         console.error("Error fetching user:", err); // Handle error
@@ -27,6 +37,7 @@ function App() {
 
     fetchUser();
   }, []);
+
   return (
     <>
       <NavBar></NavBar>

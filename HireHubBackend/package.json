@@ -28,6 +28,7 @@
     "mongoose": "^8.4.3",
     "morgan": "^1.10.0",
     "multer": "^1.4.3",
+    "nodemailer": "^6.10.0",
     "nodemon": "^3.1.4",
     "path": "^0.12.7",
     "requests": "^0.3.0",

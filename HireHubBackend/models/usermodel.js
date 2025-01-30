@@ -41,6 +41,17 @@ const userSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "profile",
   },
+  verificationCode: {
+    type: String,
+  },
+  isVerified: {
+    type: Boolean,
+    default: false,
+  },
+  otpExpireAt: {
+    type: Date,
+  },
 });
+
 const userModel = mongoose.model("user", userSchema);
 export default userModel;

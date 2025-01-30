@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import style from "../../module/Login.module.css";
 function Login() {
   const [email, setEmail] = useState("");
+
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -17,6 +18,9 @@ function Login() {
 
   const handleRegister = async (e) => {
     navigate("/register");
+  };
+  const handlevarify = async () => {
+    navigate("/verifyEmail");
   };
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -108,6 +112,7 @@ function Login() {
             </div>
             <div style={{ marginTop: "20px" }}>
               don't have an account ? <a onClick={handleRegister}>Register</a>
+              verify your email here <a onClick={handlevarify}>ahha</a>
             </div>
           </div>
         </form>

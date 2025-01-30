@@ -1,16 +1,27 @@
 import express from "express";
-import {registerUser,loginUser,logoutUser,getUser, recruiterLogin, savedJobs, getSavedJobs} from "../controller/authController.js";
+import {
+  registerUser,
+  loginUser,
+  logoutUser,
+  getUser,
+  recruiterLogin,
+  verifyEmail,
+  savedJobs,
+  getSavedJobs,
+  otpResend,
+} from "../controller/authController.js";
 import { isLoggedin } from "../middleware/isLoggedIn.js";
 const router = express.Router();
 
-router.get('/getSavedJobs/:id',isLoggedin,getSavedJobs);
-router.post('/register',registerUser)
-router.post('/login', loginUser)
-router.post('recruiterLogin',recruiterLogin);
-router.get('/logout',logoutUser);
-router.post('/recruiterLogin',isLoggedin,recruiterLogin)
-router.get('/getUser',isLoggedin,getUser);
-router.post('/savedJobs/:userId/:jobId',isLoggedin,savedJobs);
-
+router.get("/getSavedJobs/:id", isLoggedin, getSavedJobs);
+router.post("/register", registerUser);
+router.post("/login", loginUser);
+router.post("recruiterLogin", recruiterLogin);
+router.get("/logout", logoutUser);
+router.post("/recruiterLogin", isLoggedin, recruiterLogin);
+router.get("/getUser", isLoggedin, getUser);
+router.post("/savedJobs/:userId/:jobId", isLoggedin, savedJobs);
+router.post("/varifyEmail", verifyEmail);
+router.post("/otpResend", otpResend);
 
 export default router;

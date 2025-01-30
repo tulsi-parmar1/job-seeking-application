@@ -33,6 +33,7 @@ import JobsByType from "./Components/Job/JobsByType.jsx";
 
 import SavedJobsDetails from "./Components/Job/SavedJobsDetails.jsx";
 import ViewApplication from "./Components/application/ViewApplication.jsx";
+import VarifyEmail from "./Components/Auth/VarifyEmail.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -61,6 +62,10 @@ const router = createBrowserRouter([
       {
         path: "savedJobs",
         element: <SavedJobs profile={true}></SavedJobs>,
+      },
+      {
+        path: "verifyEmail",
+        element: <VarifyEmail></VarifyEmail>,
       },
       {
         path: "recruiterlogin",
