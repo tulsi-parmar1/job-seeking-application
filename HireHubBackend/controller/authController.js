@@ -196,8 +196,7 @@ export const getSavedJobs = async (req, res) => {
 export const verifyEmail = async (req, res) => {
   try {
     const { code } = req.body;
-    // Find user by verification code
-    console.log(code);
+
     const user = await userModel.findOne({ verificationCode: code });
 
     // If user does not exist, return response and stop execution
