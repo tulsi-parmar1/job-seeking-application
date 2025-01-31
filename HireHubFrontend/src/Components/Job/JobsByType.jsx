@@ -14,7 +14,9 @@ function JobsByType() {
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   useEffect(() => {
     axios
       .get("http://localhost:4000/api/job/jobtype", {

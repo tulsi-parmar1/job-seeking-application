@@ -31,6 +31,7 @@ function PostJob() {
   const { users } = useSelector((state) => state.user);
   const [value, setValue] = useState("");
   const [value2, setValue2] = useState("");
+
   const handleJobPost = async (e) => {
     setLoader(true);
     e.preventDefault();
@@ -71,7 +72,9 @@ function PostJob() {
       setLoader(false);
     }
   };
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const handleChange = (content) => {
     setValue(content);
     setRequirements(content);

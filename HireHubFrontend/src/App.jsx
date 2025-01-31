@@ -20,7 +20,7 @@ function App() {
           { withCredentials: true }
         );
         dispatch(userAction.setUser(response.data.user));
-        if (response.data.user.isVarified) {
+        if (response.data.user.isVerified) {
           dispatch(userAction.setIsAuthorized(true));
           dispatch(userAction.setIsVerified(true));
         } else {
@@ -37,7 +37,11 @@ function App() {
 
     fetchUser();
   }, []);
-
+  useEffect(() => {
+    if (isAuthorized && isVarified) {
+      navigate("/");
+    }
+  });
   return (
     <>
       <NavBar></NavBar>

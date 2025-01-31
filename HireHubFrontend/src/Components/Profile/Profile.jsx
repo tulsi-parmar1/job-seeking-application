@@ -36,6 +36,9 @@ const Profile = () => {
 
   // Fetch profile and profile picture on component mount
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  useEffect(() => {
     if (!isAuthorized) {
       navigate("/");
     }

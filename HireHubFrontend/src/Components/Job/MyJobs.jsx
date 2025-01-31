@@ -13,6 +13,9 @@ function MyJobs() {
   const [loader, setLoader] = useState(true);
   const navigate = useNavigate();
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  useEffect(() => {
     if (!isAuthorized) {
       navigate("/");
     }

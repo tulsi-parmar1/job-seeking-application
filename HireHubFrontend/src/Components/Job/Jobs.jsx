@@ -32,32 +32,38 @@ function Jobs() {
     console.log(e.target.value);
     setTypeQuery(e.target.value);
   };
-
   useEffect(() => {
-    const fetchJobs = async () => {
-      setLoading(true);
-      try {
-        const res = await axios.get(
-          `http://localhost:4000/api/job/getAll?page=${page}&limit=7`,
-          { withCredentials: true }
-        );
+    window.scrollTo(0, 0);
+  }, []);
+  useEffect(
+    () => {
+      const fetchJobs = async () => {
+        setLoading(true);
+        try {
+          const res = await axios.get(
+            `http://localhost:4000/api/job/getAll?page=${page}&limit=7`,
+            { withCredentials: true }
+          );
 
-        console.log("fetcghed 7 jobs", res.data.jobs);
-        if (jobs.length === 0) {
-          setJobs(res.data.jobs);
-          setLoading(false);
-        } else {
-          setJobs((prevJobs) => [...prevJobs, ...res.data.jobs]); // Append new jobs}
+          console.log("fetcghed 7 jobs", res.data.jobs);
+          if (jobs.length === 0) {
+            setJobs(res.data.jobs);
+            setLoading(false);
+          } else {
+            setJobs((prevJobs) => [...prevJobs, ...res.data.jobs]); // Append new jobs}
+            setLoading(false);
+          }
+          console.log(jobs.length);
+        } catch (error) {
+          toast.error("Failed to fetch jobs");
           setLoading(false);
         }
-        console.log(jobs.length);
-      } catch (error) {
-        toast.error("Failed to fetch jobs");
-        setLoading(false);
-      }
-    };
-    fetchJobs();
-  }, [page]);
+      };
+      fetchJobs();
+    },
+    [page],
+    []
+  );
 
   if (!isAuthorized) {
     navigate("/login");

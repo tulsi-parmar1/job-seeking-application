@@ -204,8 +204,6 @@ export const verifyEmail = async (req, res) => {
       return res.status(400).json({ message: "Invalid otp" });
     }
     if (user.otpExpireAt < new Date()) {
-      user.verificationCode = undefined;
-      await user.save();
       return res
         .status(400)
         .json({ message: "OTP has expired. Please request a new one." });

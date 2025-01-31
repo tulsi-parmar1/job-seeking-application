@@ -100,7 +100,11 @@ function NavBar() {
         }`}
       >
         <div className={style.logo}>
-          <h1>HIREhub</h1>
+          {/* <img src="1-removebg-preview.png" alt="LOGO" /> */}
+          <h1>
+            <span style={{ color: "teal" }}>HIRE</span>
+            <span style={{ fontFamily: "cursive" }}>hub</span>
+          </h1>
         </div>
         <div className={style.menu}>
           {show ? (
