@@ -111,8 +111,14 @@ function Login() {
               />
             </div>
             <div style={{ marginTop: "20px" }}>
-              don't have an account ? <a onClick={handleRegister}>Register</a>
-              verify your email here <a onClick={handlevarify}>ahha</a>
+              <p className={style.register}>
+                Don't have an account ? <a onClick={handleRegister}>Register</a>{" "}
+              </p>
+              <br />
+              <p className={style.verify}>
+                Haven't verified yet? <span></span>
+                <a onClick={handlevarify}>Click here to verify your email.</a>
+              </p>
             </div>
           </div>
         </form>

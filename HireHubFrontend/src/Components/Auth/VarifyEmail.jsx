@@ -12,7 +12,6 @@ function VarifyEmail() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleResendOTP = async () => {
-    console.log(email);
     try {
       const response = await axios.post(
         "http://localhost:4000/api/user/otpResend",
@@ -45,26 +44,62 @@ function VarifyEmail() {
     }
   };
   return (
-    <div>
-      <div>
-        <label>Enter OTPPPP</label>
-        <input
-          type="text"
-          value={code}
-          onChange={(e) => setCode(e.target.value)}
-        />
+    <div className={style.verifyMainConatiner}>
+      <div className={style.verifyContainer}>
+        <div>
+          <label style={{ fontSize: "16px" }}>Enter your OTP:</label> <br />{" "}
+          <span></span>
+          <input
+            style={{
+              marginTop: "10px",
+              backgroundColor: "rgba(128, 128, 128, 0.214)",
+            }}
+            type="text"
+            value={code}
+            onChange={(e) => setCode(e.target.value)}
+          />
+        </div>
+        <div>
+          <input
+            type="submit"
+            onClick={handleVerifyOTP}
+            className={style.lgnbtn}
+            value="Verify OTP"
+            style={{ marginTop: "20px", marginBottom: "20px" }}
+          />
+        </div>
+        <div>
+          <p style={{ fontSize: "15px" }}>
+            Request a new one otp{" "}
+            <a
+              onClick={handleResendOTP}
+              style={{ color: "blue", fontSize: "15px" }}
+            >
+              here
+            </a>{" "}
+          </p>
+        </div>
       </div>
       <div>
-        <input
-          type="submit"
-          onClick={handleVerifyOTP}
-          className={style.lgnbtn}
-          value="Verify OTP"
-        />
+        {/* <img src="verification.jpg" alt="" /> */}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          style={{
+            width: "100%",
+            height: "auto",
+            objectFit: "cover",
+            marginTop: "-650px",
+          }}
+        >
+          <source
+            src=" 69c8fd21bd89f303fd94787ec04acb4a.mp4"
+            type="video/mp4"
+          ></source>
+        </video>
       </div>
-      <p>
-        Request a new one otp <p onClick={handleResendOTP}>here</p>{" "}
-      </p>
     </div>
   );
 }
