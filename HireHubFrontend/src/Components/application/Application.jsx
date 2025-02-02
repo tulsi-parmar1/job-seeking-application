@@ -19,7 +19,7 @@ function Application() {
   const [loader, setLoader] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
-
+  const audio = new Audio("notification.mp3");
   useEffect(() => {
     if (!isAuthorized) {
       navigate("/");
@@ -31,6 +31,7 @@ function Application() {
     if (resumeFile && resumeFile.type === "application/pdf") {
       setResume(resumeFile);
     } else {
+      audio.play();
       toast.error("Only PDF files are accepted for resume.");
     }
   };
@@ -65,6 +66,7 @@ function Application() {
       setEmail("");
       setCoverLetter("");
       setResume(null); // Reset resume to null
+      audio.play();
       toast.success(data.message);
       setLoader(false);
     } catch (error) {

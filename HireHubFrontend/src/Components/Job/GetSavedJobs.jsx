@@ -14,7 +14,7 @@ const GetSavedJobs = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { users } = useSelector((state) => state.user);
-
+  const audio = new Audio("notification.mp3");
   if (!isAuthorized) {
     navigate("/");
   }
@@ -34,6 +34,7 @@ const GetSavedJobs = () => {
         );
         setsavedJobs(data.savedJobs);
       } catch (error) {
+        audio.play();
         toast.error(error);
       }
     };
@@ -49,9 +50,11 @@ const GetSavedJobs = () => {
       );
       if (response.status === 200) {
         setsavedJobs(response.data.savedJobs);
+        audio.play();
         toast.success(response.data.message);
       }
     } catch (error) {
+      audio.play();
       toast.error(error.response.data.message);
     }
   };

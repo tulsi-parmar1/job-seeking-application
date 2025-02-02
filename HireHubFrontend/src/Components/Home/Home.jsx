@@ -3,10 +3,12 @@ import { useNavigate } from "react-router-dom";
 import HeroSection from "./HeroSection";
 import { useEffect } from "react";
 import JobType from "./JobType";
+import { toast } from "react-toastify";
 import LatestJob from "./LatestJob";
 function Home() {
   const { isAuthorized } = useSelector((state) => state.user);
   const navigate = useNavigate();
+  const audio = new Audio("notification.mp3");
   useEffect(() => {
     if (!isAuthorized) {
       navigate("/login");
@@ -24,6 +26,7 @@ function Home() {
         dispatch(userAction.setProfile(data.url));
         console.log(data.url);
       } catch (error) {
+        audio.apply();
         toast.error(error.response.data.message);
       }
     };

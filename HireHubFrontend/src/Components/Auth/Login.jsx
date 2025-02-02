@@ -9,7 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import style from "../../module/Login.module.css";
 function Login() {
   const [email, setEmail] = useState("");
-
+  const audio = new Audio("notification.mp3");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -20,6 +20,16 @@ function Login() {
     navigate("/register");
   };
   const handlevarify = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:4000/api/user/otpResend",
+        { email }
+      );
+    } catch (error) {
+      console.log(error);
+      audio.play();
+      toast.error("Error resending OTP.");
+    }
     navigate("/verifyEmail");
   };
   const handleLogin = async (e) => {
@@ -35,7 +45,9 @@ function Login() {
           },
         }
       );
+      audio.play();
       toast.success(data.message);
+
       const getProfile = async () => {
         try {
           const { data } = await axios.get(
@@ -45,6 +57,7 @@ function Login() {
           setDisplayProfile(data.url);
           dispatch(userAction.setProfile(data.url));
         } catch (error) {
+          audio.play();
           toast.error(error.response.data.message);
         }
       };
@@ -54,7 +67,9 @@ function Login() {
       dispatch(userAction.setIsAuthorized(true));
     } catch (error) {
       console.log(error);
+      audio.play();
       toast.error(error.response.data.message);
+      audio.play();
       dispatch(userAction.setIsAuthorized(false));
     }
   };

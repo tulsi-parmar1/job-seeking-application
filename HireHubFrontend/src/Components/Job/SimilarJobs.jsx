@@ -8,6 +8,7 @@ import JobLayout from "../Home/JobLayout.jsx";
 const SimilarJobs = ({ id }) => {
   const [similarjob, setSimilarJob] = useState([]);
   const [loader, setLoader] = useState(true);
+  const audio = new Audio("notification.mp3");
   useEffect(() => {
     const fetchSimilar = async () => {
       try {
@@ -18,6 +19,7 @@ const SimilarJobs = ({ id }) => {
         setSimilarJob(res.data);
         setLoader(false);
       } catch (error) {
+        audio.play();
         toast.error(error.response.data.message);
         setLoader(false);
       }

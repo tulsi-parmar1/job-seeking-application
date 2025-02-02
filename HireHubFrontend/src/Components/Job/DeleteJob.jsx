@@ -9,7 +9,7 @@ const DeleteJob = () => {
   const { isAuthorized } = useSelector((state) => state.user);
   const { id } = useParams();
   const navigate = useNavigate();
-
+  const audio = new Audio("notification.mp3");
   useEffect(() => {
     const deleteJob = async () => {
       if (!isAuthorized) {
@@ -22,9 +22,11 @@ const DeleteJob = () => {
           `http://localhost:4000/api/job/deleteJob/${id}`,
           { withCredentials: true }
         );
+        audio.play();
         toast.success(data.message);
         navigate("/profile/job/me");
       } catch (error) {
+        audio.play();
         toast.error(error.response?.data?.message || error.message);
       }
     };

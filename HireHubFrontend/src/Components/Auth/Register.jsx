@@ -12,11 +12,11 @@ function Register() {
   const [name, setName] = useState("");
   //   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const audio = new Audio("notification.mp3");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [code, setCode] = useState(""); // ✅ OTP State
-  const [showOTPInput, setShowOTPInput] = useState(false); // ✅ OTP form dikhane ka control
+  const [showOTPInput, setShowOTPInput] = useState(false);
   const { isAuthorized } = useSelector((state) => state.user);
   const { email } = useSelector((state) => state.user);
   const handleLogin = () => {
@@ -35,6 +35,8 @@ function Register() {
           },
         }
       );
+      audio.play();
+      toast.success("user registered successfully!");
       toast.success("otp sent to your email");
       localStorage.setItem("userEmail", email);
       dispatch(userAction.setEmail(email));
@@ -64,80 +66,83 @@ function Register() {
   }, [isAuthorized, navigate]);
   return (
     <>
-      <div className={style.container}>
-        <div className={style.img}>
-          <img src="loginimg.png" alt="logo" />
-        </div>
-        <form action="">
-          <div className={style.inputTag}>
-            <h2 className={style.label} style={{ marginBottom: "20px" }}>
-              {showOTPInput ? "Verify OTP" : "Create new Account"}
-            </h2>
-            {showOTPInput ? (
-              // ✅ OTP Verification Form
-              <>
-                <VarifyEmail></VarifyEmail>
-              </>
-            ) : (
-              <>
-                <div>
-                  <label>name</label>
-                  <input
-                    type="text"
-                    name="name"
-                    id="name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <label>email</label>
-                  <input
-                    type="text"
-                    name="email"
-                    id="email"
-                    value={email}
-                    onChange={(e) =>
-                      dispatch(userAction.setEmail(e.target.value))
-                    }
-                  />
-                </div>
-                <div>
-                  <label>Phone</label>
-                  <input
-                    type="number"
-                    name="phone"
-                    id="phone"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <label>password</label>
-                  <input
-                    type="password"
-                    name="password"
-                    id="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <input
-                    type="submit"
-                    name="submit"
-                    onClick={handleRegister}
-                    className={style.lgnbtn}
-                  />
-                </div>
-              </>
-            )}
-            <div>
-              Already have an Account? <a onClick={handleLogin}>Login</a>
+      {showOTPInput ? (
+        <>
+          <VarifyEmail></VarifyEmail>
+        </>
+      ) : (
+        <>
+          <div className={style.container}>
+            <div className={style.img}>
+              <img src="loginimg.png" alt="logo" />
             </div>
+            <form action="">
+              <div className={style.inputTag}>
+                <h2 className={style.label} style={{ marginBottom: "20px" }}>
+                  Register
+                </h2>
+
+                <>
+                  <div>
+                    <label>name</label>
+                    <input
+                      type="text"
+                      name="name"
+                      id="name"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <label>email</label>
+                    <input
+                      type="text"
+                      name="email"
+                      id="email"
+                      value={email}
+                      onChange={(e) =>
+                        dispatch(userAction.setEmail(e.target.value))
+                      }
+                    />
+                  </div>
+                  <div>
+                    <label>Phone</label>
+                    <input
+                      type="number"
+                      name="phone"
+                      id="phone"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <label>password</label>
+                    <input
+                      type="password"
+                      name="password"
+                      id="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <input
+                      type="submit"
+                      name="submit"
+                      onClick={handleRegister}
+                      className={style.lgnbtn}
+                    />
+                  </div>
+                </>
+
+                <div>
+                  Already have an Account? <a onClick={handleLogin}>Login</a>
+                </div>
+              </div>
+            </form>
           </div>
-        </form>
-      </div>
+        </>
+      )}
     </>
   );
 }

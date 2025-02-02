@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { Link, useNavigate } from "react-router-dom";
 import JobLayout from "../Home/JobLayout";
 import Loader from "../Layout/Loader";
-
+const audio = new Audio("notification.mp3");
 function MyJobs() {
   const { isAuthorized } = useSelector((state) => state.user);
   const [myJobs, setMyJobs] = useState([]);
@@ -28,6 +28,7 @@ function MyJobs() {
         setMyJobs(data.myjob);
         setLoader(false);
       } catch (error) {
+        audio.play();
         toast.error(error.response.data.message);
         setLoader(false);
       }

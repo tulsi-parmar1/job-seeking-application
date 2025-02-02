@@ -13,6 +13,7 @@ function JobDetail() {
   const { id } = useParams(); //new
   const [applicants, setApplicants] = useState([]);
   const [job, setJob] = useState({});
+  const audio = new Audio("notification.mp3");
 
   useEffect(() => {
     if (!isAuthorized) {
@@ -27,6 +28,7 @@ function JobDetail() {
         setApplicants(res.data.applicantsLength);
       })
       .catch((err) => {
+        audio.play();
         toast.error(err.response.data.message);
       });
 

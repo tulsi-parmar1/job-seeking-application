@@ -9,7 +9,7 @@ function MyJobDetail() {
   const { isAuthorized } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const { id } = useParams();
-
+  const audio = new Audio("notification.mp3");
   const [length, setlength] = useState(0);
   const [job, setJob] = useState({});
   useEffect(() => {
@@ -23,6 +23,7 @@ function MyJobDetail() {
         setlength(res.data.applicantsLength);
       })
       .catch((err) => {
+        audio.play();
         toast.error(err.response.data.message);
       });
   }, []);

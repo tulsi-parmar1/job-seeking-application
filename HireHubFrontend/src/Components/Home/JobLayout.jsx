@@ -26,7 +26,7 @@ const JobLayout = ({
   isSavedJobView,
 }) => {
   //when we called observer.observe then it will take last job as argument and call the function which we have declared (const observer))
-
+  const audio = new Audio("notification.mp3");
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       //Observes when a specific element enters or leaves the viewport.
@@ -66,12 +66,14 @@ const JobLayout = ({
       );
       if (response.status === 200) {
         setSaved(response.data.savedJobs);
+        audio.play();
         toast.success(response.data.message);
       }
       if (!response.data.savedJobs.includes(jobId)) {
         onUnsaveJob(jobId); // Invoke the parent function
       }
     } catch (error) {
+      audio.play();
       toast.error(error.response.data.message);
     }
   };
@@ -83,9 +85,11 @@ const JobLayout = ({
           `http://localhost:4000/api/job/deleteJob/${id}`,
           { withCredentials: true }
         );
+        audio.play();
         toast.success(data.message);
         setJobs((prevJobs) => prevJobs.filter((job) => job._id !== id));
       } catch (error) {
+        audio.play();
         toast.error(error.response?.data?.message || error.message);
       }
     }
@@ -104,6 +108,7 @@ const JobLayout = ({
           setSaved(res.data.savedJobs);
         });
     } catch (error) {
+      audio.play();
       toast.error(error);
     }
   }, []);

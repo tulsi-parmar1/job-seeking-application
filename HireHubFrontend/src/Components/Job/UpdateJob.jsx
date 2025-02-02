@@ -8,7 +8,7 @@ import { GrLinkPrevious } from "react-icons/gr";
 import style from "../../module/UpdateJob.module.css";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-
+const audio = new Audio("notification.mp3");
 const UpdateJob = () => {
   const [job, setJob] = useState({});
   const [loader, setLoader] = useState(false);
@@ -64,6 +64,7 @@ const UpdateJob = () => {
         setJob(jobData); // Set the fetched job data to the state
       })
       .catch((err) => {
+        audio.play();
         toast.error(err.response.data.message);
       });
   }, []);
@@ -79,10 +80,12 @@ const UpdateJob = () => {
         updateJob,
         { withCredentials: true }
       );
+      audio.play();
       toast.success(data.message);
       navigate(`/profile/job/me/${jobId}`);
       setLoader(false);
     } catch (error) {
+      audio.play();
       toast.error(error.response?.data?.message || error.message);
       setLoader(false);
     }

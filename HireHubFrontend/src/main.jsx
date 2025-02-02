@@ -5,6 +5,7 @@ import "./App2.css";
 import Login from "./Components/Auth/Login";
 import Register from "./Components/Auth/Register";
 import { ToastContainer } from "react-toastify";
+import toast, { Toaster } from "react-hot-toast";
 import "react-toastify/dist/ReactToastify.css";
 import Home from "./Components/Home/Home";
 import JobDetail from "./Components/Job/JobDetail";

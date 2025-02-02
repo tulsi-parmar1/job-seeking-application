@@ -53,7 +53,6 @@ const registeruser = async (req, res) => {
 
           sendVerificationCode(email, verificationCode);
           let token = generateToken(newuser);
-
           res.cookie("token", token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",

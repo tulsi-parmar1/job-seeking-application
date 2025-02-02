@@ -11,7 +11,7 @@ const ViewApplication = () => {
   const [applicants, setApplicants] = useState([]);
   const { id } = useParams();
   const navigate = useNavigate();
-
+  const audio = new Audio("notification.mp3");
   useEffect(() => {
     const fetchApplicants = async () => {
       try {
@@ -22,7 +22,8 @@ const ViewApplication = () => {
         setApplicants(data);
         console.log(data);
       } catch (error) {
-        alert(error);
+        audio.play();
+        toast.error(error.message);
       }
     };
 
@@ -42,9 +43,10 @@ const ViewApplication = () => {
         setApplicants((prevApplications) =>
           prevApplications.filter((application) => application._id !== idd)
         );
-
+        audio.play();
         toast.success(data.message);
       } catch (error) {
+        audio.play();
         toast.error("Failed to delete application.");
       }
     }

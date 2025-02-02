@@ -31,7 +31,7 @@ function PostJob() {
   const { users } = useSelector((state) => state.user);
   const [value, setValue] = useState("");
   const [value2, setValue2] = useState("");
-
+  const audio = new Audio("notification.mp3");
   const handleJobPost = async (e) => {
     setLoader(true);
     e.preventDefault();
@@ -63,11 +63,13 @@ function PostJob() {
           },
         }
       );
+      audio.play();
       toast.success(data.message);
       navigate("/profile/job/me");
       setLoader(false);
     } catch (error) {
       console.log(error);
+      audio.play();
       toast.error(error.response.data.message);
       setLoader(false);
     }

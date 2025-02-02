@@ -11,6 +11,7 @@ const SavedJobs = ({ profile }) => {
   const navigate = useNavigate();
   const [loader, setloader] = useState(true);
   const { users } = useSelector((state) => state.user);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);

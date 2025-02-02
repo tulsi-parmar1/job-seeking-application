@@ -12,7 +12,7 @@ const ViewApplication = () => {
   const [applicants, setApplicants] = useState([]);
   const [error, setError] = useState(null);
   const { id } = useParams();
-
+  const audio = new Audio("notification.mp3");
   const location = useLocation();
 
   const { forMargin } = location.state;
@@ -47,9 +47,10 @@ const ViewApplication = () => {
           prevApplications.filter((application) => application._id !== idd)
         );
         // applicationAction.setApplication(applicants.length)
-
+        audio.play();
         toast.success(data.message);
       } catch (error) {
+        audio.play();
         toast.error("Failed to delete application.");
       }
     }

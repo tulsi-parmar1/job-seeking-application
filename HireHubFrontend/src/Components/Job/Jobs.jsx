@@ -18,7 +18,7 @@ function Jobs() {
   const [typeQuery, setTypeQuery] = useState("");
   const [loading, setLoading] = useState(true);
   const [page, setpage] = useState(1);
-
+  const audio = new Audio("notification.mp3");
   // Handle search for job title
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);
@@ -55,6 +55,7 @@ function Jobs() {
           }
           console.log(jobs.length);
         } catch (error) {
+          audio.play();
           toast.error("Failed to fetch jobs");
           setLoading(false);
         }

@@ -10,6 +10,7 @@ function VarifyEmail() {
   const email = localStorage.getItem("userEmail");
   const [code, setCode] = useState("");
   const dispatch = useDispatch();
+  const audio = new Audio("notification.mp3");
   const navigate = useNavigate();
   const handleResendOTP = async () => {
     try {
@@ -34,12 +35,16 @@ function VarifyEmail() {
           headers: { "Content-Type": "application/json" },
         }
       );
-
+      audio.play();
       toast.success("Email verified successfully");
       dispatch(userAction.setIsAuthorized(true));
+      dispatch(userAction.setIsVerified(true));
+      navigate("/");
     } catch (error) {
       console.log(error);
+      audio.play();
       toast.error(error.response?.data?.message || "Invalid OTP");
+      dispatch(userAction.setIsVerified(false));
       dispatch(userAction.setIsAuthorized(false));
     }
   };
@@ -81,7 +86,6 @@ function VarifyEmail() {
         </div>
       </div>
       <div>
-        {/* <img src="verification.jpg" alt="" /> */}
         <video
           autoPlay
           loop
