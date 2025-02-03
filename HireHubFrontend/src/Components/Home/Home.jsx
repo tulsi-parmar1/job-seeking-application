@@ -6,7 +6,8 @@ import JobType from "./JobType";
 import { toast } from "react-toastify";
 import LatestJob from "./LatestJob";
 function Home() {
-  const { isAuthorized } = useSelector((state) => state.user);
+  // const { isAuthorized } = useSelector((state) => state.user);
+  const isAuthorized = localStorage.getItem("isAuthorized") === "true";
   const navigate = useNavigate();
   const audio = new Audio("notification.mp3");
   useEffect(() => {

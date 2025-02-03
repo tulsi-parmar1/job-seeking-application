@@ -8,7 +8,8 @@ import { userAction } from "../../Slices/userSlice";
 import "react-toastify/dist/ReactToastify.css";
 
 const GetSavedJobs = () => {
-  const { isAuthorized } = useSelector((state) => state.user);
+  // const { isAuthorized } = useSelector((state) => state.user);
+  const isAuthorized = localStorage.getItem("isAuthorized") === "true";
   const [savedJobs, setsavedJobs] = useState([]);
 
   const navigate = useNavigate();

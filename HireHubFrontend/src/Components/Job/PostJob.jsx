@@ -22,15 +22,17 @@ function PostJob() {
   const [requirements, setRequirements] = useState("");
   const [responsibilities, setResponsibilities] = useState("");
   const [contactEmail, setContactEmail] = useState("");
-  const [deadline, setDeadline] = useState(false);
+
   const [categories, setCategories] = useState("");
   const [logo, setLogo] = useState(null);
-  const [bullet, setBullet] = useState(false);
+
   const [loader, setLoader] = useState(false);
-  const { isAuthorized } = useSelector((state) => state.user);
+  // const { isAuthorized } = useSelector((state) => state.user);
+  const isAuthorized = localStorage.getItem("isAuthorized") === "true";
   const { users } = useSelector((state) => state.user);
   const [value, setValue] = useState("");
   const [value2, setValue2] = useState("");
+  const [value3, setValue3] = useState("");
   const audio = new Audio("notification.mp3");
   const handleJobPost = async (e) => {
     setLoader(true);
@@ -46,7 +48,7 @@ function PostJob() {
     formData.append("salaryRangeMax", salaryMax);
     formData.append("requirements", requirements);
     formData.append("responsibilities", responsibilities);
-    formData.append("deadline", deadline);
+
     formData.append("contactEmail", contactEmail);
     if (logo) {
       formData.append("logo", logo);
@@ -85,6 +87,10 @@ function PostJob() {
     setValue2(content);
     setResponsibilities(content);
   };
+  const handleChange3 = (content) => {
+    setValue3(content);
+    setDescription(content);
+  };
   const handlefilechange = (e) => {
     const logo2 = e.target.files[0];
     setLogo(logo2);
@@ -94,10 +100,12 @@ function PostJob() {
       navigate("/login");
       return null; // Ensure the component doesn't render before navigation
     }
-    if (!users.role || users.role != "recruiter") {
-      navigate("/recruiterlogin");
+    if (users && users.role) {
+      if (users.role !== "recruiter") {
+        navigate("/recruiterlogin");
+      }
     }
-  }, []);
+  }, [users, navigate]);
   return (
     <>
       <div className={style.job_post_page}>
@@ -123,14 +131,21 @@ function PostJob() {
                 placeholder="Title"
               />
             </div>
+            <p style={{ float: "left" }}>description</p>
             <div className="wrapper">
-              <input
+              <ReactQuill
+                value={value3}
+                onChange={handleChange3}
+                placeholder="description ..."
+              />
+            </div>
+            {/* <input
                 type="text"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="Description"
-              />
-            </div>
+              /> */}
+
             <div className="wrapper">
               <input
                 type="text"
@@ -217,21 +232,6 @@ function PostJob() {
                 value={contactEmail}
                 onChange={(e) => setContactEmail(e.target.value)}
                 placeholder="Contact Email"
-              />
-            </div>
-            <div className="wrapper">
-              <input
-                type="text"
-                value={deadline}
-                onChange={(e) => setDeadline(e.target.value)}
-                placeholder="dedline"
-              />
-            </div>
-            <div className="wrapper">
-              <input
-                type="checkbox"
-                checked={deadline}
-                onChange={(e) => setDeadline(e.target.checked)}
               />
             </div>
 

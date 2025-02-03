@@ -42,6 +42,9 @@ const RecruiterLogin = () => {
     if (!isAuthorized) {
       navigate("/");
     }
+    if (users.role === "recruiter") {
+      navigate("/job/post");
+    }
   }, []);
   return (
     <>

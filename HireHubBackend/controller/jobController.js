@@ -39,6 +39,7 @@ export const postJob = async (req, res) => {
     deadline,
     contactEmail,
   } = req.body;
+
   if (!title || !description || !company || !location || !categories) {
     return res.status(401).json({
       success: false,

@@ -12,8 +12,6 @@ function JobsByType() {
     internship: [],
     remoteJob: [],
   });
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);

@@ -38,6 +38,8 @@ function VarifyEmail() {
       audio.play();
       toast.success("Email verified successfully");
       dispatch(userAction.setIsAuthorized(true));
+      localStorage.setItem("isAuthorized", true);
+      localStorage.setItem("setShowOtpInput", false);
       dispatch(userAction.setIsVerified(true));
       navigate("/");
     } catch (error) {
@@ -45,6 +47,7 @@ function VarifyEmail() {
       audio.play();
       toast.error(error.response?.data?.message || "Invalid OTP");
       dispatch(userAction.setIsVerified(false));
+      localStorage.setItem("isAuthorized", false);
       dispatch(userAction.setIsAuthorized(false));
     }
   };

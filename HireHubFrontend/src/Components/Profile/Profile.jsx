@@ -14,7 +14,8 @@ import { FaBookmark } from "react-icons/fa";
 import Loader from "../Layout/Loader.jsx";
 
 const Profile = () => {
-  const { isAuthorized } = useSelector((state) => state.user);
+  // const { isAuthorized } = useSelector((state) => state.user);
+  const isAuthorized = localStorage.getItem("isAuthorized") === "true";
   const [degree, setDegree] = useState("");
   const [tenth, setTenth] = useState("");
   const [twelth, setTwelth] = useState("");
@@ -26,6 +27,7 @@ const Profile = () => {
   const [etwelth, setETwelth] = useState("");
   const [skills, setSkills] = useState("");
   const [about, setAbout] = useState("");
+  const audio = new Audio("notification.mp3");
   const [hidden, setHidden] = useState(true);
   const { users } = useSelector((state) => state.user);
   const [profile, setProfile] = useState();
@@ -35,14 +37,18 @@ const Profile = () => {
   const dispatch = useDispatch();
 
   // Fetch profile and profile picture on component mount
+  useEffect(
+    () => {
+      if (!isAuthorized) {
+        navigate("/login");
+        return;
+      }
+      window.scrollTo(0, 0);
+    },
+    [isAuthorized],
+    []
+  );
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-  useEffect(() => {
-    if (!isAuthorized) {
-      navigate("/");
-    }
-
     const getInfo = async () => {
       try {
         const { data } = await axios.get(
@@ -78,6 +84,7 @@ const Profile = () => {
         dispatch(userAction.setProfile(data.url));
         console.log(data.url);
       } catch (error) {
+        audio.play();
         toast.error(error.response.data.message);
       }
     };
@@ -111,6 +118,7 @@ const Profile = () => {
           withCredentials: true,
         }
       );
+      audio.play();
       toast.success(response.data.message);
 
       // Update the profile state with the new data after submission
@@ -137,6 +145,7 @@ const Profile = () => {
         about: about,
       }));
     } catch (error) {
+      audio.play();
       toast.error(error.response.data.message);
     }
   };
@@ -160,9 +169,11 @@ const Profile = () => {
         );
         setLoader(false);
         dispatch(userAction.setProfile(response.data.profile));
+        audio.play();
         toast.success(response.data.message);
         dispatch(userAction.setUser(response.data.user));
       } catch (error) {
+        audio.play();
         toast.error(error.response.data.message);
       }
     }

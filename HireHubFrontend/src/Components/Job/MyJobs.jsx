@@ -8,7 +8,8 @@ import JobLayout from "../Home/JobLayout";
 import Loader from "../Layout/Loader";
 const audio = new Audio("notification.mp3");
 function MyJobs() {
-  const { isAuthorized } = useSelector((state) => state.user);
+  // const { isAuthorized } = useSelector((state) => state.user);
+  const isAuthorized = localStorage.getItem("isAuthorized") === "true";
   const [myJobs, setMyJobs] = useState([]);
   const [loader, setLoader] = useState(true);
   const navigate = useNavigate();

@@ -6,7 +6,8 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const DeleteJob = () => {
-  const { isAuthorized } = useSelector((state) => state.user);
+  // const { isAuthorized } = useSelector((state) => state.user);
+  const isAuthorized = localStorage.getItem("isAuthorized") === "true";
   const { id } = useParams();
   const navigate = useNavigate();
   const audio = new Audio("notification.mp3");

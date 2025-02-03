@@ -140,13 +140,13 @@
 .noneNavbar {
   display: none;
 }
-/* .navbar img {
+.navbar img {
   height: 40px;
   width: 40px;
   object-fit: cover;
   border-radius: 50%;
   border: 2px solid rgb(29, 146, 185);
-} */
+}
 .logoutbtn {
   background-color: white;
   height: 40px;

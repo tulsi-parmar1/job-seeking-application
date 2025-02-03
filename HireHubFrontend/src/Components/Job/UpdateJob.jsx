@@ -12,7 +12,8 @@ const audio = new Audio("notification.mp3");
 const UpdateJob = () => {
   const [job, setJob] = useState({});
   const [loader, setLoader] = useState(false);
-  const { isAuthorized } = useSelector((state) => state.user);
+  // const { isAuthorized } = useSelector((state) => state.user);
+  const isAuthorized = localStorage.getItem("isAuthorized") === "true";
   const { id } = useParams();
   const navigate = useNavigate();
 

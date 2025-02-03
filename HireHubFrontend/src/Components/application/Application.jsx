@@ -8,7 +8,8 @@ import "react-toastify/dist/ReactToastify.css";
 import Loader from "../Layout/Loader.jsx";
 
 function Application() {
-  const { isAuthorized } = useSelector((state) => state.user);
+  // const { isAuthorized } = useSelector((state) => state.user);
+  const isAuthorized = localStorage.getItem("isAuthorized") === "true";
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");

@@ -1,149 +1,135 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 import VarifyEmail from "./VarifyEmail";
 import { toast } from "react-toastify";
 import { userAction } from "../../Slices/userSlice";
 import "react-toastify/dist/ReactToastify.css";
 import style from "../../module/Login.module.css";
+
 function Register() {
   const [name, setName] = useState("");
-  //   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const audio = new Audio("notification.mp3");
   const [password, setPassword] = useState("");
+  const [showOTPInput, setShowOTPInput] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [showOTPInput, setShowOTPInput] = useState(false);
-  const { isAuthorized } = useSelector((state) => state.user);
-  const { email } = useSelector((state) => state.user);
-  const handleLogin = () => {
-    navigate("/login");
-  };
-  const handleRegister = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post(
-        "http://localhost:4000/api/user/register",
-        { name, email, phone, password },
-        {
-          withCredentials: true,
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      audio.play();
-      toast.success("user registered successfully!");
-      toast.success("otp sent to your email");
-      localStorage.setItem("userEmail", email);
-      dispatch(userAction.setEmail(email));
-      setShowOTPInput(true);
-    } catch (error) {
-      if (error.response) {
-        if (error.response.status === 400 && error.response.data.errors) {
-          // Show validation errors
-          toast.error(error.response.data.errors.join("\n"));
-        } else {
-          toast.error(error.response.data.message);
-        }
-      } else if (error.request) {
-        toast.error("no response from server");
-      } else {
-        // Something else happened in setting up the request
-        toast.error("Error in setting up request");
-      }
-      console.log(error);
-    }
-  };
+  const { isAuthorized, email } = useSelector((state) => state.user);
+
+  // Load OTP input state from localStorage when component mounts
+  useEffect(() => {
+    const otpInput = localStorage.getItem("setShowOtpInput") === "true";
+    setShowOTPInput(otpInput);
+  }, []);
 
   useEffect(() => {
     if (isAuthorized) {
       navigate("/");
     }
   }, [isAuthorized, navigate]);
+
+  const handleLogin = () => {
+    navigate("/login");
+  };
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post(
+        "http://localhost:4000/api/user/register",
+        { name, email, phone, password },
+        {
+          withCredentials: true,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
+      toast.success("User registered successfully!");
+      toast.success("OTP sent to your email");
+
+      localStorage.setItem("userEmail", email);
+      dispatch(userAction.setEmail(email));
+
+      setShowOTPInput(true);
+      localStorage.setItem("setShowOtpInput", "true");
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Something went wrong");
+    }
+  };
+
   return (
     <>
       {showOTPInput ? (
-        <>
-          <VarifyEmail></VarifyEmail>
-        </>
+        <VarifyEmail />
       ) : (
-        <>
-          <div className={style.container}>
-            <div className={style.img}>
-              <img src="loginimg.png" alt="logo" />
-            </div>
-            <form action="">
-              <div className={style.inputTag}>
-                <h2 className={style.label} style={{ marginBottom: "20px" }}>
-                  Register
-                </h2>
-
-                <>
-                  <div>
-                    <label>name</label>
-                    <input
-                      type="text"
-                      name="name"
-                      id="name"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                    />
-                  </div>
-                  <div>
-                    <label>email</label>
-                    <input
-                      type="text"
-                      name="email"
-                      id="email"
-                      value={email}
-                      onChange={(e) =>
-                        dispatch(userAction.setEmail(e.target.value))
-                      }
-                    />
-                  </div>
-                  <div>
-                    <label>Phone</label>
-                    <input
-                      type="number"
-                      name="phone"
-                      id="phone"
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                    />
-                  </div>
-                  <div>
-                    <label>password</label>
-                    <input
-                      type="password"
-                      name="password"
-                      id="password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                    />
-                  </div>
-                  <div>
-                    <input
-                      type="submit"
-                      name="submit"
-                      onClick={handleRegister}
-                      className={style.lgnbtn}
-                    />
-                  </div>
-                </>
-
-                <div>
-                  Already have an Account? <a onClick={handleLogin}>Login</a>
-                </div>
-              </div>
-            </form>
+        <div className={style.container}>
+          <div className={style.img}>
+            <img src="loginimg.png" alt="logo" />
           </div>
-        </>
+          <form onSubmit={handleRegister}>
+            <div className={style.inputTag}>
+              <h2 className={style.label} style={{ marginBottom: "20px" }}>
+                Register
+              </h2>
+              <div>
+                <label>Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </div>
+              <div>
+                <label>Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  value={email}
+                  onChange={(e) =>
+                    dispatch(userAction.setEmail(e.target.value))
+                  }
+                />
+              </div>
+              <div>
+                <label>Phone</label>
+                <input
+                  type="number"
+                  name="phone"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                />
+              </div>
+              <div>
+                <label>Password</label>
+                <input
+                  type="password"
+                  name="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+              <div>
+                <input
+                  type="submit"
+                  name="submit"
+                  onClick={handleRegister}
+                  className={style.lgnbtn}
+                />
+              </div>
+              <div>
+                Already have an account?{" "}
+                <a onClick={handleLogin} style={{ cursor: "pointer" }}>
+                  Login
+                </a>
+              </div>
+            </div>
+          </form>
+        </div>
       )}
     </>
   );
 }
+
 export default Register;

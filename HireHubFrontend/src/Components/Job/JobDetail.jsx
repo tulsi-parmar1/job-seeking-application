@@ -8,7 +8,8 @@ import JobDetailSub from "./JobDetailSub";
 import SimilarJobs from "./SimilarJobs";
 import style from "../../module/JobDetail.module.css";
 function JobDetail() {
-  const { isAuthorized } = useSelector((state) => state.user);
+  // const { isAuthorized } = useSelector((state) => state.user);
+  const isAuthorized = localStorage.getItem("isAuthorized") === "true";
   const navigate = useNavigate();
   const { id } = useParams(); //new
   const [applicants, setApplicants] = useState([]);

@@ -37,8 +37,6 @@ function NavBar() {
   useEffect(() => {
     const fetchUserDataAndProfile = async () => {
       try {
-        console.log(userId);
-        console.log(users);
         const profileResponse = await axios.get(
           `http://localhost:4000/api/profile/getProfile`,
           { withCredentials: true }
@@ -46,7 +44,7 @@ function NavBar() {
 
         setDisplayProfile(profileResponse.data.url);
         dispatch(userAction.setProfile(profileResponse.data.url));
-        console.log(profileResponse.data.url);
+        console.log("profileeee", profileResponse.data.url);
       } catch (err) {
         console.error("Error fetching data:", err);
         console.log(err);
@@ -80,6 +78,7 @@ function NavBar() {
       dispatch(userAction.setIsAuthorized(false));
       dispatch(userAction.setUser(""));
       dispatch(userAction.setProfile(""));
+      localStorage.setItem("isAuthorized", false);
       navigate("/login");
     } catch (err) {
       console.log(response.data);

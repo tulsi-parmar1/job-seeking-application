@@ -17,12 +17,11 @@ const JobDetailSub = ({ job, applicants, id }) => {
   const navigate = useNavigate();
   const [saved, setSaved] = useState([]);
   const dispatch = useDispatch();
-  const audio = new Audio("notification.mp3");
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
   const { users } = useSelector((state) => state.user);
-  console.log(users);
   const toggleSaveJob = async (jobId) => {
     try {
       const response = await axios.post(
@@ -32,11 +31,9 @@ const JobDetailSub = ({ job, applicants, id }) => {
       );
       if (response.status === 200) {
         setSaved(response.data.savedJobs);
-        audio.play();
         toast.success(response.data.message);
       }
     } catch (error) {
-      audio.play();
       toast.error(error.response.data.message);
     }
   };
@@ -52,7 +49,6 @@ const JobDetailSub = ({ job, applicants, id }) => {
           setSaved(res.data.savedJobs);
         });
     } catch (error) {
-      audio.play();
       toast.error(error);
     }
   }, []);

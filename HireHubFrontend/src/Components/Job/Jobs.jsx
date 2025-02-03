@@ -1,5 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -11,8 +10,8 @@ import Loader from "../Layout/Loader";
 function Jobs() {
   const [jobs, setJobs] = useState([]);
   const navigate = useNavigate();
-
-  const { isAuthorized } = useSelector((state) => state.user);
+  // const { isAuthorized } = useSelector((state) => state.user);
+  const isAuthorized = localStorage.getItem("isAuthorized") === "true";
   const [searchQuery, setSearchQuery] = useState(""); // For job title
   const [locationQuery, setLocationQuery] = useState(""); // For job location
   const [typeQuery, setTypeQuery] = useState("");
@@ -37,6 +36,10 @@ function Jobs() {
   }, []);
   useEffect(
     () => {
+      if (!isAuthorized) {
+        navigate("/login");
+        return;
+      }
       const fetchJobs = async () => {
         setLoading(true);
         try {
@@ -63,12 +66,9 @@ function Jobs() {
       fetchJobs();
     },
     [page],
+    [isAuthorized],
     []
   );
-
-  if (!isAuthorized) {
-    navigate("/login");
-  }
 
   // Filter jobs by both title and location
   const filteredJobs = jobs.filter((job) => {

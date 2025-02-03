@@ -12,31 +12,37 @@ function App() {
   const { isVarified } = useSelector((state) => state.user);
   const { isAuthorized } = useSelector((state) => state.user);
   const navigate = useNavigate();
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:4000/api/user/getUser",
-          { withCredentials: true }
-        );
-        dispatch(userAction.setUser(response.data.user));
-        dispatch(userAction.setIsAuthorized(true));
-        if (response.data.user.isVerified) {
-          dispatch(userAction.setIsVerified(true));
-        } else {
+  useEffect(
+    () => {
+      const fetchUser = async () => {
+        try {
+          const response = await axios.get(
+            "http://localhost:4000/api/user/getUser",
+            { withCredentials: true }
+          );
+          dispatch(userAction.setUser(response.data.user));
+          console.log(response.data.user);
+          if (response.data.user.isVerified) {
+            dispatch(userAction.setIsVerified(true));
+            localStorage.setItem("isAuthorized", true);
+            dispatch(userAction.setIsAuthorized(true));
+          } else {
+            dispatch(userAction.setIsVerified(false));
+            localStorage.setItem("isAuthorized", false);
+            dispatch(userAction.setIsAuthorized(false));
+          }
+        } catch (err) {
+          console.error("Error fetching user:", err); // Handle error
           dispatch(userAction.setIsAuthorized(false));
-          dispatch(userAction.setIsVerified(false));
+          localStorage.setItem("isAuthorized", false);
         }
+      };
 
-        console.log(response.data.user);
-      } catch (err) {
-        console.error("Error fetching user:", err); // Handle error
-        dispatch(userAction.setIsAuthorized(false));
-      }
-    };
-
-    fetchUser();
-  }, []);
+      fetchUser();
+    },
+    [dispatch],
+    []
+  );
 
   useEffect(() => {
     if (isAuthorized && isVarified) {

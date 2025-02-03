@@ -14,8 +14,8 @@ function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [displayProfile, setDisplayProfile] = useState("");
-  const { isAuthorized } = useSelector((state) => state.user);
-
+  // const { isAuthorized } = useSelector((state) => state.user);
+  const isAuthorized = localStorage.getItem("isAuthorized") === "true";
   const handleRegister = async (e) => {
     navigate("/register");
   };
@@ -46,6 +46,7 @@ function Login() {
         }
       );
       audio.play();
+      localStorage.setItem("isAuthorized", true);
       toast.success(data.message);
 
       const getProfile = async () => {
@@ -55,6 +56,7 @@ function Login() {
             { withCredentials: true }
           );
           setDisplayProfile(data.url);
+          console.log("data", data);
           dispatch(userAction.setProfile(data.url));
         } catch (error) {
           audio.play();
