@@ -19,19 +19,7 @@ function Login() {
   const handleRegister = async (e) => {
     navigate("/register");
   };
-  const handlevarify = async () => {
-    try {
-      const response = await axios.post(
-        "http://localhost:4000/api/user/otpResend",
-        { email }
-      );
-    } catch (error) {
-      console.log(error);
-      audio.play();
-      toast.error("Error resending OTP.");
-    }
-    navigate("/verifyEmail");
-  };
+
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
@@ -132,10 +120,6 @@ function Login() {
                 Don't have an account ? <a onClick={handleRegister}>Register</a>{" "}
               </p>
               <br />
-              <p className={style.verify}>
-                Haven't verified yet? <span></span>
-                <a onClick={handlevarify}>Click here to verify your email.</a>
-              </p>
             </div>
           </div>
         </form>
