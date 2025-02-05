@@ -17,13 +17,17 @@ const JobDetailSub = ({ job, applicants, id }) => {
   const navigate = useNavigate();
   const [saved, setSaved] = useState([]);
   const dispatch = useDispatch();
-
+  const isAuthorized = localStorage.getItem("isAuthorized") === "true";
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
   const { users } = useSelector((state) => state.user);
   const toggleSaveJob = async (jobId) => {
     try {
+      console.log(isAuthorized);
+      if (!isAuthorized) {
+        return navigate("/login");
+      }
       const response = await axios.post(
         `http://localhost:4000/api/user/savedJobs/${users._id}/${jobId}`,
         {},

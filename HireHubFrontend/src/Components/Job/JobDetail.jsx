@@ -17,9 +17,9 @@ function JobDetail() {
   const audio = new Audio("notification.mp3");
 
   useEffect(() => {
-    if (!isAuthorized) {
-      return navigate("/login");
-    }
+    // if (!isAuthorized) {
+    //   return navigate("/login");
+    // }
 
     // Fetch the job details based on the job ID
     axios

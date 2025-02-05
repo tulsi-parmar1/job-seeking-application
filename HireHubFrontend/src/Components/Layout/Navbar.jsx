@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { IoClose } from "react-icons/io5";
 import { TfiMenu } from "react-icons/tfi";
 import { userAction } from "../../Slices/userSlice";
+import { toast } from "react-toastify";
 
 import style from "../../module/Navbar.module.css";
 import { useEffect } from "react";
@@ -78,8 +79,11 @@ function NavBar() {
       dispatch(userAction.setIsAuthorized(false));
       dispatch(userAction.setUser(""));
       dispatch(userAction.setProfile(""));
+
+      toast.success("logged out successfully");
+
       localStorage.setItem("isAuthorized", false);
-      navigate("/login");
+      navigate("/");
     } catch (err) {
       console.log(response.data);
       dispatch(userAction.setIsAuthorized(true));
@@ -93,11 +97,7 @@ function NavBar() {
   };
   return (
     <>
-      <nav
-        className={`${style.navbar} ${scrolling ? style.onscroll : ""} ${
-          !isAuthorized && style.noneNavbar
-        }`}
-      >
+      <nav className={`${style.navbar} ${scrolling ? style.onscroll : ""}`}>
         <div className={style.logo}>
           {/* <img src="1-removebg-preview.png" alt="LOGO" /> */}
           <h1>
@@ -148,9 +148,19 @@ function NavBar() {
               <button onClick={handlepostjob} className={style.postjob}>
                 Post Job
               </button>
-              <button onClick={handleLogout} className={style.logoutbtn}>
-                Logout
-              </button>
+              {isAuthorized && (
+                <button onClick={handleLogout} className={style.logoutbtn}>
+                  Logout
+                </button>
+              )}
+              {!isAuthorized && (
+                <button
+                  onClick={() => navigate("/login")}
+                  className={style.logoutbtn}
+                >
+                  Login
+                </button>
+              )}
             </div>
           </ul>
         </div>

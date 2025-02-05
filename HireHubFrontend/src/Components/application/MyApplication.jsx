@@ -9,7 +9,7 @@ import { GrLinkPrevious } from "react-icons/gr";
 
 const ViewApplication = () => {
   const [applicants, setApplicants] = useState([]);
-  const { id } = useParams();
+
   const navigate = useNavigate();
   const audio = new Audio("notification.mp3");
   useEffect(() => {
@@ -23,12 +23,12 @@ const ViewApplication = () => {
         console.log(data);
       } catch (error) {
         audio.play();
-        toast.error(error.message);
+        console.log(error, "because user is not login");
       }
     };
 
     fetchApplicants();
-  }, [id]);
+  }, []);
 
   const deleteApplication = async (idd) => {
     const result = confirm("Are you sure you want to delete?");
@@ -62,91 +62,99 @@ const ViewApplication = () => {
   };
 
   return (
-    <div className={`${style.applicants}`} style={{ marginTop: "-1px" }}>
-      <GrLinkPrevious
-        style={{ fontSize: "30px", marginLeft: "100px" }}
-        className={style.previous}
-        onClick={() => window.history.back()}
-      />
-      <ul>
-        {applicants.map((applicant, index) => (
-          <li key={index}>
-            <div style={{ display: "flex", gap: "50px" }}>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "10px",
-                }}
-              >
-                <h3 style={{ color: "#088395" }}>
-                  {applicant.firstName} {applicant.lastName}
-                </h3>
-                <p>
-                  Email:{" "}
-                  <span style={{ fontSize: "16px" }}> {applicant.email}</span>
-                </p>
-                <p>
-                  Contact Number:{" "}
-                  <span style={{ fontSize: "16px" }}>
-                    {" "}
-                    {applicant.contactNumber}
-                  </span>
-                </p>
-                <p>
-                  Current City:{" "}
-                  <span style={{ fontSize: "16px" }}>
-                    {" "}
-                    {applicant.currentCity}
-                  </span>
-                </p>
-                <p>
-                  Cover Letter:{" "}
-                  <span style={{ fontSize: "16px" }}>
-                    {" "}
-                    {applicant.coverLetter}
-                  </span>
-                </p>
-                <div className={style.btn}>
-                  <MdDelete
-                    onClick={() => deleteApplication(applicant._id)}
-                    style={{ fontSize: "40px" }}
-                  />
-                </div>
-              </div>
+    <div>
+      {applicants.length <= 0 ? (
+        <h1>No applications</h1>
+      ) : (
+        <div className={`${style.applicants}`} style={{ marginTop: "-1px" }}>
+          <GrLinkPrevious
+            style={{ fontSize: "30px", marginLeft: "100px" }}
+            className={style.previous}
+            onClick={() => window.history.back()}
+          />
+          <ul>
+            {applicants.map((applicant, index) => (
+              <li key={index}>
+                <div style={{ display: "flex", gap: "50px" }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "10px",
+                    }}
+                  >
+                    <h3 style={{ color: "#088395" }}>
+                      {applicant.firstName} {applicant.lastName}
+                    </h3>
+                    <p>
+                      Email:{" "}
+                      <span style={{ fontSize: "16px" }}>
+                        {applicant.email}
+                      </span>
+                    </p>
+                    <p>
+                      Contact Number:{" "}
+                      <span style={{ fontSize: "16px" }}>
+                        {applicant.contactNumber}
+                      </span>
+                    </p>
+                    <p>
+                      Current City:{" "}
+                      <span style={{ fontSize: "16px" }}>
+                        {applicant.currentCity}
+                      </span>
+                    </p>
+                    <p>
+                      Cover Letter:{" "}
+                      <span style={{ fontSize: "16px" }}>
+                        {applicant.coverLetter}
+                      </span>
+                    </p>
+                    <div className={style.btn}>
+                      <MdDelete
+                        onClick={() => deleteApplication(applicant._id)}
+                        style={{ fontSize: "40px" }}
+                      />
+                    </div>
+                  </div>
 
-              <div>
-                <iframe
-                  src={`http://localhost:4000/${applicant.resume}`}
-                  height="200px"
-                  title="Resume PDF"
-                ></iframe>
-                <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
-                  <button
-                    onClick={() => {
-                      handleResumeClick(
-                        `http://localhost:4000/${applicant.resume}`
-                      );
-                    }}
-                    className={style.resumeFullimg}
-                  >
-                    View Full Resume
-                  </button>
-                  <button
-                    onClick={() => {
-                      handleJobDetailClick(applicant.job._id); // Pass the clicked job ID
-                    }}
-                    className={style.resumeFullimg}
-                  >
-                    View Job Detail
-                  </button>
+                  <div>
+                    <iframe
+                      src={`http://localhost:4000/${applicant.resume}`}
+                      height="200px"
+                      title="Resume PDF"
+                    ></iframe>
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "10px",
+                        flexWrap: "wrap",
+                      }}
+                    >
+                      <button
+                        onClick={() =>
+                          handleResumeClick(
+                            `http://localhost:4000/${applicant.resume}`
+                          )
+                        }
+                        className={style.resumeFullimg}
+                      >
+                        View Full Resume
+                      </button>
+                      <button
+                        onClick={() => handleJobDetailClick(applicant.job._id)}
+                        className={style.resumeFullimg}
+                      >
+                        View Job Detail
+                      </button>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          </li>
-        ))}
-      </ul>
-      {applicants.length <= 0 && <h1>No applications</h1>}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };

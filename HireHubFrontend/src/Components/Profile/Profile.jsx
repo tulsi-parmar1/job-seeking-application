@@ -39,10 +39,10 @@ const Profile = () => {
   // Fetch profile and profile picture on component mount
   useEffect(
     () => {
-      if (!isAuthorized) {
-        navigate("/login");
-        return;
-      }
+      // if (!isAuthorized) {
+      //   navigate("/login");
+      //   return;
+      // }
       window.scrollTo(0, 0);
     },
     [isAuthorized],
@@ -84,7 +84,6 @@ const Profile = () => {
         dispatch(userAction.setProfile(data.url));
         console.log(data.url);
       } catch (error) {
-        audio.play();
         toast.error(error.response.data.message);
       }
     };
@@ -145,7 +144,6 @@ const Profile = () => {
         about: about,
       }));
     } catch (error) {
-      audio.play();
       toast.error(error.response.data.message);
     }
   };
@@ -173,8 +171,7 @@ const Profile = () => {
         toast.success(response.data.message);
         dispatch(userAction.setUser(response.data.user));
       } catch (error) {
-        audio.play();
-        toast.error(error.response.data.message);
+        toast.error(error.response.data);
       }
     }
   };
@@ -214,12 +211,11 @@ const Profile = () => {
           </label>
 
           <div className={style.info}>
+            {users.email && <MdEmail />}
+            <p>{users.email}</p>
             <p>
-              <MdEmail />
-              {users.email}
-            </p>
-            <p>
-              <FaPhone />
+              {users.phone && <FaPhone />}
+
               {users.phone}
             </p>
           </div>

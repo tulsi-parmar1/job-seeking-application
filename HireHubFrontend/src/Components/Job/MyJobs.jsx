@@ -17,9 +17,9 @@ function MyJobs() {
     window.scrollTo(0, 0);
   }, []);
   useEffect(() => {
-    if (!isAuthorized) {
-      navigate("/");
-    }
+    // if (!isAuthorized) {
+    //   navigate("/");
+    // }
     const fetchjobs = async () => {
       try {
         const { data } = await axios.get(

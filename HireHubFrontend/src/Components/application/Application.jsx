@@ -23,7 +23,7 @@ function Application() {
   const audio = new Audio("notification.mp3");
   useEffect(() => {
     if (!isAuthorized) {
-      navigate("/");
+      navigate("/login");
     }
   }, [isAuthorized]);
 

@@ -40,7 +40,7 @@ const RecruiterLogin = () => {
   };
   useEffect(() => {
     if (!isAuthorized) {
-      navigate("/");
+      navigate("/login");
     }
     if (users.role === "recruiter") {
       navigate("/job/post");

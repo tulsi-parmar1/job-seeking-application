@@ -93,7 +93,7 @@ function HeroSection() {
         <div className={style.content}>
           <h1 ref={gsapRef}>
             {" "}
-            Welcome,<span style={{ color: "#088395" }}>{users.name}</span>!
+            Welcome<span style={{ color: "#088395" }}>{users.name}</span>!
           </h1>
           <h2 ref={textRef}>Unlock Your Professional Potential </h2>
           <p ref={secondTextRef}>

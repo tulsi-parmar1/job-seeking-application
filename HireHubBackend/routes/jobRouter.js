@@ -17,14 +17,14 @@ const router = express.Router();
 
 router.post("/postJob", isLoggedin, postJob);
 router.get("/similarJobs/:id", similarJobs);
-router.get("/latestJob", isLoggedin, latestJob);
+router.get("/latestJob", latestJob);
 router.get("/countCategories", countCategories);
-router.get("/getAll", isLoggedin, getAllJob);
+router.get("/getAll", getAllJob);
 
 router.get("/jobtype", jobsCountByType);
 router.get("/getMyJobs", isLoggedin, getMyJobs);
 router.put("/updateJob/:id", isLoggedin, updateJob);
 router.delete("/deleteJob/:id", isLoggedin, deleteJob);
-router.get("/:id", isLoggedin, getSingleJob);
+router.get("/:id", getSingleJob);
 
 export default router;

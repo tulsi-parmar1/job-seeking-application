@@ -42,6 +42,7 @@ const JobLayout = ({
       if (lastJob) observer.unobserve(lastJob);
     };
   }, [jobs.length]); // Only re-run when jobs length changes
+  const isAuthorized = localStorage.getItem("isAuthorized") === "true";
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -59,6 +60,9 @@ const JobLayout = ({
   //when user click on save button
   const toggleSaveJob = async (jobId) => {
     try {
+      if (!isAuthorized) {
+        return navigate("/login");
+      }
       const response = await axios.post(
         `http://localhost:4000/api/user/savedJobs/${users._id}/${jobId}`,
         {},

@@ -11,9 +11,9 @@ function Home() {
   const navigate = useNavigate();
   const audio = new Audio("notification.mp3");
   useEffect(() => {
-    if (!isAuthorized) {
-      navigate("/login");
-    }
+    // if (!isAuthorized) {
+    //   navigate("/login");
+    // }
     window.scrollTo(0, 0);
   }, [isAuthorized, navigate]);
 
