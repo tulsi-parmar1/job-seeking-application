@@ -24,7 +24,6 @@ const JobDetailSub = ({ job, applicants, id }) => {
   const { users } = useSelector((state) => state.user);
   const toggleSaveJob = async (jobId) => {
     try {
-      console.log(isAuthorized);
       if (!isAuthorized) {
         return navigate("/login");
       }

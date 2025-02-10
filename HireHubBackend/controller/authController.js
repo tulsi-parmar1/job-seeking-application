@@ -53,11 +53,13 @@ const registeruser = async (req, res) => {
 
           sendVerificationCode(email, verificationCode);
           let token = generateToken(newuser);
-          res.cookie("token", token, {
+          const options = {
+            expires: new Date(
+              Date.now() + process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000
+            ),
             httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            sameSite: "Strict",
-          });
+          };
+          res.cookie("token", token, options);
           res.status(201).json({
             message: "User registered successfully",
             user: {
@@ -115,7 +117,7 @@ const loginuser = async (req, res) => {
   });
 };
 const logout = async (req, res) => {
-  res.cookie("token", "");
+  res.clearCookie("token");
   res.send("you are logged out");
 };
 export const getUser = async (req, res) => {

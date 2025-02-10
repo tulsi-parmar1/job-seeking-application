@@ -8,7 +8,7 @@ import userRouter from "./routes/userRouter.js";
 import applicationRouter from "./routes/applicationRouter.js";
 import jobRouter from "./routes/jobRouter.js";
 import { dbConnection } from "./database/dbConnection.js";
-import expressSession from "express-session";
+// import expressSession from "express-session";
 import path from "path";
 import { fileURLToPath } from "url";
 import dotenv from "dotenv";
@@ -28,13 +28,13 @@ app.use(
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(
-  expressSession({
-    resave: false,
-    saveUninitialized: false,
-    secret: process.env.EXPRESS_SESSION_SECRET,
-  })
-);
+// app.use(
+//   expressSession({
+//     resave: false,
+//     saveUninitialized: false,
+//     secret: process.env.EXPRESS_SESSION_SECRET,
+//   })
+// );
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));

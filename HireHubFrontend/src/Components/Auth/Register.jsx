@@ -12,16 +12,10 @@ function Register() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
-  const [showOTPInput, setShowOTPInput] = useState(false);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isAuthorized, email } = useSelector((state) => state.user);
-
-  // Load OTP input state from localStorage when component mounts
-  useEffect(() => {
-    const otpInput = localStorage.getItem("setShowOtpInput") === "true";
-    setShowOTPInput(otpInput);
-  }, []);
 
   useEffect(() => {
     if (isAuthorized) {
@@ -51,8 +45,7 @@ function Register() {
       localStorage.setItem("userEmail", email);
       dispatch(userAction.setEmail(email));
 
-      setShowOTPInput(true);
-      localStorage.setItem("setShowOtpInput", "true");
+      navigate("/verifyEmail");
     } catch (error) {
       toast.error(error.response?.data?.message || "Something went wrong");
     }
@@ -60,74 +53,68 @@ function Register() {
 
   return (
     <>
-      {showOTPInput ? (
-        <VarifyEmail />
-      ) : (
-        <div className={style.container}>
-          <div className={style.img}>
-            <img src="loginimg.png" alt="logo" />
-          </div>
-          <form onSubmit={handleRegister}>
-            <div className={style.inputTag}>
-              <h2 className={style.label} style={{ marginBottom: "20px" }}>
-                Register
-              </h2>
-              <div>
-                <label>Name</label>
-                <input
-                  type="text"
-                  name="name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-              </div>
-              <div>
-                <label>Email</label>
-                <input
-                  type="email"
-                  name="email"
-                  value={email}
-                  onChange={(e) =>
-                    dispatch(userAction.setEmail(e.target.value))
-                  }
-                />
-              </div>
-              <div>
-                <label>Phone</label>
-                <input
-                  type="number"
-                  name="phone"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                />
-              </div>
-              <div>
-                <label>Password</label>
-                <input
-                  type="password"
-                  name="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
-              <div>
-                <input
-                  type="submit"
-                  name="submit"
-                  onClick={handleRegister}
-                  className={style.lgnbtn}
-                />
-              </div>
-              <div>
-                Already have an account?{" "}
-                <a onClick={handleLogin} style={{ cursor: "pointer" }}>
-                  Login
-                </a>
-              </div>
-            </div>
-          </form>
+      <div className={style.container}>
+        <div className={style.img}>
+          <img src="loginimg.png" alt="logo" />
         </div>
-      )}
+        <form onSubmit={handleRegister}>
+          <div className={style.inputTag}>
+            <h2 className={style.label} style={{ marginBottom: "20px" }}>
+              Register
+            </h2>
+            <div>
+              <label>Name</label>
+              <input
+                type="text"
+                name="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </div>
+            <div>
+              <label>Email</label>
+              <input
+                type="email"
+                name="email"
+                value={email}
+                onChange={(e) => dispatch(userAction.setEmail(e.target.value))}
+              />
+            </div>
+            <div>
+              <label>Phone</label>
+              <input
+                type="number"
+                name="phone"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+              />
+            </div>
+            <div>
+              <label>Password</label>
+              <input
+                type="password"
+                name="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <div>
+              <input
+                type="submit"
+                name="submit"
+                onClick={handleRegister}
+                className={style.lgnbtn}
+              />
+            </div>
+            <div>
+              Already have an account?{" "}
+              <a onClick={handleLogin} style={{ cursor: "pointer" }}>
+                Login
+              </a>
+            </div>
+          </div>
+        </form>
+      </div>
     </>
   );
 }
