@@ -20,16 +20,18 @@ function App() {
             "http://localhost:4000/api/user/getUser",
             { withCredentials: true }
           );
-          dispatch(userAction.setUser(response.data.user));
+
           console.log(response.data.user);
-          if (response.data.user.isVerified) {
+          if (response.data.user.isAuthorized) {
             dispatch(userAction.setIsVerified(true));
             localStorage.setItem("isAuthorized", true);
             dispatch(userAction.setIsAuthorized(true));
+            dispatch(userAction.setUser(response.data.user));
           } else {
             dispatch(userAction.setIsVerified(false));
             localStorage.setItem("isAuthorized", false);
             dispatch(userAction.setIsAuthorized(false));
+            dispatch(userAction.setUser(""));
           }
         } catch (err) {
           console.error("Error fetching user:", err); // Handle error

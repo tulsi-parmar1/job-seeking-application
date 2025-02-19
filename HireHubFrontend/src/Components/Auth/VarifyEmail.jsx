@@ -38,6 +38,8 @@ function VarifyEmail() {
       audio.play();
       toast.success("Email verified successfully");
       dispatch(userAction.setIsAuthorized(true));
+      localStorage.setItem("userEmail", email);
+      dispatch(userAction.setEmail(email));
       localStorage.setItem("isAuthorized", true);
       localStorage.setItem("setShowOtpInput", false);
       dispatch(userAction.setIsVerified(true));

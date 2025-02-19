@@ -42,9 +42,6 @@ function Register() {
       toast.success("User registered successfully!");
       toast.success("OTP sent to your email");
 
-      localStorage.setItem("userEmail", email);
-      dispatch(userAction.setEmail(email));
-
       navigate("/verifyEmail");
     } catch (error) {
       toast.error(error.response?.data?.message || "Something went wrong");

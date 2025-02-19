@@ -35,6 +35,7 @@ function Login() {
       );
       audio.play();
       localStorage.setItem("isAuthorized", true);
+      localStorage.setItem("email", email);
       toast.success(data.message);
 
       const getProfile = async () => {

@@ -15,14 +15,14 @@ function NavBar() {
   const [scrolling, setScrolling] = useState(false);
   const [displayProfile, setDisplayProfile] = useState(null);
   const [show, setShow] = useState(false);
-  const { isAuthorized } = useSelector((state) => state.user);
-
+  // const { isAuthorized } = useSelector((state) => state.user);
+  const isAuthorized = localStorage.getItem("isAuthorized") === "true";
   const { users } = useSelector((state) => state.user);
   const userId = users._id;
   const { profilee } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  console.log(users);
   // useEffect(() => {
   //   const handleScroll = () => {
 
@@ -83,6 +83,8 @@ function NavBar() {
       toast.success("logged out successfully");
 
       localStorage.setItem("isAuthorized", false);
+
+      localStorage.setItem("userEmail", " ");
       navigate("/");
     } catch (err) {
       console.log(response.data);
