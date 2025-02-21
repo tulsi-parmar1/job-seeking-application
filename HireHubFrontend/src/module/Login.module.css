@@ -52,6 +52,10 @@
   background-color: rgba(13, 56, 86, 0.532);
   color: white;
   font-weight: bold;
+  transition: 0.3s;
+  &:hover {
+    background-color: rgba(3, 25, 42, 0.803);
+  }
 }
 
 .lgnbtn:hover {

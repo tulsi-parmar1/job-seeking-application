@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { userAction } from "../../Slices/userSlice";
 import { toast } from "react-toastify";
+import Loader from "../Layout/Loader.jsx";
 import "react-toastify/dist/ReactToastify.css";
 import style from "../../module/Login.module.css";
 function Login() {
@@ -13,13 +14,32 @@ function Login() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [displayProfile, setDisplayProfile] = useState("");
-  // const { isAuthorized } = useSelector((state) => state.user);
+  const [loader, setLoader] = useState(false);
   const isAuthorized = localStorage.getItem("isAuthorized") === "true";
   const handleRegister = async (e) => {
     navigate("/register");
   };
 
+  const handleForgotPassword = async (e) => {
+    try {
+      setLoader(true);
+      const { data } = await axios.post(
+        "http://localhost:4000/api/user/forgot-password",
+        { email },
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      toast.success(data.message);
+      setLoader(false);
+    } catch (error) {
+      toast.error(error.response.data.message);
+      setLoader(false);
+    }
+  };
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
@@ -116,9 +136,12 @@ function Login() {
                 value="Login"
               />
             </div>
-            <div>
+            <div className={style.register} style={{ marginTop: "10px" }}>
               {" "}
-              <a>forget password?</a>
+              <a onClick={handleForgotPassword}>
+                forgot password ?{" "}
+                {loader && <p style={{ color: "gray " }}>wait...</p>}
+              </a>
             </div>
 
             <div style={{ marginTop: "20px" }}>

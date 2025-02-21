@@ -35,6 +35,7 @@ import JobsByType from "./Components/Job/JobsByType.jsx";
 import SavedJobsDetails from "./Components/Job/SavedJobsDetails.jsx";
 import ViewApplication from "./Components/application/ViewApplication.jsx";
 import VarifyEmail from "./Components/Auth/VarifyEmail.jsx";
+import ResetPassword from "./Components/Auth/ResetPassword.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
       {
         path: "register",
         element: <Register></Register>,
+      },
+      {
+        path: "reset-password/:token",
+        element: <ResetPassword></ResetPassword>,
       },
       {
         path: "job/getall",

@@ -51,6 +51,8 @@ const userSchema = new mongoose.Schema({
   otpExpireAt: {
     type: Date,
   },
+  resetPasswordToken: { type: String },
+  resetPasswordExpires: { type: Date },
 });
 
 const userModel = mongoose.model("user", userSchema);

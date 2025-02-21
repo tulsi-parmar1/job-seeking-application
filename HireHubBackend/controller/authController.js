@@ -3,7 +3,8 @@ import bcrypt from "bcrypt";
 import JobModel from "../models/jobModel.js";
 import generateToken from "../utils/generateToken.js";
 import { sendVerificationCode } from "../middleware/Email.js";
-
+import nodemailer from "nodemailer";
+import crypto from "crypto";
 const registeruser = async (req, res) => {
   try {
     let { name, email, phone, password } = req.body;
@@ -87,7 +88,77 @@ const registeruser = async (req, res) => {
     res.status(500).json({ message: "Server error", error: err.message });
   }
 };
+export const forgotPassword = async (req, res) => {
+  try {
+    let { email } = req.body;
+    if (!email) {
+      return res.status(401).json({ message: "email not found" });
+    }
+    const user = await userModel.findOne({ email: email });
+    if (!user) {
+      return res.status(401).json({ message: "user not exist!!!" });
+    }
+    const resetToken = crypto.randomBytes(32).toString("hex");
+    user.resetPasswordToken = resetToken;
+    user.resetPasswordExpires = Date.now() + 3600000; //1h expiry
+    await user.save();
+    const resetUrl = `http://localhost:5173/reset-password/${resetToken}`;
+    const transporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 587,
+      secure: false, // true for port 465, false for other ports
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
+    await transporter.sendMail({
+      from: '"HIREhub" <hirehub.verify@gmail.com>',
+      to: email,
+      subject: "Password Reset Request",
+      html: `<p>You requested a password reset. Click the link below:</p>
+                   <a href="${resetUrl}">${resetUrl}</a>
+                   <p>This link is valid for 1 hour.</p>`,
+    });
 
+    res.status(200).json({ message: "reset link sent to your email" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Server Error", error });
+  }
+};
+export const resetPassword = async (req, res) => {
+  try {
+    const { token } = req.params;
+    const { newPassword, confirmNewPassword } = req.body;
+    const isequal = newPassword === confirmNewPassword;
+    if (!isequal) {
+      return res
+        .status(400)
+        .json({ message: "password and confirm password are not same!" });
+    }
+    const user = await userModel.findOne({
+      resetPasswordToken: token,
+      resetPasswordExpires: { $gt: Date.now() },
+    });
+
+    if (!user) {
+      return res.status(400).json({ message: "invalid or expired token" });
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(newPassword, salt);
+
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpires = undefined;
+
+    await user.save();
+    res.status(200).json({ message: "password reset successfully " });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ message: "server error", error });
+  }
+};
 const loginuser = async (req, res) => {
   let { email, password } = req.body;
   if (!email || !password) {
@@ -122,7 +193,7 @@ const logout = async (req, res) => {
 };
 export const getUser = async (req, res) => {
   const user = req.user;
-  console.log(user);
+
   if (!user?.isVerified) {
     try {
       await userModel.deleteOne({ _id: user._id });

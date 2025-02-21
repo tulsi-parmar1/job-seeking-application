@@ -6,12 +6,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import axios from "axios";
 import { userAction } from "./Slices/userSlice";
-
+import { useLocation } from "react-router-dom";
 function App() {
   const dispatch = useDispatch();
   const { isVarified } = useSelector((state) => state.user);
   const { isAuthorized } = useSelector((state) => state.user);
   const navigate = useNavigate();
+  const location = useLocation();
   useEffect(
     () => {
       const fetchUser = async () => {
@@ -54,11 +55,14 @@ function App() {
       navigate("/");
     }
   }, [isAuthorized, isVarified, navigate]);
+
+  const hideNavbarFooter = location.pathname.startsWith("/reset-password");
+  console.log(location.pathname);
   return (
     <>
-      <NavBar></NavBar>
+      {!hideNavbarFooter && <NavBar />}
       <Outlet></Outlet>
-      <Footer></Footer>
+      {!hideNavbarFooter && <Footer />}
     </>
   );
 }
