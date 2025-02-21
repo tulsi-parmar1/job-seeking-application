@@ -87,8 +87,10 @@ const Profile = () => {
         toast.error(error.response.data.message);
       }
     };
-    getInfo();
-    getProfile();
+    if (isAuthorized) {
+      getInfo();
+      getProfile();
+    }
   }, [isAuthorized, navigate]);
 
   const handleOnSubmit = async (e) => {
@@ -108,7 +110,9 @@ const Profile = () => {
       skills.split(",").map((skill) => skill.trim())
     );
     formData.append("about", about);
-
+    if (!isAuthorized) {
+      navigate("/login");
+    }
     try {
       const response = await axios.post(
         "http://localhost:4000/api/profile/postInfo",
@@ -153,6 +157,9 @@ const Profile = () => {
   };
 
   const handleFileChange = async (e) => {
+    if (!isAuthorized) {
+      return navigate("/login");
+    }
     const file = e.target.files[0]; // Get the file directly
     const yess = confirm("Are you sure you want to upload this file?");
     if (yess) {

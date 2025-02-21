@@ -9,7 +9,7 @@ import { GrLinkPrevious } from "react-icons/gr";
 
 const ViewApplication = () => {
   const [applicants, setApplicants] = useState([]);
-
+  const isAuthorized = localStorage.getItem("isAuthorized") === "true";
   const navigate = useNavigate();
   const audio = new Audio("notification.mp3");
   useEffect(() => {
@@ -28,6 +28,9 @@ const ViewApplication = () => {
     };
 
     fetchApplicants();
+    if (!isAuthorized) {
+      navigate("/login");
+    }
   }, []);
 
   const deleteApplication = async (idd) => {

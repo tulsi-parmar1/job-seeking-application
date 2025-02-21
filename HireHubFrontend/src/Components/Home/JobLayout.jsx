@@ -108,8 +108,10 @@ const JobLayout = ({
           withCredentials: true,
         })
         .then((res) => {
-          dispatch(userAction.setUser(res.data.user));
-          setSaved(res.data.savedJobs);
+          if (res.data.user.isVerified) {
+            dispatch(userAction.setUser(res.data.user));
+            setSaved(res.data.savedJobs);
+          }
         });
     } catch (error) {
       audio.play();

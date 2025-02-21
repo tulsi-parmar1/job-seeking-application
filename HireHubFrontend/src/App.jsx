@@ -22,7 +22,10 @@ function App() {
           );
 
           console.log(response.data.user);
-          if (response.data.user.isAuthorized) {
+          if (
+            response.data.user.isAuthorized &&
+            response.data.user.isVerified
+          ) {
             dispatch(userAction.setIsVerified(true));
             localStorage.setItem("isAuthorized", true);
             dispatch(userAction.setIsAuthorized(true));

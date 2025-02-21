@@ -122,12 +122,22 @@ const logout = async (req, res) => {
 };
 export const getUser = async (req, res) => {
   const user = req.user;
-  res.json({
-    message: "user is send",
-    user,
-    savedJobs: user.savedJobs,
-  });
+  console.log(user);
+  if (!user?.isVerified) {
+    try {
+      await userModel.deleteOne({ _id: user._id });
+    } catch (error) {
+      res.send({ message: "error  while deleting non-verified user" });
+    }
+  } else {
+    res.json({
+      message: "user is send",
+      user,
+      savedJobs: user?.savedJobs,
+    });
+  }
 };
+
 export const recruiterLogin = async (req, res) => {
   let { email, password } = req.body;
   if (!email || !password) {

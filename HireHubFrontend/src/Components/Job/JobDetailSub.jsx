@@ -79,8 +79,8 @@ const JobDetailSub = ({ job, applicants, id }) => {
                   view applicants
                 </button>
               )}
-              {!(users._id === job.postedBy) &&
-                !(users.role === "recruiter") && (
+              {!(users?._id === job.postedBy) &&
+                !(users?.role === "recruiter" && isAuthorized) && (
                   <button onClick={() => navigate(`/application/${job._id}`)}>
                     Apply now
                   </button>

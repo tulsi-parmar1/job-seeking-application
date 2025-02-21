@@ -112,6 +112,7 @@ export const profileChange = async (req, res) => {
 };
 export const getInfo = async (req, res) => {
   const user = req.user;
+  console.log(user);
   try {
     const userProfile = await profileModel.findById(user.profile);
     res.send({

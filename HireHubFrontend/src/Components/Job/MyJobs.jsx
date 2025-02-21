@@ -35,6 +35,9 @@ function MyJobs() {
       }
     };
     fetchjobs();
+    if (!isAuthorized) {
+      navigate("/login");
+    }
   }, []);
   return (
     <>

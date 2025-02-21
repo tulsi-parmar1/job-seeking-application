@@ -116,6 +116,11 @@ function Login() {
                 value="Login"
               />
             </div>
+            <div>
+              {" "}
+              <a>forget password?</a>
+            </div>
+
             <div style={{ marginTop: "20px" }}>
               <p className={style.register}>
                 Don't have an account ? <a onClick={handleRegister}>Register</a>{" "}
