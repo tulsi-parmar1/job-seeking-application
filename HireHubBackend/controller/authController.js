@@ -178,7 +178,7 @@ const loginuser = async (req, res) => {
       let token = generateToken(user);
       res.cookie("token", token);
       res.send({
-        message: "you can login",
+        message: "you're logged in now.",
       });
     } else {
       return res.status(401).send({

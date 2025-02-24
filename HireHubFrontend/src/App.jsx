@@ -33,7 +33,7 @@ function App() {
             dispatch(userAction.setUser(response.data.user));
           } else {
             dispatch(userAction.setIsVerified(false));
-            localStorage.setItem("isAuthorized", false);
+            // localStorage.setItem("isAuthorized", false);
             dispatch(userAction.setIsAuthorized(false));
             dispatch(userAction.setUser(""));
           }

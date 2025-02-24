@@ -60,13 +60,20 @@ function CategoryJobs() {
       ) : jobs.length > 0 ? (
         <>
           <h1 style={{ textAlign: "center", marginBottom: "30px" }}>
-            Category-wise Jobs
+            Category-wise Jobs <br />
+            <p style={{ color: "green", marginTop: "8px" }}>
+              {category.toUpperCase()}
+            </p>
           </h1>
           <JobLayout jobs={jobs} />
         </>
       ) : (
         <p style={{ fontSize: "25px", textAlign: "center" }}>
-          No jobs posted in the {category} category
+          No jobs posted in the{" "}
+          <p style={{ color: "green", marginTop: "8px", fontWeight: "bold" }}>
+            {category.toUpperCase()}
+          </p>
+          Category
         </p>
       )}
     </div>

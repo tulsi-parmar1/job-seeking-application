@@ -242,7 +242,9 @@ const Profile = () => {
               <h1 style={{ marginTop: "20px" }}> About</h1>
               <div style={{ borderRadius: "10px" }} className={style.about2}>
                 <div className={style.about}>
-                  <p className={style.about}>{about}</p>
+                  <p className={style.about} style={{ fontSize: "16px" }}>
+                    {about}
+                  </p>
                 </div>
               </div>
             </>

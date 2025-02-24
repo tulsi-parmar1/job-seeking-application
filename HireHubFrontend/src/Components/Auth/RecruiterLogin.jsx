@@ -13,7 +13,9 @@ const RecruiterLogin = () => {
   const audio = new Audio("notification.mp3");
   const { users } = useSelector((state) => state.user);
   const [email, setEmail] = useState(users.email);
-  const { isAuthorized } = useSelector((state) => state.user);
+  console.log("users", users);
+  // const { isAuthorized } = useSelector((state) => state.user);
+  const isAuthorized = localStorage.getItem("isAuthorized");
   const handleLogin = async (e) => {
     e.preventDefault();
     try {

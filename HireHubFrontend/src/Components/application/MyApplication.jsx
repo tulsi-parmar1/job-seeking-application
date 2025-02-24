@@ -67,7 +67,22 @@ const ViewApplication = () => {
   return (
     <div>
       {applicants.length <= 0 ? (
-        <h1>No applications</h1>
+        <h1 style={{ marginTop: "100px", marginLeft: "50px" }}>
+          hey,you've not applied for any job yet.... <br /> explore jobs to
+          apply
+          <button
+            style={{
+              backgroundColor: "#088395",
+              color: "white",
+              border: "1px solid",
+              padding: "10px",
+              marginTop: "20px",
+            }}
+            onClick={() => navigate("/job/getall")}
+          >
+            Explore Jobs
+          </button>
+        </h1>
       ) : (
         <div className={`${style.applicants}`} style={{ marginTop: "-1px" }}>
           <GrLinkPrevious
