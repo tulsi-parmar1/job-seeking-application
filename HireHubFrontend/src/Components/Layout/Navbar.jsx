@@ -16,9 +16,10 @@ function NavBar() {
   const [displayProfile, setDisplayProfile] = useState(null);
   const [show, setShow] = useState(false);
   // const { isAuthorized } = useSelector((state) => state.user);
+  const role = localStorage.getItem("role") === "admin";
   const isAuthorized = localStorage.getItem("isAuthorized") === "true";
   const { users } = useSelector((state) => state.user);
-  const userId = users._id;
+  console.log(users.role);
   const { profilee } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -36,6 +37,9 @@ function NavBar() {
   // }, []);
 
   useEffect(() => {
+    if (role === "admin") {
+      navigate("/admin/");
+    }
     const fetchUserDataAndProfile = async () => {
       try {
         const profileResponse = await axios.get(
@@ -83,8 +87,9 @@ function NavBar() {
       toast.success("logged out successfully");
 
       localStorage.setItem("isAuthorized", false);
+      localStorage.setItem("role", "");
+      localStorage.setItem("email", "");
 
-      localStorage.setItem("userEmail", " ");
       navigate("/");
     } catch (err) {
       console.log(response.data);

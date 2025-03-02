@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import userModel from "../models/usermodel.js";
+import { getUsers } from "../controller/adminController.js";
 
 const isLoggedIn = async (req, res, next) => {
   if (!req.cookies.token) {

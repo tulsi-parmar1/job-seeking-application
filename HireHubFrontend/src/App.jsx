@@ -7,10 +7,13 @@ import { useEffect } from "react";
 import axios from "axios";
 import { userAction } from "./Slices/userSlice";
 import { useLocation } from "react-router-dom";
+import Auth from "./Components/Auth/Auth";
 function App() {
   const dispatch = useDispatch();
   const { isVarified } = useSelector((state) => state.user);
+  const role = localStorage.getItem("role") === "admin";
   const { isAuthorized } = useSelector((state) => state.user);
+  const { users } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const location = useLocation();
   useEffect(
@@ -21,7 +24,7 @@ function App() {
             "http://localhost:4000/api/user/getUser",
             { withCredentials: true }
           );
-
+          // localStorage.setItem("role", response.data.user.role);
           console.log(response.data.user);
           if (
             response.data.user.isAuthorized &&
@@ -29,13 +32,14 @@ function App() {
           ) {
             dispatch(userAction.setIsVerified(true));
             localStorage.setItem("isAuthorized", true);
+
             dispatch(userAction.setIsAuthorized(true));
             dispatch(userAction.setUser(response.data.user));
           } else {
             dispatch(userAction.setIsVerified(false));
             // localStorage.setItem("isAuthorized", false);
             dispatch(userAction.setIsAuthorized(false));
-            dispatch(userAction.setUser(""));
+            // dispatch(userAction.setUser(""));
           }
         } catch (err) {
           console.error("Error fetching user:", err); // Handle error
@@ -45,6 +49,9 @@ function App() {
       };
 
       fetchUser();
+      if (role) {
+        navigate("/admin/dashboard");
+      }
     },
     [dispatch],
     []
@@ -56,10 +63,13 @@ function App() {
     }
   }, [isAuthorized, isVarified, navigate]);
 
-  const hideNavbarFooter = location.pathname.startsWith("/reset-password");
+  const hideNavbarFooter =
+    location.pathname.startsWith("/reset-password") ||
+    location.pathname.startsWith("/admin");
   console.log(location.pathname);
   return (
     <>
+      <Auth></Auth>
       {!hideNavbarFooter && <NavBar />}
       <Outlet></Outlet>
       {!hideNavbarFooter && <Footer />}

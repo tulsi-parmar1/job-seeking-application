@@ -20,7 +20,7 @@ router.post("/register", registerUser);
 router.post("/login", loginUser);
 router.post("recruiterLogin", recruiterLogin);
 router.get("/logout", logoutUser);
-router.post("/recruiterLogin", isLoggedin, recruiterLogin);
+router.post("/recruiterLogin", recruiterLogin);
 router.get("/getUser", isLoggedin, getUser);
 router.post("/savedJobs/:userId/:jobId", isLoggedin, savedJobs);
 router.post("/varifyEmail", verifyEmail);

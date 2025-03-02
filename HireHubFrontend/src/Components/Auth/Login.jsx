@@ -54,6 +54,7 @@ function Login() {
         }
       );
       audio.play();
+      localStorage.setItem("role", data.user.role);
       localStorage.setItem("isAuthorized", true);
       localStorage.setItem("email", email);
       toast.success(data.message);
@@ -85,11 +86,15 @@ function Login() {
     }
   };
 
-  useEffect(() => {
-    if (isAuthorized) {
-      navigate("/");
-    }
-  }, [isAuthorized]);
+  useEffect(
+    () => {
+      if (isAuthorized) {
+        navigate("/");
+      }
+    },
+    [isAuthorized],
+    []
+  );
 
   return (
     <>

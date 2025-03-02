@@ -39,7 +39,6 @@ function Register() {
         }
       );
 
-      toast.success("User registered successfully!");
       toast.success("OTP sent to your email");
 
       navigate("/verifyEmail");

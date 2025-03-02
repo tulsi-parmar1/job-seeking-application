@@ -27,7 +27,7 @@ function PostJob() {
   const [logo, setLogo] = useState(null);
 
   const [loader, setLoader] = useState(false);
-  // const { isAuthorized } = useSelector((state) => state.user);
+
   const isAuthorized = localStorage.getItem("isAuthorized") === "true";
   const { users } = useSelector((state) => state.user);
 
@@ -35,6 +35,20 @@ function PostJob() {
   const [value2, setValue2] = useState("");
   const [value3, setValue3] = useState("");
   const audio = new Audio("notification.mp3");
+  useEffect(
+    () => {
+      if (!isAuthorized) {
+        navigate("/recruiterlogin");
+      }
+
+      if (users.role !== "recruiter") {
+        console.log("hey inside this");
+        navigate("/recruiterlogin");
+      }
+    },
+    [users, navigate],
+    []
+  );
   const handleJobPost = async (e) => {
     setLoader(true);
     e.preventDefault();
@@ -96,21 +110,7 @@ function PostJob() {
     const logo2 = e.target.files[0];
     setLogo(logo2);
   };
-  useEffect(
-    () => {
-      if (!isAuthorized) {
-        navigate("/login");
-        return null; // Ensure the component doesn't render before navigation
-      }
 
-      if (users.role !== "recruiter") {
-        console.log("hey inside this");
-        navigate("/recruiterlogin");
-      }
-    },
-    [users, navigate],
-    []
-  );
   return (
     <>
       <div className={style.job_post_page}>

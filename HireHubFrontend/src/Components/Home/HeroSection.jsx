@@ -4,7 +4,7 @@ import PopularCategory from "./PopularCategory";
 import { useSelector } from "react-redux";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -87,6 +87,11 @@ function HeroSection() {
   const handleonclick = () => {
     navigate("/job/getall");
   };
+  useEffect(() => {
+    if (users.role === "admin") {
+      navigate("/admin");
+    }
+  }, []);
   return (
     <>
       <div className={style.hero}>

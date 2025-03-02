@@ -13,9 +13,8 @@ const RecruiterLogin = () => {
   const audio = new Audio("notification.mp3");
   const { users } = useSelector((state) => state.user);
   const [email, setEmail] = useState(users.email);
-  console.log("users", users);
-  // const { isAuthorized } = useSelector((state) => state.user);
-  const isAuthorized = localStorage.getItem("isAuthorized");
+
+  const isAuthorized = localStorage.getItem("isAuthorized") === "true";
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
@@ -34,18 +33,25 @@ const RecruiterLogin = () => {
       setEmail("");
       setPassword("");
       dispatch(userAction.setUser(data.user));
+      localStorage.setItem("role", data.user.role);
+      localStorage.setItem("email", email);
+      localStorage.setItem("isAuthorized", true);
       navigate("/job/post");
     } catch (error) {
       audio.play();
+      console.log(error);
       toast.error(error.response.data.message);
     }
   };
   useEffect(() => {
-    if (!isAuthorized) {
-      navigate("/login");
-    }
+    // if (!isAuthorized) {
+    //   navigate("/login");
+    // }
     if (users.role === "recruiter") {
       navigate("/job/post");
+    }
+    if (users.role === "admin") {
+      navigate("/admin/dashboard");
     }
   }, []);
   return (

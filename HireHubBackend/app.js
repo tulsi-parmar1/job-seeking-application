@@ -6,6 +6,7 @@ import router from "./routes/profileRouter.js";
 import cookieParser from "cookie-parser";
 import userRouter from "./routes/userRouter.js";
 import applicationRouter from "./routes/applicationRouter.js";
+import adminRouter from "./routes/adminRouter.js";
 import jobRouter from "./routes/jobRouter.js";
 import { dbConnection } from "./database/dbConnection.js";
 // import expressSession from "express-session";
@@ -49,6 +50,7 @@ app.use("/api/user", userRouter);
 app.use("/api/application", applicationRouter);
 app.use("/api/job", jobRouter);
 app.use("/api/profile", router);
+app.use("/api/admin", adminRouter);
 dbConnection();
 
 cloudinary.config({

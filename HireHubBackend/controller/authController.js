@@ -59,6 +59,7 @@ const registeruser = async (req, res) => {
               Date.now() + process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000
             ),
             httpOnly: true,
+            secure: true,
           };
           res.cookie("token", token, options);
           res.status(201).json({
@@ -176,9 +177,17 @@ const loginuser = async (req, res) => {
   bcrypt.compare(password, user.password, (err, result) => {
     if (result) {
       let token = generateToken(user);
-      res.cookie("token", token);
+      const options = {
+        expires: new Date(
+          Date.now() + process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000
+        ),
+        httpOnly: true,
+        secure: true,
+      };
+      res.cookie("token", token, options);
       res.send({
         message: "you're logged in now.",
+        user,
       });
     } else {
       return res.status(401).send({

@@ -36,6 +36,10 @@ import SavedJobsDetails from "./Components/Job/SavedJobsDetails.jsx";
 import ViewApplication from "./Components/application/ViewApplication.jsx";
 import VarifyEmail from "./Components/Auth/VarifyEmail.jsx";
 import ResetPassword from "./Components/Auth/ResetPassword.jsx";
+import Dashboard from "./Components/Admin/Dashboard.jsx";
+import Layout from "./Components/Admin/Layout.jsx";
+import UserManagement from "./Components/Admin/UserManagement.jsx";
+import JobManagement from "./Components/Admin/JobManagement.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -139,9 +143,28 @@ const router = createBrowserRouter([
         path: "job/:id",
         element: <JobDetail />,
       },
+
       {
         path: "*",
         element: <NotFound></NotFound>,
+      },
+    ],
+  },
+  {
+    path: "/admin/dashboard",
+    element: <Dashboard></Dashboard>,
+    children: [
+      {
+        path: "",
+        element: <Layout></Layout>,
+      },
+      {
+        path: "userManagement",
+        element: <UserManagement></UserManagement>,
+      },
+      {
+        path: "jobManagement",
+        element: <JobManagement></JobManagement>,
       },
     ],
   },

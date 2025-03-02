@@ -8,7 +8,6 @@ import JobDetailSub from "./JobDetailSub";
 import SimilarJobs from "./SimilarJobs";
 import style from "../../module/JobDetail.module.css";
 function JobDetail() {
-  // const { isAuthorized } = useSelector((state) => state.user);
   const isAuthorized = localStorage.getItem("isAuthorized") === "true";
   const navigate = useNavigate();
   const { id } = useParams(); //new
@@ -17,11 +16,6 @@ function JobDetail() {
   const audio = new Audio("notification.mp3");
 
   useEffect(() => {
-    // if (!isAuthorized) {
-    //   return navigate("/login");
-    // }
-
-    // Fetch the job details based on the job ID
     axios
       .get(`http://localhost:4000/api/job/${id}`, { withCredentials: true })
       .then((res) => {
@@ -32,8 +26,6 @@ function JobDetail() {
         audio.play();
         toast.error(err.response.data.message);
       });
-
-    // Ensure the effect runs again when the job ID changes
   }, [id, isAuthorized, navigate]);
 
   return (
