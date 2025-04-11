@@ -36,10 +36,6 @@ function Jobs() {
   }, []);
   useEffect(
     () => {
-      // if (!isAuthorized) {
-      //   navigate("/login");
-      //   return;
-      // }
       const fetchJobs = async () => {
         setLoading(true);
         try {
@@ -66,7 +62,6 @@ function Jobs() {
       fetchJobs();
     },
     [page],
-    [isAuthorized],
     []
   );
 

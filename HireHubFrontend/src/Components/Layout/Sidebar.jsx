@@ -12,7 +12,6 @@ function Sidebar() {
       <NavLink
         to="/profile"
         className={location.pathname === "/profile" ? style.active : ""}
-        end
       >
         Profile
       </NavLink>

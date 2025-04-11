@@ -5,11 +5,28 @@ import profile from "../../../public/profile.png";
 import { toast } from "react-toastify";
 import { MdDelete } from "react-icons/md";
 import { useLocation } from "react-router-dom";
+
 function UserManagement() {
   const location = useLocation();
-  const data = location.state || [];
-  const users = data.jobseeker || data.recruiter || data.users || [];
-  console.log(users);
+  const [alluser, setAllUser] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const { data } = await axios.get(
+          "http://localhost:4000/api/admin/getUsers",
+          { withCredentials: true }
+        );
+        setAllUser(data.users);
+        console.log("all users", data.users);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchData();
+  }, []);
+  const state = location.state || {};
+  const users = state.users || state.jobseeker || state.recruiter || alluser;
   const handleDeleteBtn = async (id) => {
     const result = confirm("are you sure you want to delete this user??");
     if (result) {

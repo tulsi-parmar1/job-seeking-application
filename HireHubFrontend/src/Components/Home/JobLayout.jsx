@@ -25,13 +25,10 @@ const JobLayout = ({
   isProfileView,
   isSavedJobView,
 }) => {
-  //when we called observer.observe then it will take last job as argument and call the function which we have declared (const observer))
   const audio = new Audio("notification.mp3");
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
-      //Observes when a specific element enters or leaves the viewport.
       if (entries[0].isIntersecting) {
-        //Checks if the observed element (in this case, the last job card) is currently visible in the viewport.
         setPage((prevPage) => prevPage + 1);
       }
     });
@@ -41,7 +38,7 @@ const JobLayout = ({
     return () => {
       if (lastJob) observer.unobserve(lastJob);
     };
-  }, [jobs.length]); // Only re-run when jobs length changes
+  }, [jobs.length]);
   const isAuthorized = localStorage.getItem("isAuthorized") === "true";
 
   const navigate = useNavigate();
@@ -54,10 +51,10 @@ const JobLayout = ({
     } else if (isSavedJobView) {
       navigate(`/profile/savedJobs/${jobId}`);
     } else {
-      navigate(`/job/${jobId}`); // Navigate to Regular Job Detail
+      navigate(`/job/${jobId}`);
     }
   };
-  //when user click on save button
+
   const toggleSaveJob = async (jobId) => {
     try {
       if (!isAuthorized) {
@@ -74,7 +71,7 @@ const JobLayout = ({
         toast.success(response.data.message);
       }
       if (!response.data.savedJobs.includes(jobId)) {
-        onUnsaveJob(jobId); // Invoke the parent function
+        onUnsaveJob(jobId);
       }
     } catch (error) {
       audio.play();

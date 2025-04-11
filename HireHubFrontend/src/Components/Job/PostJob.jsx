@@ -37,9 +37,9 @@ function PostJob() {
   const audio = new Audio("notification.mp3");
   useEffect(
     () => {
-      if (!isAuthorized) {
-        navigate("/recruiterlogin");
-      }
+      // if (!isAuthorized) {
+      //   navigate("/recruiterlogin");
+      // }
 
       if (users.role !== "recruiter") {
         console.log("hey inside this");

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import style from "../../module/Admin.module.css";
 import LineGraph from "./LineGraph";
+import { useLocation } from "react-router-dom";
 import PieGraph from "./PieChart";
 import { useNavigate } from "react-router-dom";
 function Layout() {
@@ -21,7 +22,7 @@ function Layout() {
           "http://localhost:4000/api/admin/getUsers",
           { withCredentials: true }
         );
-
+        console.log(data);
         setJobSeeker(data.totalJobSeeker);
         setRecruiter(data.totalRecruiter);
         setTotalUser(data.totalUsers);
@@ -58,7 +59,7 @@ function Layout() {
           }
         >
           <h3 className={style.boxTitle}>Total Users</h3>
-          <p className={style.count}>{totalUsers}</p>
+          <h1 style={{ color: "teal" }}>{totalUsers}</h1>
         </div>
         <div
           className={style.box}
@@ -69,7 +70,7 @@ function Layout() {
           }
         >
           <h3 className={style.boxTitle}>Total Job Seekers</h3>
-          <p className={style.count}>{totalJobSeeker}</p>
+          <h1 style={{ color: "teal" }}>{totalJobSeeker}</h1>
         </div>
         <div
           className={style.box}
@@ -80,7 +81,7 @@ function Layout() {
           }
         >
           <h3 className={style.boxTitle}>Total Recruiters</h3>
-          <p className={style.count}>{totalRecruiter}</p>
+          <h1 style={{ color: "teal" }}>{totalRecruiter}</h1>
         </div>
       </div>
       <div className={style.graphContainer}>

@@ -26,15 +26,14 @@ function App() {
           );
           // localStorage.setItem("role", response.data.user.role);
           console.log(response.data.user);
-          if (
-            response.data.user.isAuthorized &&
-            response.data.user.isVerified
-          ) {
-            dispatch(userAction.setIsVerified(true));
-            localStorage.setItem("isAuthorized", true);
 
+          if (response.data.user.isVerified) {
+            dispatch(userAction.setIsVerified(true));
+            // localStorage.setItem("isAuthorized", true);
             dispatch(userAction.setIsAuthorized(true));
             dispatch(userAction.setUser(response.data.user));
+            // localStorage.setItem("role", response.data.user.role);
+            // localStorage.setItem("email", response.data.user.email);
           } else {
             dispatch(userAction.setIsVerified(false));
             // localStorage.setItem("isAuthorized", false);

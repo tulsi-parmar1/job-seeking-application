@@ -9,10 +9,10 @@ const Auth = () => {
       const cookies = document.cookie;
       const hasToken = cookies.includes("token="); // Check if the token exists
       console.log(cookies, hasToken);
-      if (!hasToken) {
-        localStorage.clear(); // Clear stored user data
-        navigate("/");
-      }
+      // if (!hasToken) {
+      //   // localStorage.clear(); // Clear stored user data
+      //   navigate("/");
+      // }
     };
 
     checkAuth(); // Check authentication once when component mounts

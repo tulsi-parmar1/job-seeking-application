@@ -5,6 +5,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
+import admin from "../../../public/man.jpg";
 import { useSelector } from "react-redux";
 import { IoAddOutline } from "react-icons/io5";
 import { userAction } from "../../Slices/userSlice";
@@ -70,11 +71,12 @@ function DashboardSidebar() {
     >
       <div className={style.sidebar}>
         <div className={style.profile}>
-          <img src={profilee} alt="Profile" />
+          {/* <img src={profilee} alt="Profile" /> */}
+          <img src={admin} alt="Profile" />
 
-          <label htmlFor="file-input" className={style.addProfile}>
-            <IoAddOutline />
-          </label>
+          {/* <label htmlFor="file-input" className={style.addProfile}> */}
+          <IoAddOutline />
+          {/* </label> */}
           <div
             style={{
               position: "absolute",

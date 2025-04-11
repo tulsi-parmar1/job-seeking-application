@@ -55,7 +55,7 @@ function Login() {
       );
       audio.play();
       localStorage.setItem("role", data.user.role);
-      localStorage.setItem("isAuthorized", true);
+      localStorage.setItem("isAuthorized", "true");
       localStorage.setItem("email", email);
       toast.success(data.message);
 
