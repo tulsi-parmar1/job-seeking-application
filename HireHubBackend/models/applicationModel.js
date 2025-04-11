@@ -8,7 +8,7 @@ const applicationSchema = new mongoose.Schema({
   },
   applicant: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "user", // Assuming you have a User model
+    ref: "user",
     required: true,
   },
   resume: {

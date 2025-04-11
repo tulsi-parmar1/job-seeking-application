@@ -1,10 +1,11 @@
 import userModel from "../models/usermodel.js";
 import jobModel from "../models/jobModel.js";
 import applicationModel from "../models/applicationModel.js";
-import profileModel from "../models/profileModel.js";
 export const getUsers = async (req, res) => {
   try {
-    const users = await userModel.find().populate("profile", "profile.url");
+    const users = await userModel
+      .find({ role: { $ne: "admin" } })
+      .populate("profile", "profile.url");
     const recruiter = await userModel
       .find({ role: "recruiter" })
       .populate("profile", "profile.url");
@@ -17,7 +18,7 @@ export const getUsers = async (req, res) => {
     res.status(201).json({
       message: "user sent succesfully",
       users: users,
-      totalUsers: users.length - 1,
+      totalUsers: users.length,
       totalRecruiter: recruiter.length,
       totalJobSeeker: jobSeeker.length,
       recruiter: recruiter,

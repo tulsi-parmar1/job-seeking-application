@@ -17,7 +17,6 @@ const userSchema = new mongoose.Schema({
     type: Number,
     require: [true, "please enter your Phone-Number"],
   },
-
   savedJobs: [
     {
       type: mongoose.Schema.Types.ObjectId,
@@ -28,7 +27,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     require: [true, "plase enter your Password"],
     minLength: [6, "password must contain atleast 6 characters"],
-    maxLength: [80, "password can not exceed 10 character"],
   },
   role: {
     type: String,

@@ -71,7 +71,6 @@ export const postApplication = async (req, res) => {
     await application.save();
     job.applicants.push(application._id);
     await job.save();
-
     res.status(201).json({
       success: true,
       message: "Application submitted successfully",
@@ -89,7 +88,6 @@ export const deleteApplication = async (req, res) => {
     if (!application) {
       return res.status(404).json({ message: "Application not found" });
     }
-    //specific job
     const job = await JobModel.findById(application.job);
 
     if (!job) {
@@ -140,7 +138,7 @@ export const getApplicantsForJob = async (req, res) => {
       contactNumber: application.contactNumber,
       currentCity: application.currentCity,
       coverLetter: application.coverLetter,
-      resume: `http://localhost:4000/${application.resume}`, // Assuming you have resume URL or file name
+      resume: `http://localhost:4000/${application.resume}`,
     }));
 
     // Send the response with the applicant details

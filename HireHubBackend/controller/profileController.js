@@ -124,19 +124,27 @@ export const getInfo = async (req, res) => {
 };
 export const getProfile = async (req, res) => {
   const user = req.user;
-  //  const {user}=req.params;
-  //  const userId=await userModel.findById(user);
+
   try {
-    if (user.profile) {
-      const profile = await profileModel.findById(user.profile);
-      res.send({
-        url: profile.profile.url,
-      });
+    if (!user.profile) {
+      // return res
+      //   .status(404)
+      //   .json({ message: "No profile found for this user" });
     }
+
+    const profile = await profileModel.findById(user.profile);
+
+    // if (!profile) {
+    //   return res.status(404).json({ message: "Profile document not found" });
+    // }
+
+    res.send({
+      url: profile.profile?.url || null,
+    });
   } catch (error) {
-    // res.status(201).json({
-    //     message:''
-    // })
-    console.log(error);
+    console.error("Error in getProfile:", error);
+    // res
+    //   .status(500)
+    //   .json({ message: "Something went wrong while fetching profile" });
   }
 };

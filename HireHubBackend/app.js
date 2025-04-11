@@ -13,9 +13,10 @@ import { dbConnection } from "./database/dbConnection.js";
 import path from "path";
 import { fileURLToPath } from "url";
 import dotenv from "dotenv";
-dotenv.config({ path: "./config/config.env" });
-const app = express();
 
+dotenv.config({ path: "./config/config.env" });
+
+const app = express();
 app.use(
   cors({
     origin: "http://localhost:5173", // Your frontend URL
@@ -24,11 +25,13 @@ app.use(
     credentials: true, // Allow credentials
   })
 );
+
 // app.use("/uploads", express.static("pdfuploads"));
 
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
 // app.use(
 //   expressSession({
 //     resave: false,

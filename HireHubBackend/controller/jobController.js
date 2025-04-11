@@ -102,11 +102,13 @@ export const getMyJobs = async (req, res, next) => {
 export const updateJob = async (req, res) => {
   const { id } = req.params;
   let job = await JobModel.findById(id);
+
   if (!job) {
     return res.status(401).send({
       message: "jobs are not found!",
     });
   }
+  
   job = await JobModel.findByIdAndUpdate(id, req.body, {
     new: true, //returned document is updated version
     runValidators: true, //mongoose will apply validation rules defined in schema
