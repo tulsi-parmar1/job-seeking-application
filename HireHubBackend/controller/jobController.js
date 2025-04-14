@@ -9,7 +9,7 @@ export const getAllJob = async (req, res) => {
     const jobs = await JobModel.find()
       .skip(skip)
       .limit(Number(limit))
-      .sort({ createdAt: -1 }); // Ensure proper sorting
+      .sort({ _id: -1 }); // Ensure proper sorting
 
     const totalJobs = await JobModel.countDocuments();
     res.status(200).json({ jobs, totalJobs });
@@ -40,17 +40,26 @@ export const postJob = async (req, res) => {
     contactEmail,
   } = req.body;
 
-  if (!title || !description || !company || !location || !categories) {
+  if (
+    !title ||
+    !description ||
+    !company ||
+    !location ||
+    !categories ||
+    !salaryRangeMax ||
+    !salaryRangeMin
+  ) {
     return res.status(401).json({
       success: false,
       message: "please provide full job details",
     });
   }
-  const { logo } = req.files;
-
   if (!req.files || Object.keys(req.files).length === 0) {
     res.status(402).send({ error: "upload a file" });
   }
+
+  const { logo } = req.files;
+
   const cloudinaryResponse = await cloudinary.uploader.upload(
     logo.tempFilePath,
     { folder: "HireHub" }
@@ -96,7 +105,9 @@ export const postJob = async (req, res) => {
   }
 };
 export const getMyJobs = async (req, res, next) => {
-  const myjobs = await JobModel.find({ postedBy: req.user._id });
+  const myjobs = await JobModel.find({ postedBy: req.user._id }).sort({
+    _id: -1,
+  });
   res.send({ myjob: myjobs });
 };
 export const updateJob = async (req, res) => {
@@ -108,21 +119,20 @@ export const updateJob = async (req, res) => {
       message: "jobs are not found!",
     });
   }
-  
+
   job = await JobModel.findByIdAndUpdate(id, req.body, {
     new: true, //returned document is updated version
     runValidators: true, //mongoose will apply validation rules defined in schema
   });
+
   res.send({
     message: "updated succesfully",
   });
 };
 export const deleteJob = async (req, res) => {
   const { id } = req.params;
-
   try {
-    // First, delete the job
-    const deletedJob = await JobModel.findById(id);
+    const deletedJob = await JobModel.find(id);
 
     // Check if the job was found and deleted
     if (!deletedJob) {
@@ -163,31 +173,40 @@ export const similarJobs = async (req, res) => {
   const { id } = req.params;
   try {
     // Retrieve the job by its ID
-    const job = await JobModel.findById(id);
+    const job = await JobModel.findById(id).sort({ _id: -1 });
     if (!job) {
       return res.status(404).json({ message: "Job not found" });
     }
 
-    const { title } = job; //"software engineer"
-    const keywords = title.split(" "); //["software","engineer"]
-    const regexQueries = keywords.map((keyword) => ({
-      title: new RegExp(keyword, "i"), // [  {title:/software/i} ,   {title:/engineer/i}  ]
-    }));
+    // const { title } = job; //"software engineer"
+    // const keywords = title.split(" "); //["software","engineer"]
 
+    // const regexQueries = keywords.map((keyword) => ({
+    //   title: new RegExp(keyword, "i"), // [  {title:/software/i} ,   {title:/engineer/i}  ]
+    // }));
+
+    // const similarJobs = await JobModel.find({
+    //   $and: [
+    //     { _id: { $ne: id } },
+    //     {
+    //       $or: regexQueries,
+    //     },
+    //   ],
+    // });
     const similarJobs = await JobModel.find({
       $and: [
         { _id: { $ne: id } },
-        {
-          $or: regexQueries, //any of the match from regexqueries..
-        },
+        { categories: job.categories }, // Filter by the same category
       ],
-    });
+    }).sort({ _id: -1 }); // Sort by createdAt, latest first
+
     res.json(similarJobs);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error });
   }
 };
+
 export const countCategories = async (req, res) => {
   try {
     const itJobs = await JobModel.find({
@@ -220,9 +239,8 @@ export const countCategories = async (req, res) => {
   }
 };
 export const latestJob = async (req, res) => {
-  const user = req.user;
-  const jobs = await JobModel.find() //{ postedBy: { $nin: [user._id] } }
-    .sort({ createdAt: -1 }) // Sort by createdAt, latest first
+  const jobs = await JobModel.find()
+    .sort({ _id: -1 }) // Sort by createdAt, latest first
     .limit(4) // Limit to 4 results
     .exec(); // Execute the query
   res.send(jobs);

@@ -18,8 +18,10 @@ router.get(
   "/getMonthlyRegistrations",
   isLoggedin,
   isAdmin,
+
   getMonthlyRegistrations
 );
 router.delete("/delete-user/:id", isLoggedin, isAdmin, deleteUser);
-router.delete("delete-job/:id", isLoggedin, isAdmin, deleteJob);
+router.delete("/delete-job/:id", isLoggedin, isAdmin, deleteJob);
+router.get("/getAll", isLoggedin, isAdmin, getJobs);
 export default router;

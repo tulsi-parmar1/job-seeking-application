@@ -63,7 +63,7 @@ export const profileChange = async (req, res) => {
     // Upload to Cloudinary
     const cloudinaryResponse = await cloudinary.uploader.upload(
       profile.tempFilePath,
-      { folder: "HireHub" }
+      { folder: "HireHub" } //cloudinary folder name
     );
 
     if (!cloudinaryResponse || cloudinaryResponse.error) {
@@ -122,29 +122,26 @@ export const getInfo = async (req, res) => {
     res.send(error);
   }
 };
+
 export const getProfile = async (req, res) => {
   const user = req.user;
 
+  if (!user) {
+    return res.status(404).json({ message: "User not found" });
+  }
+
   try {
-    if (!user.profile) {
-      // return res
-      //   .status(404)
-      //   .json({ message: "No profile found for this user" });
+    const profile = await profileModel.findById(user?.profile);
+
+    if (!profile) {
+      return res.status(200).json({ url: null }); // Return null if no profile found
     }
-
-    const profile = await profileModel.findById(user.profile);
-
-    // if (!profile) {
-    //   return res.status(404).json({ message: "Profile document not found" });
-    // }
 
     res.send({
       url: profile.profile?.url || null,
     });
   } catch (error) {
     console.error("Error in getProfile:", error);
-    // res
-    //   .status(500)
-    //   .json({ message: "Something went wrong while fetching profile" });
+    res.status(500).json({ message: "Server Error" });
   }
 };

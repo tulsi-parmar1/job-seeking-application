@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import style from "../../module/Application.module.css";
 import { MdDelete } from "react-icons/md";
 import { GrLinkPrevious } from "react-icons/gr";
 
@@ -12,6 +11,7 @@ const ViewApplication = () => {
   const isAuthorized = localStorage.getItem("isAuthorized") === "true";
   const navigate = useNavigate();
   const audio = new Audio("notification.mp3");
+
   useEffect(() => {
     const fetchApplicants = async () => {
       try {
@@ -31,7 +31,7 @@ const ViewApplication = () => {
     if (!isAuthorized) {
       navigate("/login");
     }
-  }, []);
+  }, [isAuthorized, navigate]);
 
   const deleteApplication = async (idd) => {
     const result = confirm("Are you sure you want to delete?");
@@ -42,7 +42,6 @@ const ViewApplication = () => {
           { withCredentials: true }
         );
 
-        // Update the state to remove the deleted application
         setApplicants((prevApplications) =>
           prevApplications.filter((application) => application._id !== idd)
         );
@@ -56,116 +55,150 @@ const ViewApplication = () => {
   };
 
   const handleResumeClick = (resume) => {
-    // Opens the resume in a new tab
     window.open(resume, "_blank");
   };
 
   const handleJobDetailClick = (jobId) => {
-    navigate(`/profile/application/me/job/${jobId}`); // Navigate to the job detail page
+    navigate(`/profile/application/me/job/${jobId}`);
   };
 
   return (
-    <div>
+    <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "20px" }}>
       {applicants.length <= 0 ? (
-        <h1 style={{ marginTop: "100px", marginLeft: "50px" }}>
-          hey,you've not applied for any job yet.... <br /> explore jobs to
+        <h1 style={{ textAlign: "center", color: "#333", fontSize: "24px" }}>
+          Hey, you've not applied for any job yet.... <br /> Explore jobs to
           apply
           <button
+            onClick={() => navigate("/job/getall")}
             style={{
               backgroundColor: "#088395",
-              color: "white",
-              border: "1px solid",
-              padding: "10px",
+              color: "#fff",
+              border: "none",
+              padding: "10px 20px",
               marginTop: "20px",
+              cursor: "pointer",
+              borderRadius: "5px",
+              fontSize: "16px",
             }}
-            onClick={() => navigate("/job/getall")}
           >
             Explore Jobs
           </button>
         </h1>
       ) : (
-        <div className={`${style.applicants}`} style={{ marginTop: "-1px" }}>
+        <div>
           <GrLinkPrevious
-            style={{ fontSize: "30px", marginLeft: "100px" }}
-            className={style.previous}
             onClick={() => window.history.back()}
+            style={{
+              fontSize: "30px",
+              color: "#088395",
+              cursor: "pointer",
+              marginBottom: "20px",
+            }}
           />
-          <ul>
+          <ul style={{ listStyle: "none", padding: "0" }}>
             {applicants.map((applicant, index) => (
-              <li key={index}>
-                <div style={{ display: "flex", gap: "50px" }}>
+              <li
+                key={index}
+                style={{
+                  backgroundColor: "#f9f9f9",
+                  border: "1px solid #ddd",
+                  borderRadius: "8px",
+                  padding: "20px",
+                  marginBottom: "20px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  flexWrap: "wrap",
+                }}
+              >
+                <div style={{ flex: "1 1 60%", paddingRight: "20px" }}>
+                  <h3 style={{ color: "#088395" }}>
+                    {applicant.firstName} {applicant.lastName}
+                  </h3>
+                  <p>
+                    <strong>Email: </strong>
+                    <a
+                      href={`mailto:${applicant.email}`}
+                      style={{ color: "#088395", textDecoration: "none" }}
+                    >
+                      {applicant.email}
+                    </a>
+                  </p>
+                  <p>
+                    <strong>Contact Number: </strong>
+                    {applicant.contactNumber}
+                  </p>
+                  <p>
+                    <strong>Current City: </strong>
+                    {applicant.currentCity}
+                  </p>
+                  <p style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
+                    <strong>Cover Letter: </strong>
+                    {applicant.coverLetter}
+                  </p>
+                  <div style={{ display: "flex", justifyContent: "center" }}>
+                    <MdDelete
+                      onClick={() => deleteApplication(applicant._id)}
+                      style={{
+                        fontSize: "30px",
+                        color: "#f44336",
+                        cursor: "pointer",
+                        marginTop: "10px",
+                      }}
+                    />
+                  </div>
+                </div>
+
+                <div style={{ flex: "1 1 30%" }}>
+                  <iframe
+                    src={`http://localhost:4000/${applicant.resume}`}
+                    height="300px"
+                    style={{
+                      width: "100%",
+                      borderRadius: "8px",
+                      border: "1px solid #ddd",
+                    }}
+                    title="Resume PDF"
+                  ></iframe>
                   <div
                     style={{
+                      marginTop: "10px",
                       display: "flex",
-                      flexDirection: "column",
-                      gap: "10px",
+                      justifyContent: "space-between",
                     }}
                   >
-                    <h3 style={{ color: "#088395" }}>
-                      {applicant.firstName} {applicant.lastName}
-                    </h3>
-                    <p>
-                      Email:{" "}
-                      <span style={{ fontSize: "16px" }}>
-                        {applicant.email}
-                      </span>
-                    </p>
-                    <p>
-                      Contact Number:{" "}
-                      <span style={{ fontSize: "16px" }}>
-                        {applicant.contactNumber}
-                      </span>
-                    </p>
-                    <p>
-                      Current City:{" "}
-                      <span style={{ fontSize: "16px" }}>
-                        {applicant.currentCity}
-                      </span>
-                    </p>
-                    <p>
-                      Cover Letter:{" "}
-                      <span style={{ fontSize: "16px" }}>
-                        {applicant.coverLetter}
-                      </span>
-                    </p>
-                    <div className={style.btn}>
-                      <MdDelete
-                        onClick={() => deleteApplication(applicant._id)}
-                        style={{ fontSize: "40px" }}
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <iframe
-                      src={`http://localhost:4000/${applicant.resume}`}
-                      height="200px"
-                      title="Resume PDF"
-                    ></iframe>
-                    <div
+                    <button
+                      onClick={() =>
+                        handleResumeClick(
+                          `http://localhost:4000/${applicant.resume}`
+                        )
+                      }
                       style={{
-                        display: "flex",
-                        gap: "10px",
-                        flexWrap: "wrap",
+                        backgroundColor: "#088395",
+                        color: "#fff",
+                        padding: "10px 20px",
+                        border: "none",
+                        borderRadius: "5px",
+                        cursor: "pointer",
+                        fontSize: "14px",
                       }}
                     >
-                      <button
-                        onClick={() =>
-                          handleResumeClick(
-                            `http://localhost:4000/${applicant.resume}`
-                          )
-                        }
-                        className={style.resumeFullimg}
-                      >
-                        View Full Resume
-                      </button>
-                      <button
-                        onClick={() => handleJobDetailClick(applicant.job._id)}
-                        className={style.resumeFullimg}
-                      >
-                        View Job Detail
-                      </button>
-                    </div>
+                      View Full Resume
+                    </button>
+                    <button
+                      onClick={() => handleJobDetailClick(applicant.job._id)}
+                      style={{
+                        backgroundColor: "#f1f1f1",
+                        color: "#333",
+                        padding: "10px 20px",
+                        border: "none",
+                        borderRadius: "5px",
+                        cursor: "pointer",
+                        fontSize: "14px",
+                        border: "1px solid #ddd",
+                      }}
+                    >
+                      View Job Detail
+                    </button>
                   </div>
                 </div>
               </li>

@@ -25,7 +25,7 @@ const registeruser = async (req, res) => {
     const verificationCode = Math.floor(
       100000 + Math.random() * 900000
     ).toString();
-    const otpExpiry = new Date(Date.now() + 5 * 60 * 1000);
+    const otpExpiry = new Date(Date.now() + 5 * 60 * 1000); //5minutes expiry
 
     bcrypt.genSalt(10, (err, salt) => {
       if (err)
@@ -130,7 +130,7 @@ export const forgotPassword = async (req, res) => {
 };
 export const resetPassword = async (req, res) => {
   try {
-    const { token } = req.params;
+    const { token } = req.params; // Extract token from URL params
     const { newPassword, confirmNewPassword } = req.body;
     const isequal = newPassword === confirmNewPassword;
     if (!isequal) {
@@ -318,7 +318,7 @@ export const otpResend = async (req, res) => {
     }
 
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
-    const otpExpiry = new Date(Date.now() + 5 * 60 * 1000); // 1 minutes expiry
+    const otpExpiry = new Date(Date.now() + 5 * 60 * 1000); // 5 minutes expiry
 
     user.verificationCode = otp;
     user.otpExpireAt = otpExpiry;

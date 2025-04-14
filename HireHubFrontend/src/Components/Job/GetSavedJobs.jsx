@@ -22,13 +22,6 @@ const GetSavedJobs = () => {
   useEffect(() => {
     const getSavedJobs = async () => {
       try {
-        // axios
-        //   .get(`http://localhost:4000/api/user/getUser`, {
-        //     withCredentials: true,
-        //   })
-        //   .then((res) => {
-        //     dispatch(userAction.setUser(res.data.user));
-        //   });
         const { data } = await axios.get(
           "http://localhost:4000/api/user/getSavedJobs",
           { withCredentials: true }

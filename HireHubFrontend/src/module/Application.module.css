@@ -18,7 +18,7 @@
 }
 .applicants ul {
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   align-items: center;
   gap: 40px;
 }
@@ -34,13 +34,13 @@
 
 .cardContainer {
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   gap: 20px; /* Add spacing between elements */
 }
 
 .details {
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   gap: 10px;
 }
 
@@ -50,7 +50,7 @@
 
 .resumeContainer {
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   gap: 10px;
   align-items: flex-start; /* Align items to the start */
 }
@@ -116,5 +116,140 @@
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+/* ------------------------------------------------- */
+/* Container for the main content */
+.container {
+  width: 100%;
+  padding: 20px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* For the empty applications message */
+.noApplicationsMessage {
+  margin-top: 100px;
+  margin-left: 50px;
+  font-size: 18px;
+}
+
+.exploreJobsBtn {
+  background-color: #088395;
+  color: white;
+  border: 1px solid;
+  padding: 10px;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.exploreJobsBtn:hover {
+  background-color: #006f75;
+}
+
+/* Main applicants container */
+.applicantsContainer {
+  display: flex;
+  /* flex-direction: column; */
+  gap: 20px;
+  width: 100%;
+}
+
+.applicantList {
+  display: grid;
+  /* grid-template-columns: 1fr 1fr 1fr; */
+  gap: 20px;
+  width: 100%;
+}
+
+.applicantCard {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.applicantInfo {
+  display: flex;
+  gap: 20px;
+}
+
+.infoLeft {
+  flex: 1;
+}
+.applicantsContainer button {
+  overflow: hidden;
+}
+.infoLeft h3 {
+  color: #088395;
+}
+
+.infoLeft p {
+  font-size: 16px;
+}
+
+.deleteBtn {
+  margin-top: 10px;
+}
+
+.infoRight {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.resumeIframe {
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+}
+
+.actionButtons {
+  display: flex;
+  gap: 10px;
+}
+
+.viewFullResumeBtn,
+.viewJobDetailBtn {
+  padding: 10px 20px;
+  background-color: #088395;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.viewFullResumeBtn:hover,
+.viewJobDetailBtn:hover {
+  background-color: #006f75;
+}
+
+/* Button for the back action */
+.backButton {
+  font-size: 30px;
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+/* For smaller screens, adjust layout */
+@media (max-width: 768px) {
+  .applicantList {
+    grid-template-columns: 1fr;
+  }
+
+  .infoRight iframe {
+    height: 250px;
+  }
+}
+
+@media (max-width: 480px) {
+  .applicantInfo {
+    flex-direction: column;
+  }
+
+  .actionButtons {
+    flex-direction: column;
   }
 }

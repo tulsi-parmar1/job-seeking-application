@@ -41,6 +41,7 @@ function VarifyEmail() {
       localStorage.setItem("userEmail", email);
       dispatch(userAction.setEmail(email));
       localStorage.setItem("isAuthorized", true);
+      //can comment the below code because now we would not redirect to home page as we used to..
       localStorage.setItem("setShowOtpInput", false);
       dispatch(userAction.setIsVerified(true));
       navigate("/");

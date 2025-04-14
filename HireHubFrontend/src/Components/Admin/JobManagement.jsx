@@ -29,11 +29,10 @@ function JobManagement() {
     const fetchJobs = async () => {
       setLoading(true);
       try {
-        const res = await axios.get(
-          `http://localhost:4000/api/job/getAll?page=${page}&limit=7`,
-          { withCredentials: true }
-        );
-
+        const res = await axios.get(`http://localhost:4000/api/admin/getAll`, {
+          withCredentials: true,
+        });
+        console.log(res.data);
         if (jobs.length === 0) {
           setJobs(res.data.jobs);
           setLoading(false);
@@ -50,19 +49,21 @@ function JobManagement() {
 
     fetchJobs();
   }, [page]);
+
   const handleDelete = async (id) => {
     const result = confirm("are you sure you want to delete job??");
     if (result) {
       try {
         const { data } = await axios.delete(
-          `http://localhost:4000/api/job/deleteJob/${id}`,
+          `http://localhost:4000/api/admin/delete-job/${id}`,
           { withCredentials: true }
         );
         audio.play();
         toast.success(data.message);
-        setJobs((prevjobs) => prevjobs.filter((job) => job._id !== id));
+        setJobs((prevJobs) => prevJobs.filter((job) => job._id !== id));
       } catch (error) {
         audio.play();
+        console.log(error);
         toast.error(error.response?.data?.message || error.message);
       }
     }
@@ -94,9 +95,6 @@ function JobManagement() {
             </p>
           </div>
           <div className={style.adminjobActions}>
-            {/* <button onClick={() => navigate(`/job/${job._id}`)}>
-              Job Detail
-            </button> */}
             <p>Posted {moment(job.postedDate).fromNow()}</p>
             <div className={style.adminjobControls}>
               <div>

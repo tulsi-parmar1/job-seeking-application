@@ -39,7 +39,7 @@ function Register() {
         }
       );
 
-      toast.success("OTP sent to your email");
+      toast.success("OTP sent to your -email");
 
       navigate("/verifyEmail");
     } catch (error) {

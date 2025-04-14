@@ -52,7 +52,6 @@ function Jobs() {
             setJobs((prevJobs) => [...prevJobs, ...res.data.jobs]); // Append new jobs}
             setLoading(false);
           }
-          console.log(jobs.length);
         } catch (error) {
           audio.play();
           toast.error("Failed to fetch jobs");
@@ -65,7 +64,6 @@ function Jobs() {
     []
   );
 
-  // Filter jobs by both title and location
   const filteredJobs = jobs.filter((job) => {
     return (
       job.title.toLowerCase().includes(searchQuery.toLowerCase()) &&

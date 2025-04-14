@@ -122,14 +122,13 @@ const JobDetailSub = ({ job, applicants, id }) => {
             </div>
             <div className={style.threedesign}>
               <p>{job.employmentType}</p>
-              <p>intership</p>
-              <p>experience</p>
+              <p>{job.categories}</p>
+              <p>applicants:{applicants}</p>
             </div>
           </div>
         </div>
         <div>
           <div dangerouslySetInnerHTML={{ __html: job.description }} />
-          {/* <p style={{ fontSize: "17px" }}>{job.description}</p> */}
         </div>
         <div>
           {job.requirements && (

@@ -17,18 +17,25 @@ function UserManagement() {
           "http://localhost:4000/api/admin/getUsers",
           { withCredentials: true }
         );
-        setAllUser(data.users);
-        console.log("all users", data.users);
+        let filteredUsers = data.users;
+        if (location.state?.recruiter) {
+          filteredUsers = data.users.filter((u) => u.role === "recruiter");
+        } else if (location.state?.jobseeker) {
+          filteredUsers = data.users.filter((u) => u.role !== "recruiter");
+        }
+        setAllUser(filteredUsers);
       } catch (error) {
         console.log(error);
       }
     }
+
     fetchData();
-  }, []);
-  const state = location.state || {};
-  const users = state.users || state.jobseeker || state.recruiter || alluser;
+  }, [location.state]);
+
+  const users = alluser;
+
   const handleDeleteBtn = async (id) => {
-    const result = confirm("are you sure you want to delete this user??");
+    const result = confirm("Are you sure you want to delete this user?");
     if (result) {
       try {
         const { data } = await axios.delete(
@@ -36,12 +43,13 @@ function UserManagement() {
           { withCredentials: true }
         );
         toast.success(data.message);
-        setUsers((prevusers) => prevusers.filter((user) => user._id !== id));
+        setAllUser((prevusers) => prevusers.filter((user) => user._id !== id));
       } catch (error) {
-        alert(error.reponse.data.message);
+        toast.error(error.response?.data?.message || error.message);
       }
     }
   };
+
   return (
     <div
       style={{
@@ -53,7 +61,6 @@ function UserManagement() {
         marginBottom: "10px",
       }}
     >
-      {/* Scrollable User List */}
       <div
         style={{
           overflowY: "auto",
@@ -72,7 +79,7 @@ function UserManagement() {
               }}
             >
               <div>
-                {item?.profile?.profile.url ? (
+                {item?.profile?.profile?.url ? (
                   <img src={item.profile.profile.url} alt="User Profile" />
                 ) : (
                   <img src={profile} alt="Default Profile" />

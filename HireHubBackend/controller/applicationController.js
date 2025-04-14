@@ -1,6 +1,7 @@
 import ApplicationModel from "../models/applicationModel.js";
 import JobModel from "../models/jobModel.js";
 import dotenv from "dotenv";
+import validator from "validator"; // to validate email
 dotenv.config({ path: "HireHub/config/config.env" });
 export const getMyApplication = async (req, res) => {
   try {
@@ -8,7 +9,9 @@ export const getMyApplication = async (req, res) => {
 
     const applications = await ApplicationModel.find({
       applicant: _id,
-    }).populate("job");
+    })
+      .populate("job")
+      .sort({ _id: -1 });
 
     res.status(200).json(applications);
   } catch (error) {
@@ -26,6 +29,19 @@ export const postApplication = async (req, res) => {
       email,
       coverLetter,
     } = req.body;
+    if (!firstName || !lastName || !contactNumber || !email || !coverLetter) {
+      return res.status(400).send("All fields are required.");
+    }
+
+    // Validate email
+    if (!validator.isEmail(email)) {
+      return res.status(400).send("Invalid email format.");
+    }
+
+    // Validate contact number: should be a number and exactly 10 digits
+    if (!/^\d{10}$/.test(contactNumber)) {
+      return res.status(400).send("Contact number must be 10 digits.");
+    }
 
     if (!req.files || !req.files.resume) {
       return res.status(400).send("No resume file was uploaded.");
@@ -77,7 +93,6 @@ export const postApplication = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-
     res.status(500).send(error.message || "An error occurred");
   }
 };

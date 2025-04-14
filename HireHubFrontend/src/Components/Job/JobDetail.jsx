@@ -14,7 +14,7 @@ function JobDetail() {
   const [applicants, setApplicants] = useState([]);
   const [job, setJob] = useState({});
   const audio = new Audio("notification.mp3");
-
+  // ----------------parent component for job detail and sum details-----------------------//
   useEffect(() => {
     axios
       .get(`http://localhost:4000/api/job/${id}`, { withCredentials: true })

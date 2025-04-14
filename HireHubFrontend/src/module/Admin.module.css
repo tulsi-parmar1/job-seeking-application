@@ -109,7 +109,7 @@
 
 .layout {
   display: flex;
-  /* width: 1000px; */
+
   display: flex;
   justify-content: space-around;
   margin-top: 30px;
@@ -146,7 +146,6 @@
 .boxTitle {
   font-size: 16px;
   font-weight: 600;
-  /* color: gray; */
   color: white;
 }
 .count {
@@ -165,12 +164,12 @@
 }
 .linegraph {
   width: 100%;
-  max-width: 800px; /* Adjust as per layout */
-  overflow: hidden; /* or auto */
+  max-width: 800px;
+  overflow: hidden;
 }
 .parentContainer {
   display: flex;
-  flex-wrap: wrap; /* Ensure proper wrapping */
+  flex-wrap: wrap;
 }
 
 .linegraph {
@@ -212,13 +211,11 @@
   background-color: rgba(128, 128, 128, 0.251);
 }
 
-/* Title Styling */
 .dashboardSection h1 {
   font-size: 19px;
   color: wheat;
 }
 
-/* Number Display Styling */
 .dashboardSection .number {
   font-size: 2rem;
   font-weight: bold;
@@ -249,7 +246,7 @@
   font-weight: bold;
   margin-top: 15px;
   text-align: right;
-  color: #1e90ff; /* Blue color for the author */
+  color: #1e90ff;
 }
 .usersData {
   margin: 0px;
@@ -382,29 +379,27 @@
   margin-top: 20px;
   border: none;
   border-radius: 5px;
-  color: #088395;
+  color: teal;
   font-weight: bold;
   border: 1px solid rgba(128, 128, 128, 0.449);
   transition: 0.4s;
   &:hover {
-    background-color: teal;
-    color: white;
     cursor: pointer;
   }
 }
-/* Responsive Design for smaller screens */
+
 @media (max-width: 768px) {
   .dashboardSection {
-    width: 90%; /* Make the section width 90% for smaller screens */
+    width: 90%;
     padding: 20px;
   }
 
   .dashboardSection h1 {
-    font-size: 1.5rem; /* Smaller title font for mobile */
+    font-size: 1.5rem;
   }
 
   .dashboardSection .number {
-    font-size: 2.5rem; /* Slightly smaller number on mobile */
+    font-size: 2.5rem;
   }
 }
 @media (max-width: 768px) {

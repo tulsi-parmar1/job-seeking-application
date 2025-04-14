@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 function Footer() {
-  const { isAuthorized } = useSelector((state) => state.user);
   return (
     <div style={{ position: "sticky", bottom: "0px" }}>
       <footer>

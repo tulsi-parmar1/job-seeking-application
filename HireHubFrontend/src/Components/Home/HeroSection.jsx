@@ -16,7 +16,6 @@ function HeroSection() {
   const secondTextRef = useRef();
   const btnRef = useRef();
   useGSAP(() => {
-    //using useRef
     gsap.fromTo(
       gsapRef.current,
       { opacity: 0, y: 100 },
@@ -84,14 +83,17 @@ function HeroSection() {
 
   const navigate = useNavigate();
   const { users } = useSelector((state) => state.user);
+
   const handleonclick = () => {
     navigate("/job/getall");
   };
+
   useEffect(() => {
     if (users.role === "admin") {
       navigate("/admin");
     }
   }, []);
+
   return (
     <>
       <div className={style.hero}>
@@ -111,7 +113,6 @@ function HeroSection() {
           </button>
         </div>
         <div className={style.image}>
-          {/* <img src="resume.png" alt="" /> */}
           <img src="home2.png" alt="" ref={imageRef} />
         </div>
       </div>

@@ -18,7 +18,7 @@ const jobSchema = new mongoose.Schema({
   },
   employmentType: {
     type: String,
-    required: true, // e.g., Full-time, Part-time, Contract, Internship
+    required: true,
     enum: ["Full-time", "Part-time", "Contract", "Internship", "Remote Job"],
   },
   createdAt: {
@@ -86,10 +86,6 @@ const jobSchema = new mongoose.Schema({
       required: true,
     },
   },
-  // qualification: {
-  //   type: String,
-  //   require: true,
-  // },
 });
 const JobModel = mongoose.model("Job", jobSchema);
 export default JobModel;

@@ -9,11 +9,8 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { userAction } from "../../Slices/userSlice";
-
 import { MdDelete } from "react-icons/md";
-
 import { FaEdit } from "react-icons/fa";
-
 import { FaBookmark } from "react-icons/fa6";
 
 const JobLayout = ({
@@ -26,12 +23,14 @@ const JobLayout = ({
   isSavedJobView,
 }) => {
   const audio = new Audio("notification.mp3");
+
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
         setPage((prevPage) => prevPage + 1);
       }
     });
+
     const lastJob = document.querySelector(".jobss:last-child");
     if (lastJob) observer.observe(lastJob);
 
@@ -39,12 +38,14 @@ const JobLayout = ({
       if (lastJob) observer.unobserve(lastJob);
     };
   }, [jobs.length]);
+
   const isAuthorized = localStorage.getItem("isAuthorized") === "true";
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [saved, setSaved] = useState([]);
   const { users } = useSelector((state) => state.user);
+
   const handleonclick = (jobId) => {
     if (isProfileView) {
       navigate(`/profile/job/me/${jobId}`);
@@ -95,9 +96,11 @@ const JobLayout = ({
       }
     }
   };
+
   const handleJobUpdate = (id) => {
     navigate(`/profile/job/me/update/${id}`);
   };
+
   useEffect(() => {
     try {
       axios

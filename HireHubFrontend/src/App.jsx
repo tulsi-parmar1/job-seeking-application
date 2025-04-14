@@ -13,7 +13,6 @@ function App() {
   const { isVarified } = useSelector((state) => state.user);
   const role = localStorage.getItem("role") === "admin";
   const { isAuthorized } = useSelector((state) => state.user);
-  const { users } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const location = useLocation();
   useEffect(
@@ -41,7 +40,7 @@ function App() {
             // dispatch(userAction.setUser(""));
           }
         } catch (err) {
-          console.error("Error fetching user:", err); // Handle error
+          console.error("Error fetching user:", err);
           dispatch(userAction.setIsAuthorized(false));
           localStorage.setItem("isAuthorized", false);
         }
@@ -65,10 +64,9 @@ function App() {
   const hideNavbarFooter =
     location.pathname.startsWith("/reset-password") ||
     location.pathname.startsWith("/admin");
-  console.log(location.pathname);
   return (
     <>
-      <Auth></Auth>
+      {/* <Auth></Auth> */}
       {!hideNavbarFooter && <NavBar />}
       <Outlet></Outlet>
       {!hideNavbarFooter && <Footer />}

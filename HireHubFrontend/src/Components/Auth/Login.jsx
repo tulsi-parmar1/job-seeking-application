@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { userAction } from "../../Slices/userSlice";
 import { toast } from "react-toastify";
-import Loader from "../Layout/Loader.jsx";
 import "react-toastify/dist/ReactToastify.css";
 import style from "../../module/Login.module.css";
 function Login() {
@@ -58,7 +57,6 @@ function Login() {
       localStorage.setItem("isAuthorized", "true");
       localStorage.setItem("email", email);
       toast.success(data.message);
-
       const getProfile = async () => {
         try {
           const { data } = await axios.get(
@@ -145,7 +143,11 @@ function Login() {
               {" "}
               <a onClick={handleForgotPassword}>
                 forgot password ?{" "}
-                {loader && <p style={{ color: "gray " }}>wait...</p>}
+                {loader && (
+                  <p style={{ color: "gray ", margin: "8px" }}>
+                    sending link for reset password...
+                  </p>
+                )}
               </a>
             </div>
 

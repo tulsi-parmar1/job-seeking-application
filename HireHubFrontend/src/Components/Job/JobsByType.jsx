@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import JobLayout from "../Home/JobLayout";
 import axios from "axios";
-
+import { GrLinkPrevious } from "react-icons/gr";
 function JobsByType() {
   const { type } = useParams();
   const [jobsData, setJobsData] = useState({
@@ -51,6 +51,10 @@ function JobsByType() {
 
   return (
     <div style={{ marginTop: "150px" }}>
+      <GrLinkPrevious
+        style={{ fontSize: "30px", marginLeft: "100px" }}
+        onClick={() => window.history.back()}
+      />
       {jobs.length > 0 ? (
         <>
           <h1 style={{ textAlign: "center", marginBottom: "20px" }}>

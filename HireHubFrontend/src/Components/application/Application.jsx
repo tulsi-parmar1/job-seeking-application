@@ -32,7 +32,7 @@ function Application() {
     if (resumeFile && resumeFile.type === "application/pdf") {
       setResume(resumeFile);
     } else {
-      audio.play();
+      // audio.play();
       toast.error("Only PDF files are accepted for resume.");
     }
   };
@@ -60,18 +60,19 @@ function Application() {
           },
         }
       );
+      console.log(data);
       setFirstName("");
       setLastName("");
       setContactNumber("");
       setCurrentCity("");
       setEmail("");
       setCoverLetter("");
-      setResume(null); // Reset resume to null
+      setResume(null);
       audio.play();
       toast.success(data.message);
       setLoader(false);
     } catch (error) {
-      console.log("error", error.message);
+      toast.error(error.response.data);
       setLoader(false);
     }
   };

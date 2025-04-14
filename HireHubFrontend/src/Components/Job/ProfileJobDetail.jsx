@@ -66,8 +66,8 @@ const ProfileJobDetail = ({ job, applicants, id }) => {
               </div>
               <div className={style.threedesign}>
                 <p>{job.employmentType}</p>
-                <p>intership</p>
-                <p>experience</p>
+                <p>{job.categories}</p>
+                <p>Applicants:{applicants}</p>
               </div>
             </div>
           </div>
@@ -93,10 +93,7 @@ const ProfileJobDetail = ({ job, applicants, id }) => {
               </>
             )}
           </div>
-          <div>
-            <p style={{ fontWeight: "bold" }}>Qualification</p>
-            <p>Graduated</p>
-          </div>
+
           <div>
             <p style={{ fontWeight: "bold" }}>Salary Range:</p>
             <div>

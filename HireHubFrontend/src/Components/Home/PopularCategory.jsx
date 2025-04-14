@@ -54,20 +54,6 @@ function PopularCategory() {
         },
       }
     );
-    //     // gsap.fromTo(
-    //     //     textRef.current,
-    //     //     { opacity: 0, x:100 },
-    //     //     {
-    //     //         opacity: 1,
-    //     //         x: 0,
-    //     //         duration: 1,
-    //     //         stagger: 0.2,
-    //     //         scrollTrigger: {
-    //     //             trigger: textRef.current,
-    //     //             start: "top 80%",
-    //     //         }
-    //     //     }
-    //     // );
   }, []);
 
   return (

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import JobLayout from "../Home/JobLayout";
 import axios from "axios";
+import { GrLinkPrevious } from "react-icons/gr";
 import Loader from "../Layout/Loader.jsx";
 
 function CategoryJobs() {
@@ -55,6 +56,10 @@ function CategoryJobs() {
 
   return (
     <div style={{ marginTop: "150px" }}>
+      <GrLinkPrevious
+        style={{ fontSize: "30px", marginLeft: "100px" }}
+        onClick={() => window.history.back()}
+      />
       {loader ? (
         <Loader></Loader>
       ) : jobs.length > 0 ? (

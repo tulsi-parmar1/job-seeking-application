@@ -108,7 +108,6 @@ const router = createBrowserRouter([
             path: "application/me",
             element: <MyApplication></MyApplication>,
           },
-
           {
             path: "application/me/job/:id",
             element: <JobDetail></JobDetail>,
@@ -175,9 +174,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <RouterProvider router={router}>
         <App />
       </RouterProvider>
-      {/* //it must be outside of routerprovider */}
+
       <ToastContainer
-        position="top-center" // Change position to center
+        position="top-center"
         autoClose={5000}
         hideProgressBar={false}
         draggable

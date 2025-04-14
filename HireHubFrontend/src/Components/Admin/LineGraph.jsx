@@ -51,7 +51,6 @@ const LineGraph = () => {
             strokeWidth={3}
             dot={{ fill: "#00c49f" }}
           />{" "}
-          {/* curve  */}
         </LineChart>
       </ResponsiveContainer>
     </div>

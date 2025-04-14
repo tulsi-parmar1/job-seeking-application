@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import style from "../../module/ResetPassword.module.css";
 import { toast } from "react-toastify";
-
+//--------------this is the page that shown in the email link when the user click the link to reset password------------------//
 const ResetPassword = () => {
   const { token } = useParams();
   const [newPassword, setNewPassword] = useState("");

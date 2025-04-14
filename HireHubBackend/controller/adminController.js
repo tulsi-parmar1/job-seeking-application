@@ -1,6 +1,7 @@
 import userModel from "../models/usermodel.js";
 import jobModel from "../models/jobModel.js";
 import applicationModel from "../models/applicationModel.js";
+import profileModel from "../models/profileModel.js";
 export const getUsers = async (req, res) => {
   try {
     const users = await userModel
@@ -33,6 +34,17 @@ export const deleteUser = async (req, res) => {
     const { id } = req.params;
     await userModel.deleteOne({ _id: id });
     res.status(201).json({ message: "user deleted successfully!!" });
+    const userApplications = await applicationModel.find({ applicant: id });
+    const applicationIds = userApplications.map((app) => app._id);
+
+    await applicationModel.deleteMany({ _id: { $in: applicationIds } });
+    const profileDeleted = await profileModel.deleteMany({ profileOf: id });
+    const jobsDeleted = await jobModel.deleteMany({ postedBy: id });
+
+    await jobModel.updateMany(
+      { applicants: { $in: applicationIds } },
+      { $pull: { applicants: { $in: applicationIds } } }
+    );
   } catch (error) {
     res.status(402).json({ error: error });
     console.log(error);
@@ -60,6 +72,7 @@ export const deleteJob = async (req, res) => {
     const { id } = req.params;
     await jobModel.deleteOne({ _id: id });
     res.status(201).json({ message: "job deleted successfully!" });
+    const applicationsDeleted = await ApplicationModel.deleteMany({ job: id });
   } catch (error) {
     res.status(401).json({ error });
   }
