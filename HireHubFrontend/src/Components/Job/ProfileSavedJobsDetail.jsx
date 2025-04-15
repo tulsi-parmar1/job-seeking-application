@@ -8,6 +8,7 @@ import { useEffect } from "react";
 
 const ProfileSavedJobsDetail = ({ job, applicants, id }) => {
   console.log(job);
+  const users = localStorage.getItem("user");
   const navigate = useNavigate();
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -45,6 +46,12 @@ const ProfileSavedJobsDetail = ({ job, applicants, id }) => {
                     view applicants
                   </button>
                 )}
+                {!(users?._id === job.postedBy) &&
+                  !(users?.role === "recruiter" && isAuthorized) && (
+                    <button onClick={() => navigate(`/application/${job._id}`)}>
+                      Apply now
+                    </button>
+                  )}
               </p>
             </div>
           </div>
@@ -66,8 +73,8 @@ const ProfileSavedJobsDetail = ({ job, applicants, id }) => {
               </div>
               <div className={style.threedesign}>
                 <p>{job.employmentType}</p>
-                <p>intership</p>
-                <p>experience</p>
+                <p>{job.categories}</p>
+                <p>Applicants:{applicants}</p>
               </div>
             </div>
           </div>
@@ -93,10 +100,12 @@ const ProfileSavedJobsDetail = ({ job, applicants, id }) => {
               </>
             )}
           </div>
-          <div>
-            <p style={{ fontWeight: "bold" }}>Qualification</p>
-            <p>Graduated</p>
-          </div>
+          {job.contactEmail && (
+            <>
+              <p style={{ fontWeight: "bold" }}>Contact Email: </p>
+              <a href={`mailto:${job.contactEmail}`}>{job.contactEmail}</a>
+            </>
+          )}
           <div>
             <p style={{ fontWeight: "bold" }}>Salary Range:</p>
             <div>

@@ -9,7 +9,7 @@ export const getAllJob = async (req, res) => {
     const jobs = await JobModel.find()
       .skip(skip)
       .limit(Number(limit))
-      .sort({ _id: -1 }); // Ensure proper sorting
+      .sort({ _id: -1 });
 
     const totalJobs = await JobModel.countDocuments();
     res.status(200).json({ jobs, totalJobs });
@@ -17,7 +17,6 @@ export const getAllJob = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
-
 export const postJob = async (req, res) => {
   if (!req.user.role || req.user.role != "recruiter") {
     res.status(401).send({
@@ -132,18 +131,17 @@ export const updateJob = async (req, res) => {
 export const deleteJob = async (req, res) => {
   const { id } = req.params;
   try {
-    const deletedJob = await JobModel.find(id);
+    const deletedJob = await JobModel.findById(id);
 
-    // Check if the job was found and deleted
     if (!deletedJob) {
       return res.status(404).send({ message: "Job not found!" });
     }
 
-    // Delete all applications related to this job
-    const applicationsDeleted = await ApplicationModel.deleteMany({ job: id });
+    await ApplicationModel.deleteMany({ job: id });
     await deletedJob.deleteOne();
+
     res.send({
-      message: `Job  deleted.`,
+      message: `Job deleted.`,
     });
   } catch (error) {
     console.error(error);
@@ -206,17 +204,26 @@ export const similarJobs = async (req, res) => {
     res.status(500).json({ error });
   }
 };
-
 export const countCategories = async (req, res) => {
   try {
     const itJobs = await JobModel.find({
       categories: "Information Technology (IT)",
+    }).sort({ _id: -1 });
+    const healthcare = await JobModel.find({ categories: "Healthcare" }).sort({
+      _id: -1,
     });
-    const healthcare = await JobModel.find({ categories: "Healthcare" });
-    const education = await JobModel.find({ categories: "Education" });
-    const hr = await JobModel.find({ categories: "Human Resources" });
-    const ac = await JobModel.find({ categories: "Accountant" });
-    const cs = await JobModel.find({ categories: "Customer Service" });
+    const education = await JobModel.find({ categories: "Education" }).sort({
+      _id: -1,
+    });
+    const hr = await JobModel.find({ categories: "Human Resources" }).sort({
+      _id: -1,
+    });
+    const ac = await JobModel.find({ categories: "Accountant" }).sort({
+      _id: -1,
+    });
+    const cs = await JobModel.find({ categories: "Customer Service" }).sort({
+      _id: -1,
+    });
     res.send({
       itjobs: itJobs,
       itjobslength: itJobs.length,

@@ -311,7 +311,7 @@ export const verifyEmail = async (req, res) => {
 export const otpResend = async (req, res) => {
   try {
     const { email } = req.body;
-
+    console.log(email);
     const user = await userModel.findOne({ email });
     if (!user) {
       return res.status(400).json({ message: "User not found!" });

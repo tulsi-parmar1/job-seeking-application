@@ -38,10 +38,9 @@ function Register() {
           headers: { "Content-Type": "application/json" },
         }
       );
-
       toast.success("OTP sent to your -email");
-
       navigate("/verifyEmail");
+      localStorage.setItem("email", email);
     } catch (error) {
       console.log(error);
       toast.error(error.response?.data?.message || "Something went wrong");

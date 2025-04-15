@@ -40,7 +40,7 @@ const JobDetailSub = ({ job, applicants, id }) => {
       toast.error(error.response.data.message);
     }
   };
-  //sets users again because there could be chnages in savedjobs array of user object
+
   useEffect(() => {
     try {
       axios
@@ -138,6 +138,7 @@ const JobDetailSub = ({ job, applicants, id }) => {
             </>
           )}
         </div>
+        {console.log(job.requirements)}
         <div>
           {job.responsibilities && (
             <>
@@ -147,10 +148,10 @@ const JobDetailSub = ({ job, applicants, id }) => {
           )}
         </div>
         <div>
-          {job.qualification && (
+          {job.contactEmail && (
             <>
-              <p style={{ fontWeight: "bold" }}>Qualification</p>
-              <p>{job.qualification}</p>
+              <p style={{ fontWeight: "bold" }}>Contact Email: </p>
+              <a href={`mailto:${job.contactEmail}`}>{job.contactEmail}</a>
             </>
           )}
         </div>

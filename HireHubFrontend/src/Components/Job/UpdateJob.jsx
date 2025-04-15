@@ -52,7 +52,6 @@ const UpdateJob = () => {
     }
   };
 
-  // Fetch job details
   useEffect(() => {
     if (!isAuthorized) {
       navigate("/login");
@@ -70,9 +69,16 @@ const UpdateJob = () => {
       });
   }, []);
 
-  // Update the job
   const handleUpdate = async (jobId) => {
     setLoader(true);
+    console.log(job);
+    if (Number(job.salaryRange.max) < Number(job.salaryRange.min)) {
+      toast.error(
+        "Maximum salary must be greater than or equal to minimum salary."
+      );
+      setLoader(false);
+      return;
+    }
     try {
       const updateJob = { ...job };
 

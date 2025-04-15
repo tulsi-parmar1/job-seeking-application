@@ -52,6 +52,29 @@ function PostJob() {
   const handleJobPost = async (e) => {
     setLoader(true);
     e.preventDefault();
+    if (logo) {
+      const allowedImageTypes = [
+        "image/jpeg",
+        "image/png",
+        "image/jpg",
+        "image/webp",
+      ];
+
+      if (!allowedImageTypes.includes(logo.type)) {
+        toast.error(
+          "Only image files (jpg, jpeg, png, webp) are allowed for logo."
+        );
+        setLoader(false);
+        return;
+      }
+    }
+    if (Number(salaryMax) < Number(salaryMin)) {
+      toast.error(
+        "Maximum salary must be greater than or equal to minimum salary."
+      );
+      setLoader(false);
+      return;
+    }
     const formData = new FormData();
     formData.append("title", title);
     formData.append("description", description);

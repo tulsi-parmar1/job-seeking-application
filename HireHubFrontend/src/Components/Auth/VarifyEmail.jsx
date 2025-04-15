@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { userAction } from "../../Slices/userSlice";
 import { Navigate, useNavigate } from "react-router-dom";
 function VarifyEmail() {
-  const email = localStorage.getItem("userEmail");
+  const email = localStorage.getItem("email");
   const [code, setCode] = useState("");
   const dispatch = useDispatch();
   const audio = new Audio("notification.mp3");

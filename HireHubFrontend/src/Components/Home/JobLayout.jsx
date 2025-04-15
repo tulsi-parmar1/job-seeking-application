@@ -92,6 +92,7 @@ const JobLayout = ({
         setJobs((prevJobs) => prevJobs.filter((job) => job._id !== id));
       } catch (error) {
         audio.play();
+        console.log(error);
         toast.error(error.response?.data?.message || error.message);
       }
     }

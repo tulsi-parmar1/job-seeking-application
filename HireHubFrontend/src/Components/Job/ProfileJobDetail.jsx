@@ -93,7 +93,12 @@ const ProfileJobDetail = ({ job, applicants, id }) => {
               </>
             )}
           </div>
-
+          {job.contactEmail && (
+            <>
+              <p style={{ fontWeight: "bold" }}>Contact Email: </p>
+              <a href={`mailto:${job.contactEmail}`}>{job.contactEmail}</a>
+            </>
+          )}
           <div>
             <p style={{ fontWeight: "bold" }}>Salary Range:</p>
             <div>

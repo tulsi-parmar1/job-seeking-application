@@ -89,7 +89,8 @@ function NavBar() {
       localStorage.setItem("isAuthorized", false);
       localStorage.setItem("role", "");
       localStorage.setItem("email", "");
-
+      localStorage.setItem("userEmail", "");
+      dispatch(userAction.setEmail(""));
       navigate("/");
     } catch (err) {
       console.log(response.data);
