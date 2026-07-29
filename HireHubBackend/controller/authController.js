@@ -23,7 +23,7 @@ const registeruser = async (req, res) => {
         .json({ message: "You already have an account, please login!" });
     }
     const verificationCode = Math.floor(
-      100000 + Math.random() * 900000
+      100000 + Math.random() * 900000,
     ).toString();
     const otpExpiry = new Date(Date.now() + 5 * 60 * 1000); //5minutes expiry
 
@@ -56,7 +56,7 @@ const registeruser = async (req, res) => {
           let token = generateToken(newuser);
           const options = {
             expires: new Date(
-              Date.now() + process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000
+              Date.now() + process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000,
             ),
             httpOnly: true,
             secure: true,
@@ -75,7 +75,7 @@ const registeruser = async (req, res) => {
         } catch (err) {
           if (err.name === "ValidationError") {
             const errors = Object.values(err.errors).map(
-              (error) => error.message
+              (error) => error.message,
             );
             return res.status(400).json({ errors });
           }
@@ -179,7 +179,7 @@ const loginuser = async (req, res) => {
       let token = generateToken(user);
       const options = {
         expires: new Date(
-          Date.now() + process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000
+          Date.now() + process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000,
         ),
         httpOnly: true,
         secure: true,

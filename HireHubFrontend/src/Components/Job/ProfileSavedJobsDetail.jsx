@@ -5,10 +5,15 @@ import { LiaRupeeSignSolid } from "react-icons/lia";
 import { GrLinkPrevious } from "react-icons/gr";
 import { IoLocation } from "react-icons/io5";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const ProfileSavedJobsDetail = ({ job, applicants, id }) => {
   console.log(job);
-  const users = localStorage.getItem("user");
+  // const users = localStorage.getItem("user");
+  const { users } = useSelector((state) => state.user);
+  console.log("vivek", users);
+  const role = localStorage.getItem("role");
+  const isAuthorized = localStorage.getItem("isAuthorized") === "true";
   const navigate = useNavigate();
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -35,11 +40,11 @@ const ProfileSavedJobsDetail = ({ job, applicants, id }) => {
             <h1>{job.title}</h1>
             <div style={{ display: "flex", gap: "20px" }}>
               <p>
-                {applicants > 0 && (
+                {users._id === job.postedBy && applicants > 0 && (
                   <button
                     onClick={() =>
                       navigate(
-                        `/profile/job/me/application/viewapplication/${id}`
+                        `/profile/job/me/application/viewapplication/${id}`,
                       )
                     }
                   >
@@ -47,7 +52,7 @@ const ProfileSavedJobsDetail = ({ job, applicants, id }) => {
                   </button>
                 )}
                 {!(users?._id === job.postedBy) &&
-                  !(users?.role === "recruiter" && isAuthorized) && (
+                  !(role === "recruiter" && isAuthorized) && (
                     <button onClick={() => navigate(`/application/${job._id}`)}>
                       Apply now
                     </button>

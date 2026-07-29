@@ -24,14 +24,11 @@ import DeleteJob from "./Components/Job/DeleteJob.jsx";
 import MyJobDetail from "./Components/Job/myJobDetail.jsx";
 import Viewapplication from "./Components/application/ViewApplication.jsx";
 import Profile from "./Components/Profile/Profile.jsx";
-
 import RecruiterLogin from "./Components/Auth/RecruiterLogin.jsx";
 import SavedJobs from "./Components/Job/SavedJobs.jsx";
 import Profilemain from "./Components/Profile/Profilemain.jsx";
-
 import CategoryJobs from "./Components/Job/CategoryJobs.jsx";
 import JobsByType from "./Components/Job/JobsByType.jsx";
-
 import SavedJobsDetails from "./Components/Job/SavedJobsDetails.jsx";
 import ViewApplication from "./Components/application/ViewApplication.jsx";
 import VarifyEmail from "./Components/Auth/VarifyEmail.jsx";
@@ -171,10 +168,10 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Provider store={store}>
+      {/* used for redux-toolkit */}
       <RouterProvider router={router}>
         <App />
       </RouterProvider>
-
       <ToastContainer
         position="top-center"
         autoClose={5000}

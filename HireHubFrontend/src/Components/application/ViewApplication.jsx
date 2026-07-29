@@ -12,7 +12,7 @@ const ViewApplication = () => {
   const { id } = useParams();
   const audio = new Audio("notification.mp3");
   const location = useLocation();
-  const { forMargin } = location.state;
+  // const { forMargin } = location.state;
 
   useEffect(() => {
     const fetchApplicants = async () => {

@@ -30,7 +30,7 @@ const JobDetailSub = ({ job, applicants, id }) => {
       const response = await axios.post(
         `http://localhost:4000/api/user/savedJobs/${users._id}/${jobId}`,
         {},
-        { withCredentials: true }
+        { withCredentials: true },
       );
       if (response.status === 200) {
         setSaved(response.data.savedJobs);
@@ -68,6 +68,7 @@ const JobDetailSub = ({ job, applicants, id }) => {
           <h1>{job.title}</h1>
           <div style={{ display: "flex", gap: "20px" }}>
             <p>
+              {}
               {users._id === job.postedBy && applicants > 0 && (
                 <button
                   onClick={() =>

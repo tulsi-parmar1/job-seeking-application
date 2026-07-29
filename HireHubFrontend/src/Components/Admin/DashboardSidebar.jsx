@@ -73,7 +73,6 @@ function DashboardSidebar() {
         <div className={style.profile}>
           {/* <img src={profilee} alt="Profile" /> */}
           <img src={admin} alt="Profile" />
-
           {/* <label htmlFor="file-input" className={style.addProfile}> */}
           <IoAddOutline />
           {/* </label> */}

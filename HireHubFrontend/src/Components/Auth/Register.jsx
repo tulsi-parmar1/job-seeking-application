@@ -29,6 +29,10 @@ function Register() {
 
   const handleRegister = async (e) => {
     e.preventDefault();
+    if (password.length < 6 || password.length > 20) {
+      toast.error("Password must be between 6 and 20 characters long");
+      return;
+    }
     try {
       await axios.post(
         "http://localhost:4000/api/user/register",

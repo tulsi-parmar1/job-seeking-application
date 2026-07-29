@@ -29,7 +29,7 @@ function VarifyEmail() {
     try {
       const response = await axios.post(
         "http://localhost:4000/api/user/varifyEmail",
-        { code },
+        { code, email },
         {
           withCredentials: true,
           headers: { "Content-Type": "application/json" },

@@ -26,7 +26,7 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     require: [true, "plase enter your Password"],
-    minLength: [6, "password must contain atleast 6 characters"],
+    minLength: [5, "password must contain atleast 5 characters"],
   },
   role: {
     type: String,
@@ -52,6 +52,11 @@ const userSchema = new mongoose.Schema({
   resetPasswordToken: { type: String },
   resetPasswordExpires: { type: Date },
 });
+
+userSchema.index(
+  { createdAt: 1 },
+  { expireAfterSeconds: 900, partialFilterExpression: { isVerified: false } }
+);
 
 const userModel = mongoose.model("user", userSchema);
 export default userModel;

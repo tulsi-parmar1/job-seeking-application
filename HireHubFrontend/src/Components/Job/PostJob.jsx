@@ -47,7 +47,7 @@ function PostJob() {
       }
     },
     [users, navigate],
-    []
+    [],
   );
   const handleJobPost = async (e) => {
     setLoader(true);
@@ -62,7 +62,7 @@ function PostJob() {
 
       if (!allowedImageTypes.includes(logo.type)) {
         toast.error(
-          "Only image files (jpg, jpeg, png, webp) are allowed for logo."
+          "Only image files (jpg, jpeg, png, webp) are allowed for logo.",
         );
         setLoader(false);
         return;
@@ -70,8 +70,24 @@ function PostJob() {
     }
     if (Number(salaryMax) < Number(salaryMin)) {
       toast.error(
-        "Maximum salary must be greater than or equal to minimum salary."
+        "Maximum salary must be greater than or equal to minimum salary.",
       );
+      setLoader(false);
+      return;
+    }
+    if (
+      !title ||
+      !description ||
+      !company ||
+      !location ||
+      !employmentType ||
+      !salaryMin ||
+      !salaryMax ||
+      !requirements ||
+      !responsibilities ||
+      !contactEmail
+    ) {
+      toast.error("Please fill in all fields.");
       setLoader(false);
       return;
     }
@@ -101,7 +117,7 @@ function PostJob() {
           headers: {
             "Content-Type": "multipart/form-data",
           },
-        }
+        },
       );
       audio.play();
       toast.success(data.message);

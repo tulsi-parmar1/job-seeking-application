@@ -39,7 +39,18 @@ function Application() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    if (
+      !firstName.trim() ||
+      !lastName.trim() ||
+      !email.trim() ||
+      !contactNumber.trim() ||
+      !currentCity.trim() ||
+      !coverLetter.trim() ||
+      !resume
+    ) {
+      toast.error("Please fill all required fields.");
+      return;
+    }
     const formdata = new FormData();
     formdata.append("firstName", firstName);
     formdata.append("lastName", lastName);

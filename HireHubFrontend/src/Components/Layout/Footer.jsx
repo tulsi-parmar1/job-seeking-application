@@ -1,6 +1,5 @@
 import React from "react";
 import style from "../../module/Footer.module.css";
-import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 function Footer() {
@@ -27,9 +26,6 @@ function Footer() {
               </li>
               <li>
                 <Link to="/profile">Profile</Link>
-              </li>
-              <li>
-                <Link to="/logout">Log out</Link>
               </li>
             </ul>
           </div>
